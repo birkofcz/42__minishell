@@ -1,1 +1,2 @@
-26/05(Stepan) - Repository created 
+26/05(Stepan) - Repository created. Dummy main to run. Makefile written and working.
+
