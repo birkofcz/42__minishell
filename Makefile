@@ -84,7 +84,7 @@ clean:
 	@rm -Rf $(OBJ_PATH)
 	@make clean -sC $(LIBFT_PATH)
 
-fclean:
+fclean: clean
 	@echo "$(BOLD)$(RED)[ 🔥 Removing program ]$(NC)"
 	@rm -f $(NAME)
 	@rm -f $(LIBFT_PATH)$(LIBFT_NAME)

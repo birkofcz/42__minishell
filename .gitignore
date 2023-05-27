@@ -1,0 +1,9 @@
+
+## Editor
+.vscode/*
+*~
+\#*\#
+
+## Other
+.DS_STORE
+
