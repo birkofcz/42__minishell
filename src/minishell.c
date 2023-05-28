@@ -6,13 +6,13 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:28:41 by sbenes            #+#    #+#             */
-/*   Updated: 2023/05/28 11:40:28 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/05/28 11:48:46 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_setdata(t_env *env)
+void	ft_set_envdata(t_env *env)
 {
 	env->user = getenv("USER");
 	//fill up the structure with usefull environmental variables
@@ -32,7 +32,7 @@ int	main(int ac, char **av)
 	char	*input;
 	t_env	env;
 
-	ft_setdata(&env);
+	ft_set_envdata(&env);
 	while (1)
 	{
 		ft_prompt(&env);
