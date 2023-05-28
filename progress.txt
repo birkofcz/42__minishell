@@ -1,4 +1,4 @@
 26/05(Stepan) - Repository created. Dummy main to run. Makefile written and working.
 28/05(Stepan) - Basic function ft_read - displaying prompt with username env variable, runs readline and add_history, routing into crossroad function.
-Function ft_set_envdata to fill the struct with environmental variables - to be expanded!
+Function ft_set_envdata to fill the struct with environmental variables - to be expanded! Written builtin_echo.c file with echo functionality. 
 
