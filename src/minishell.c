@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:28:41 by sbenes            #+#    #+#             */
-/*   Updated: 2023/05/28 14:11:53 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/05/28 18:12:13 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 void	ft_set_envdata(t_env *env)
 {
 	env->user = getenv("USER");
+	env->pwd = getenv("PWD");
 	//fill up the structure with usefull environmental variables
 	// may need to call this when updating after pwd, cd and stuff?
+	//// getenv takes the initial environment data and doesnt update it.
+	//// To get updated PWD we have to use the getcwd function.
 }
 
 void	ft_read(t_env *env)
@@ -31,7 +34,7 @@ void	ft_read(t_env *env)
 	//testing ft_prompt_crossroad() - as a crossroad
 	if (input)
 	{
-		ft_prompt_crossroad(input);
+		ft_prompt_crossroad(input, env);
 		add_history(input);
 		free(input);
 	}
@@ -39,10 +42,11 @@ void	ft_read(t_env *env)
 }
 
 
-int	main(int ac, char **av)
+int	main(int ac, char **av, char **envir)
 {
 	(void)ac;
 	(void)av;
+	(void)envir;
 	t_env	env;
 
 	ft_set_envdata(&env);
