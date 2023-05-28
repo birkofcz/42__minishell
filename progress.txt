@@ -1,3 +1,4 @@
 26/05(Stepan) - Repository created. Dummy main to run. Makefile written and working.
-28/05(Stepan) - Basic function of readline and add_history - to see how this works. Is buggy. Wrote function to display prompt. Wrote function to fill the struct with environmental variables - to be expanded!
+28/05(Stepan) - Basic function ft_read - displaying prompt with username env variable, runs readline and add_history, routing into crossroad function.
+Function ft_set_envdata to fill the struct with environmental variables - to be expanded!
 
