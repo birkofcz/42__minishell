@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:28:41 by sbenes            #+#    #+#             */
-/*   Updated: 2023/05/28 13:59:28 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/05/28 14:11:53 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,7 @@ void	ft_read(t_env *env)
 	//Here we put some crossroad function to read the lines commad
 	//using basic function to test here
 	//testing ft_prompt_crossroad() - as a crossroad
-	if (ft_strncmp(input, "exit", ft_strlen(input)) == 0)
-	{
-		free(input);
-		exit(0);
-	}
-	else
+	if (input)
 	{
 		ft_prompt_crossroad(input);
 		add_history(input);
