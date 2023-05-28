@@ -1,2 +1,3 @@
 26/05(Stepan) - Repository created. Dummy main to run. Makefile written and working.
+28/05(Stepan) - Basic function of readline and add_history - to see how this works. Is buggy. Wrote function to display prompt. Wrote function to fill the struct with environmental variables - to be expanded!
 

@@ -6,7 +6,7 @@
 #    By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/26 16:36:32 by sbenes            #+#    #+#              #
-#    Updated: 2023/05/26 16:58:58 by sbenes           ###   ########.fr        #
+#    Updated: 2023/05/28 11:26:53 by sbenes           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@
 BOLD =	\033[1m
 GREEN =	\033[32m
 RED =	\033[31m
+BCYAN =	\033[96m
 NC =	\033[0m
 
 #name
@@ -60,16 +61,16 @@ $(LIBFT):
 
 $(NAME): $(OBJS)
 	@echo "$(BOLD)$(GREEN)[ 🙊 Compiling shit together... ]$(NC)"
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(INC)
+	@$(CC) $(CFLAGS) -lreadline -o $(NAME) $(OBJS) $(LIBFT) $(INC)
 	@echo "$(BOLD)$(GREEN)[ 🪄 Program ready! ]$(NC)"
 	@echo ""
 	@echo ""
-	@echo "$(GREEN)           _       _     _          _ _"
-	@echo "$(GREEN)          (_)     (_)   | |        | | |"
-	@echo "$(GREEN)_ __ __ _  _ _ __  _ ___| |__   ___| | |"
-	@echo "$(GREEN)|  _   _ \| | '_ \| / __| '_ \ / _ \ | |"
-	@echo "$(GREEN)| | | | | | | | | | \__ \ | | |  __/ | |"
-	@echo "$(GREEN)|_| |_| |_|_|_| |_|_|___/_| |_|\___|_|_|"
+	@echo "$(BCYAN)           _       _     _          _ _"
+	@echo "$(BCYAN)          (_)     (_)   | |        | | |"
+	@echo "$(BCYAN)_ __ __ _  _ _ __  _ ___| |__   ___| | |"
+	@echo "$(BCYAN)|  _   _ \| | '_ \| / __| '_ \ / _ \ | |"
+	@echo "$(BCYAN)| | | | | | | | | | \__ \ | | |  __/ | |"
+	@echo "$(BCYAN)|_| |_| |_|_|_| |_|_|___/_| |_|\___|_|_|"
 	@echo ""
 	@echo "$(NC)"
 	@echo "TS Team 2023"
@@ -84,7 +85,7 @@ clean:
 	@rm -Rf $(OBJ_PATH)
 	@make clean -sC $(LIBFT_PATH)
 
-fclean: clean
+fclean: 
 	@echo "$(BOLD)$(RED)[ 🔥 Removing program ]$(NC)"
 	@rm -f $(NAME)
 	@rm -f $(LIBFT_PATH)$(LIBFT_NAME)
