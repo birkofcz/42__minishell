@@ -1,33 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_crossroad.c                                 :+:      :+:    :+:   */
+/*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/28 13:40:19 by sbenes            #+#    #+#             */
-/*   Updated: 2023/05/28 15:10:11 by sbenes           ###   ########.fr       */
+/*   Created: 2023/05/28 15:07:25 by sbenes            #+#    #+#             */
+/*   Updated: 2023/05/28 16:33:28 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-/* 
-FT_PROMPT_CROSSROAD
-function to read the input a set a proper function into motion
- */
 
-//something like this - may do a int type to return the errors?
-
-void	ft_prompt_crossroad(const char *input)
+void	ft_echoprint(char **words, int i)
 {
-	char	**words;
-
-	words = ft_split(input, ' ');
-	if (ft_strncmp(words[0], "echo", ft_strlen(words[0])) == 0)
-		ft_echo(words);
-	else if (ft_strncmp(words[0], "exit", ft_strlen(words[0])) == 0)
+	while (words[i] != NULL)
 	{
-		free(words);
-		exit(0);
+		printf("%s", words[i]);
+		if (words[i + 1] != NULL)
+			printf(" ");
+		i++;
+	}
+}
+
+void	ft_echo(char **words)
+{
+	//TO SOLVE LATER - case with "echo $USER", it has to print value of env variable.
+
+	if (!words[1])
+	{
+		printf("\n");
+		return ;
+	}
+	else if (ft_strncmp(words[1], "-n", ft_strlen(words[1])) == 0)
+		ft_echoprint(words, 2);
+	else
+	{
+		ft_echoprint(words, 1);
+		printf("\n");
 	}
 }
