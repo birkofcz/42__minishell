@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jbartosi <jbartosi@student.42prague.com    +#+  +:+       +#+         #
+#    By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/15 13:56:55 by jbartosi          #+#    #+#              #
-#    Updated: 2023/04/08 13:28:17 by jbartosi         ###   ########.fr        #
+#    Updated: 2023/05/28 19:34:32 by tkajanek         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

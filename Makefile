@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+         #
+#    By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/26 16:36:32 by sbenes            #+#    #+#              #
-#    Updated: 2023/05/28 15:48:16 by sbenes           ###   ########.fr        #
+#    Updated: 2023/05/28 19:35:33 by tkajanek         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ INC =	-I ./include/\
 
 #sources
 SRC_PATH =	src/
-SRC = 	minishell.c prompt_crossroad.c builtin_echo.c
+SRC = 	minishell.c prompt_crossroad.c builtin_echo.c builtins_cd_pwd.c
 SRCS =	$(addprefix $(SRC_PATH), $(SRC))
 
 #objects
@@ -85,7 +85,7 @@ clean:
 	@rm -Rf $(OBJ_PATH)
 	@make clean -sC $(LIBFT_PATH)
 
-fclean: 
+fclean: clean
 	@echo "$(BOLD)$(RED)[ 🔥 Removing program ]$(NC)"
 	@rm -f $(NAME)
 	@rm -f $(LIBFT_PATH)$(LIBFT_NAME)
