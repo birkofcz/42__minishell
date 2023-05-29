@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:28:41 by sbenes            #+#    #+#             */
-/*   Updated: 2023/05/28 18:12:13 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/05/29 16:24:26 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ void	ft_set_envdata(t_env *env)
 {
 	env->user = getenv("USER");
 	env->pwd = getenv("PWD");
+	env->home = getenv("HOME");
 	//fill up the structure with usefull environmental variables
 	// may need to call this when updating after pwd, cd and stuff?
+	
 	//// getenv takes the initial environment data and doesnt update it.
 	//// To get updated PWD we have to use the getcwd function.
 }

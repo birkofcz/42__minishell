@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/05/28 19:36:41 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/05/29 16:22:38 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_envdata
 {
 	char	*user;
 	char	*pwd;
+	char	*home;
 }	t_env;
 
 /* Functions by files */
@@ -41,9 +42,12 @@ typedef struct s_envdata
 /* prompt_crossroad.c */
 void	ft_prompt_crossroad(const char *input, t_env *env);
 
+/* argument parsing*/
+int	word_counting(char **words);
+
 /* commands */
-void	ft_pwd(t_env *env);
-void	ft_cd(t_env *env, char **arg);
+void	ft_pwd(t_env *env, int words_count);
+void	ft_cd(t_env *env, char **arg, int words_count);
 
 
 #endif
