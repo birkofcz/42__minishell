@@ -49,5 +49,9 @@ int	word_counting(char **words);
 void	ft_pwd(t_env *env, int words_count);
 void	ft_cd(t_env *env, char **arg, int words_count);
 
+/* buldin_echo.c */
+void	ft_echo(char **words);
+void	ft_echoprint(char **words, int i);
+
 
 #endif

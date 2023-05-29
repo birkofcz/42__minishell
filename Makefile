@@ -36,7 +36,7 @@ INC =	-I ./include/\
 
 #sources
 SRC_PATH =	src/
-SRC = 	minishell.c prompt_crossroad.c builtins_cd_pwd.c
+SRC = 	minishell.c prompt_crossroad.c builtin_echo.c builtins_cd_pwd.c
 SRCS =	$(addprefix $(SRC_PATH), $(SRC))
 
 #objects

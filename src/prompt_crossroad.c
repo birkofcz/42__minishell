@@ -51,7 +51,7 @@ void	ft_prompt_crossroad(const char *input, t_env *env)
 	//parse_env_var
 	words_count = word_counting(words);
 	if (ft_strncmp(words[0], "echo", ft_strlen(words[0])) == 0)
-		printf("echo recieved...\n");
+    ft_echo(words);
 	else if (ft_strncmp(words[0], "pwd", ft_strlen(words[0])) == 0)
 		ft_pwd(env, words_count);
 	else if (ft_strncmp(words[0], "cd", ft_strlen(words[0])) == 0)
