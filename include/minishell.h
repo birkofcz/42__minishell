@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/05/29 16:22:38 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/05/29 19:33:53 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define RES "\033[0m"
 
 /* constants*/
-#define MAX_PATH_LENGTH 1024	
+# define MAX_PATH_LENGTH 1024	
 
 /* Structs and typedefs */
 typedef struct s_envdata
@@ -41,11 +41,11 @@ typedef struct s_envdata
 
 /* prompt_crossroad.c */
 void	ft_prompt_crossroad(const char *input, t_env *env);
+int		word_counting(char **words);
+char 	**parse_double_quated_strings(char **words);
+char 	*prepare_double_quoted_string(const char *input);
 
-/* argument parsing*/
-int	word_counting(char **words);
-
-/* commands */
+/* builtins_pwd_cd.c */
 void	ft_pwd(t_env *env, int words_count);
 void	ft_cd(t_env *env, char **arg, int words_count);
 
