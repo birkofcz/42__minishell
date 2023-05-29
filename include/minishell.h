@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/05/28 13:49:17 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/05/28 16:34:27 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ typedef struct s_envdata
 
 /* prompt_crossroad.c */
 void	ft_prompt_crossroad(const char *input);
+
+/* buldin_echo.c */
+void	ft_echo(char **words);
+void	ft_echoprint(char **words, int i);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 13:40:19 by sbenes            #+#    #+#             */
-/*   Updated: 2023/05/28 15:05:41 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/05/28 15:10:11 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_prompt_crossroad(const char *input)
 
 	words = ft_split(input, ' ');
 	if (ft_strncmp(words[0], "echo", ft_strlen(words[0])) == 0)
-		printf("echo recieved...\n");
+		ft_echo(words);
 	else if (ft_strncmp(words[0], "exit", ft_strlen(words[0])) == 0)
 	{
 		free(words);
