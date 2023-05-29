@@ -2,4 +2,5 @@
 28/05(Stepan) - Basic function ft_read - displaying prompt with username env variable, runs readline and add_history, routing into crossroad function.
 Function ft_set_envdata to fill the struct with environmental variables - to be expanded!
 28/5(Tomas) - Basic implementation of cd and pwd.
-
+29/5(Tomas & Stepan) - Succesful merge of our branches.
+29/5(Tomas) - Advanced implementation of cd and pwd. Added few parsing functions, double quates are now handled before split.
