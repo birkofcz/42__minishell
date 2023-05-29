@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 15:07:25 by sbenes            #+#    #+#             */
-/*   Updated: 2023/05/29 15:11:11 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/05/29 16:35:37 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,20 @@ void	ft_echoprint(char **words, int i)
 {
 	while (words[i] != NULL)
 	{
+		//Taking care of "" sign - trims and rewrite "words[i]"
 		if (words[i][0] == '"' || words[i][ft_strlen(words[i]) - 1] == '"')
 			words[i] = ft_strtrim(words[i], "\"");
-		if (words[i][0] == '$')
-			printf("%s", getenv(&words[i][1]));
+		//Taking care of various cases with $ sign + error management
+		else if (words[i][0] == '$')
+		{
+			if (words[i][1] != '\0' && (getenv(&words[i][i]) != NULL))
+				printf("%s", getenv(&words[i][1]));
+			else if (words[i][1] != '\0' && !(getenv(&words[i][1])))
+				break ;
+			else
+				printf("$");
+		}
+		//else printing word
 		else
 			printf("%s", words[i]);
 		if (words[i + 1] != NULL)
