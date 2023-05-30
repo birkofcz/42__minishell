@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:28:41 by sbenes            #+#    #+#             */
-/*   Updated: 2023/05/29 19:33:57 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/05/30 13:25:56 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	ft_read(t_env *env)
 	//testing ft_prompt_crossroad() - as a crossroad
 	if (input)
 	{
-		ft_prompt_crossroad(input, env);
 		add_history(input);
+		ft_prompt_crossroad(input, env);
 		free(input);
 	}
 	free(prompt);

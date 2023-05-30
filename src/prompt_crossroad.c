@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_crossroad.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 13:40:19 by sbenes            #+#    #+#             */
-/*   Updated: 2023/05/29 19:34:01 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/05/30 13:23:57 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	ft_prompt_crossroad(const char *input, t_env *env)
 	int		words_count;
 
 	words = ft_split(prepare_double_quoted_string(input), 29);
-	//tester
+/* 	//tester
 	printf("\ntest words before trimming\n");
 	int i = 0;
     while (words[i] != NULL)
@@ -104,9 +104,9 @@ void	ft_prompt_crossroad(const char *input, t_env *env)
         printf("%s\n", words[i]);
         i++;
     }
-	//konec testru
+	//konec testru */
 	formated_words = parse_double_quated_strings(words);
-	//tester
+/* 	//tester
 	printf("\ntest formated_words\n");
 	i = 0;
     while (formated_words[i] != NULL)
@@ -114,13 +114,13 @@ void	ft_prompt_crossroad(const char *input, t_env *env)
         printf("%s\n", formated_words[i]);
         i++;
     }
-	printf("\n");
+	printf("\n");  */
 	//konec testru
 	//parse_single_quoted_string
 	//parse_env_var
 	words_count = word_counting(words);
 	if (ft_strncmp(words[0], "echo", ft_strlen(words[0])) == 0)
-    	ft_echo(words);
+    	ft_echo(formated_words);
 	else if (ft_strncmp(words[0], "pwd", ft_strlen(words[0])) == 0)
 		ft_pwd(env, words_count);
 	else if (ft_strncmp(words[0], "cd", ft_strlen(words[0])) == 0)
