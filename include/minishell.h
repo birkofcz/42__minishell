@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/05/29 19:33:53 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/05/30 16:45:05 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ typedef struct s_envdata
 	char	*home;
 }	t_env;
 
+/* Environmental variables storage */
+extern char	**environ;
+
 /* Functions by files */
 
 /* prompt_crossroad.c */
@@ -50,8 +53,12 @@ void	ft_pwd(t_env *env, int words_count);
 void	ft_cd(t_env *env, char **arg, int words_count);
 
 /* buldin_echo.c */
-void	ft_echo(char **words);
-void	ft_echoprint(char **words, int i);
+void	ft_echo(char **words, int fd);
+void	ft_echoprint(char **words, int i, int fd);
+
+/* builtin_env.c */
+void	ft_env(int fd);
+
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 13:40:19 by sbenes            #+#    #+#             */
-/*   Updated: 2023/05/30 13:23:57 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/05/30 16:48:45 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,11 +120,13 @@ void	ft_prompt_crossroad(const char *input, t_env *env)
 	//parse_env_var
 	words_count = word_counting(words);
 	if (ft_strncmp(words[0], "echo", ft_strlen(words[0])) == 0)
-    	ft_echo(formated_words);
+    	ft_echo(formated_words, 1);
 	else if (ft_strncmp(words[0], "pwd", ft_strlen(words[0])) == 0)
 		ft_pwd(env, words_count);
 	else if (ft_strncmp(words[0], "cd", ft_strlen(words[0])) == 0)
 		ft_cd(env, words, words_count);
+	else if (ft_strncmp(words[0], "env", ft_strlen(words[0])) == 0)
+		ft_env(1);
 	else if (ft_strncmp(words[0], "exit", ft_strlen(words[0])) == 0)
 	{
 		free(words);
