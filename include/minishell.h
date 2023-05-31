@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/05/30 16:45:05 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/05/31 14:41:09 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ extern char	**environ;
 /* prompt_crossroad.c */
 void	ft_prompt_crossroad(const char *input, t_env *env);
 int		word_counting(char **words);
-char 	**parse_double_quated_strings(char **words);
-char 	*prepare_double_quoted_string(const char *input);
+char	**parse_double_quated_strings(char **words);
+char	*prepare_double_quoted_string(const char *input);
 
 /* builtins_pwd_cd.c */
 void	ft_pwd(t_env *env, int words_count);
@@ -58,6 +58,10 @@ void	ft_echoprint(char **words, int i, int fd);
 
 /* builtin_env.c */
 void	ft_env(int fd);
+
+/* builtin_export.c */
+void	ft_export(char **words);
+
 
 
 
