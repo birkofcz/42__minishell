@@ -44,6 +44,12 @@ char *prepare_double_quoted_string(const char *input)
 			while(copy[i] !='"')
 				i++;
 		}
+		else if(copy[i] == '\'')
+		{
+			i++;
+			while(copy[i] !='\'')
+				i++;
+		}
 		i++;
 	}
 	return (copy);
@@ -54,6 +60,57 @@ Removes the quates, same as in your echo function. Just added proper free managm
 Be aware, this function changes the original char **words,
 doesnt create altered copy and doesnt keep original.
 */
+
+
+
+char	*dollar_check(char *word)
+{
+	int		i;
+	int		j;
+	char *env_v;
+	char *temp;
+	char *updated_str;
+
+	i = 0;
+	j = 0;
+	updated_str = NULL;
+	while (word[i] != '\0')
+	{
+		if (word[i] == '$')
+		{
+			while (ft_isalnum(word[i + 1 + j]))
+				j++;
+			printf ("\n$while loop: i = %d, j = %d", i, j);
+			if (j != 0)
+			{
+				temp = ft_substr(word, i + 1, j); //alokovany
+				//printf ("\ntemp po substr: %s", temp);
+				if (!(env_v = getenv(temp)))
+					env_v = ""; //nealokovany
+				//printf ("\nenv_v: %s", env_v);
+				free(temp);
+				updated_str = ft_substr(word, 0, i);
+				//printf ("\ntemp po substr2: %s", temp);
+				temp = ft_strjoin(updated_str, env_v);
+				//printf ("\nstrjoin: %s", updated_str);
+				free(updated_str);
+				updated_str = ft_strjoin(temp, word + i + j + 1);
+				//printf ("\nstrjoin2: %s", updated_str);
+				free(temp);
+				free(word);
+				word = updated_str;
+				if (!word)
+					return(ft_strdup(""));
+				i = 0;
+				j = 0;
+			}
+		}
+		i ++;
+	}
+	printf("\nkonec $, word = %s", word);
+	return(word);
+}
+
 char **parse_double_quated_strings(char **words)
 {
 	int	i;
@@ -62,11 +119,41 @@ char **parse_double_quated_strings(char **words)
 	i = 0;
 	while (words[i])
 	{
-		if (words[i][0] == '"' || words[i][ft_strlen(words[i]) - 1] == '"')
+		if (words[i][0] == '"')
+		{
+			temp = dollar_check(words[i]);
+			//printf ("\ntest po dollar checku: %s", temp);
+			words[i] = ft_strtrim(temp, "\"");
+			free (temp);
+		}
+		else if (words[i][0] == '\'')
 		{
 			temp = words[i];
-			words[i] = ft_strtrim(words[i], "\"");
+			words[i] = ft_strtrim(temp, "\'");
 			free (temp);
+		}
+		i++;
+	}
+	return (words);
+}
+
+char **replace_env_var_nonquated (char **words)
+{
+	int 	i;
+	int 	len;
+
+	i = 0;
+	while (words[i] != NULL)
+	{
+		len = strlen(words[i]);
+
+		if ((words[i][0] != '"' && words[i][len - 1] != '"') &&
+			(words[i][0] != '\'' && words[i][len - 1] != '\''))
+		{
+			
+			words[i] = dollar_check(words[i]);
+			printf ("\n words po dollar check: %s i= %d", words[i], i);
+			//mozna chyba pokud dollar check nic neudela???
 		}
 		i++;
 	}
@@ -88,36 +175,50 @@ int	word_counting(char **words)
     return (count);
 }
 
+void free_args(char **args)
+{
+    int i;
+
+	i = 0;
+    while (args[i] != NULL)
+    {
+        free(args[i]);
+        i++;
+    }
+    free(args);
+}
+
 //to do: musime vysypat cely split a osetrit pokud je input NULL
-void	ft_prompt_crossroad(const char *input, t_env *env)
+int	ft_prompt_crossroad(const char *input, t_env *env)
 {
 	char	**words;
-	char	**formated_words;
 	int		words_count;
 
+	//input = parse_env_var(input);
 	words = ft_split(prepare_double_quoted_string(input), 29);
-/* 	//tester
-	printf("\ntest words before trimming\n");
+	//tester
+	/*printf("\ntest words before trimming\n");
+	int i = 0;
+    while (words[i] != NULL)
+	{
+        printf("%s\n", words[i]);
+        i++;
+    }*/
+	//konec testru
+	words = replace_env_var_nonquated (words);
+	words = parse_double_quated_strings(words);
+	//tester
+	printf("\ntest formated_words\n");
 	int i = 0;
     while (words[i] != NULL)
 	{
         printf("%s\n", words[i]);
         i++;
     }
-	//konec testru */
-	formated_words = parse_double_quated_strings(words);
-/* 	//tester
-	printf("\ntest formated_words\n");
-	i = 0;
-    while (formated_words[i] != NULL)
-	{
-        printf("%s\n", formated_words[i]);
-        i++;
-    }
 	printf("\n");  */
 	//konec testru
 	//parse_single_quoted_string
-	//parse_env_var
+	
 	words_count = word_counting(words);
 	if (ft_strncmp(words[0], "echo", ft_strlen(words[0])) == 0)
     	ft_echo(formated_words, 1);
@@ -133,7 +234,10 @@ void	ft_prompt_crossroad(const char *input, t_env *env)
 		ft_unset(formated_words);
 	else if (ft_strncmp(words[0], "exit", ft_strlen(words[0])) == 0)
 	{
-		free(words);
-		exit(0);
+		free_args(words);
+		return (0);
 	}
+	printf("teeeeeeeeeeeeeeest\n");
+	free_args(words);
+	return (1);
 }

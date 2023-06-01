@@ -43,7 +43,7 @@ extern char	**environ;
 /* Functions by files */
 
 /* prompt_crossroad.c */
-void	ft_prompt_crossroad(const char *input, t_env *env);
+int	ft_prompt_crossroad(const char *input, t_env *env);
 int		word_counting(char **words);
 char	**parse_double_quated_strings(char **words);
 char	*prepare_double_quoted_string(const char *input);
