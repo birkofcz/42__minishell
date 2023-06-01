@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 14:22:34 by sbenes            #+#    #+#             */
-/*   Updated: 2023/05/31 16:53:22 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/01 13:54:31 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_add(char *var)
 		new_environ[i] = ft_strdup(environ[i]);
 	new_environ[size] = new_var;
 	new_environ[size + 1] = NULL;
-	//Musime tohle nekde vypustit  - probehl malloc. Mozna free(environ) pri exitu?
+	//Musime tohle nekde vypustit  - probehl malloc. Mozna free(environ) pri exitu?make
 	environ = new_environ;
 }
 

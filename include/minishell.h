@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/05/31 14:41:09 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/01 14:04:19 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,14 @@ void	ft_echoprint(char **words, int i, int fd);
 void	ft_env(int fd);
 
 /* builtin_export.c */
+int		ft_checkforexisting(char *var);
+void	ft_rewrite(int index, char *var);
+void	ft_add(char *var);
+char	*ft_checkarg(char *arg);
 void	ft_export(char **words);
+
+/* builtin_unset.c */
+void	ft_unset(char **words);
 
 
 
