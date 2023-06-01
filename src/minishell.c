@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:28:41 by sbenes            #+#    #+#             */
 /*   Updated: 2023/06/01 17:57:52 by tkajanek         ###   ########.fr       */
@@ -41,6 +41,7 @@ int	ft_read(t_env *env)
 		add_history(input);
 		exit = ft_prompt_crossroad(input, env);
 		free(input); //uvolnit pred exitem
+
 	}
 	free(prompt);
 	return (exit);//uvolnit pred exitem

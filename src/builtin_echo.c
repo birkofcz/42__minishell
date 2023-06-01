@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 15:07:25 by sbenes            #+#    #+#             */
-/*   Updated: 2023/05/29 18:59:16 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/05/30 13:34:23 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,9 @@ void	ft_echoprint(char **words, int i)
 {
 	while (words[i] != NULL)
 	{
-		//Taking care of "" sign - trims and rewrite "words[i]"
-		if (words[i][0] == '"' || words[i][ft_strlen(words[i]) - 1] == '"')
-			words[i] = ft_strtrim(words[i], "\"");
 		//POZOR, strtrim alokuje novy string, stare words[i] je treba uvolnit free
 		//Taking care of various cases with $ sign + error management
-		else if (words[i][0] == '$')
+		if (words[i][0] == '$')
 		{
 			if (words[i][1] != '\0' && (getenv(&words[i][i]) != NULL))
 				printf("%s", getenv(&words[i][1]));

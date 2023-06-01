@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_crossroad.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 13:40:19 by sbenes            #+#    #+#             */
 /*   Updated: 2023/06/01 17:57:51 by tkajanek         ###   ########.fr       */
@@ -215,13 +215,13 @@ int	ft_prompt_crossroad(const char *input, t_env *env)
         printf("%s\n", words[i]);
         i++;
     }
-	printf("\n");
+	printf("\n");  */
 	//konec testru
 	//parse_single_quoted_string
 	
 	words_count = word_counting(words);
 	if (ft_strncmp(words[0], "echo", ft_strlen(words[0])) == 0)
-    	ft_echo(words);
+    	ft_echo(formated_words);
 	else if (ft_strncmp(words[0], "pwd", ft_strlen(words[0])) == 0)
 		ft_pwd(env, words_count);
 	else if (ft_strncmp(words[0], "cd", ft_strlen(words[0])) == 0)
