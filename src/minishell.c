@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:28:41 by sbenes            #+#    #+#             */
-/*   Updated: 2023/05/29 19:33:57 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/01 17:57:52 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,26 @@ void	ft_set_envdata(t_env *env)
 	//// To get updated PWD we have to use the getcwd function.
 }
 
-void	ft_read(t_env *env)
+int	ft_read(t_env *env)
 {
 	char	*input;
 	char	*prompt;
+	int		exit;
 
 	prompt = ft_strjoin(env->user, "@\033[96mminishell\033[0m>> ");
 	input = readline(prompt);
 	//Here we put some crossroad function to read the lines commad
 	//using basic function to test here
 	//testing ft_prompt_crossroad() - as a crossroad
+	exit = 0;
 	if (input)
 	{
-		ft_prompt_crossroad(input, env);
 		add_history(input);
-		free(input);
+		exit = ft_prompt_crossroad(input, env);
+		free(input); //uvolnit pred exitem
 	}
 	free(prompt);
+	return (exit);//uvolnit pred exitem
 }
 
 
@@ -52,9 +55,7 @@ int	main(int ac, char **av, char **envir)
 	t_env	env;
 
 	ft_set_envdata(&env);
-	while (1)
-	{
-		ft_read(&env);
-	}
+	while (ft_read(&env))
+		(void)envir;
 	return (0);
 }
