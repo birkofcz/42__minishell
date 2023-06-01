@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 15:07:25 by sbenes            #+#    #+#             */
-/*   Updated: 2023/05/30 13:34:23 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/05/30 16:55:33 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 	printf("%s", getenv(&arg[1]));
 } */
 
-void	ft_echoprint(char **words, int i)
+void	ft_echoprint(char **words, int i, int fd)
 {
 	while (words[i] != NULL)
 	{
@@ -26,32 +26,30 @@ void	ft_echoprint(char **words, int i)
 		if (words[i][0] == '$')
 		{
 			if (words[i][1] != '\0' && (getenv(&words[i][i]) != NULL))
-				printf("%s", getenv(&words[i][1]));
+				write(fd, getenv(&words[i][1]), ft_strlen(getenv(&words[i][1])));
 			else if (words[i][1] != '\0' && !(getenv(&words[i][1])))
 				break ;
 			else
-				printf("$");
+				write(fd, "$", 1);
 		}
 		//else printing word
 		else
-			printf("%s", words[i]);
+			write(fd, words[i], ft_strlen(words[i]));
 		if (words[i + 1] != NULL)
-			printf(" ");
+			write(fd, " ", 1);
 		i++;
 	}
 }
 
-void	ft_echo(char **words)
+void	ft_echo(char **words, int fd)
 {
 	if (!words[1])
-		printf("\n");
+		write(fd, "\n", 1);
 	else if (ft_strncmp(words[1], "-n", ft_strlen(words[1])) == 0)
-		ft_echoprint(words, 2);
+		ft_echoprint(words, 2, fd);
 	else
 	{
-		ft_echoprint(words, 1);
-		printf("\n");
+		ft_echoprint(words, 1, fd);
+		write(fd, "\n", 1);
 	}
-
-
 }

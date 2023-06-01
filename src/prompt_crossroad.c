@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 13:40:19 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/01 17:57:51 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/01 14:03:18 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,11 +221,17 @@ int	ft_prompt_crossroad(const char *input, t_env *env)
 	
 	words_count = word_counting(words);
 	if (ft_strncmp(words[0], "echo", ft_strlen(words[0])) == 0)
-    	ft_echo(formated_words);
+    	ft_echo(formated_words, 1);
 	else if (ft_strncmp(words[0], "pwd", ft_strlen(words[0])) == 0)
 		ft_pwd(env, words_count);
 	else if (ft_strncmp(words[0], "cd", ft_strlen(words[0])) == 0)
 		ft_cd(env, words, words_count);
+	else if (ft_strncmp(words[0], "env", ft_strlen(words[0])) == 0)
+		ft_env(1);
+	else if (ft_strncmp(words[0], "export", ft_strlen(words[0])) == 0)
+		ft_export(formated_words);
+	else if (ft_strncmp(words[0], "unset", ft_strlen(words[0])) == 0)
+		ft_unset(formated_words);
 	else if (ft_strncmp(words[0], "exit", ft_strlen(words[0])) == 0)
 	{
 		free_args(words);
