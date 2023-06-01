@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 14:22:34 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/01 13:54:31 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/01 16:55:43 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,23 +66,36 @@ void	ft_add(char *var)
 
 char	*ft_checkarg(char *arg)
 {
-	int	i;
-	int	flag;
+	int		i;
+	int		flag;
+	char	**split;
 
+/* FREE SPLIT!!!! POMOCI TOMASOVI FUNKCE FREEARG */
 	i = 0;
 	flag = 0;
+	split = ft_split(arg, '=');
+	if (!ft_isalpha(arg[i]))
+		return (printf("export: error %s\n", split[0]), free(split[0]),
+			free(split), NULL);
 	while (arg[i] != '\0')
 	{
 		if (arg[i] == '=')
 			flag++;
 		i++;
 	}
+	i = 0;
+	while (arg[i] != '=')
+	{
+		if ((!ft_isalnum(arg[i])) && arg[i] != '_')
+			return (printf("export: error %s\n", split[0]), NULL);
+		i++;
+	}
 	if (flag == 0)
-		return (NULL);
+		return (free(split[0]), free(split), NULL);
 	else if (flag == 1 && arg[0] != '=' && arg[i - 1] != '=')
-		return (arg);
+		return (free(split[0]), free(split), arg);
 	else
-		return (NULL);
+		return (free(split[0]), free(split), NULL);
 }
 
 void	ft_export(char **words)
