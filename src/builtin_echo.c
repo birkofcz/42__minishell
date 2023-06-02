@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 15:07:25 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/02 16:58:52 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/02 17:14:14 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void	ft_echo_expander(char *word, int fd)
 	}
 	temp = ft_strtrim(word, "{}");
 	split = ft_split(temp, '.');
+	//FREEEEEEEEEEEEEEEE NA SPLIT A TEMP!
 	if ((ft_strlen(split[0]) > 1) || ft_strlen(split[1]) > 1)
 	{
 		if ((ft_isdigit(split[0][0]) && ft_isdigit(split[0][1])) && (ft_isdigit(split[1][0]) && ft_isdigit(split[1][1])) && dots == 2)
