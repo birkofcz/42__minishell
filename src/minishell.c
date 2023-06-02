@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:28:41 by sbenes            #+#    #+#             */
-/*   Updated: 2023/05/30 16:36:06 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/02 15:14:41 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,6 @@ int	main(int ac, char **av, char **environ)
 
 	ft_set_envdata(&env);
 	while (ft_read(&env))
-		(void)envir;
+		(void)environ;
 	return (0);
 }
