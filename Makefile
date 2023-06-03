@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+         #
+#    By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/26 16:36:32 by sbenes            #+#    #+#              #
-#    Updated: 2023/06/01 13:54:22 by sbenes           ###   ########.fr        #
+#    Updated: 2023/06/03 18:22:00 by tkajanek         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ INC =	-I ./include/\
 
 #sources
 SRC_PATH =	src/
-SRC = 	minishell.c prompt_crossroad.c builtin_echo.c builtins_cd_pwd.c builtin_env.c builtin_export.c builtin_unset.c
+SRC = 	minishell.c prompt_crossroad.c builtin_echo.c builtins_cd_pwd.c builtin_env.c builtin_export.c builtin_unset.c utils.c parsing_quotes_env_vars.c 
 SRCS =	$(addprefix $(SRC_PATH), $(SRC))
 
 #objects

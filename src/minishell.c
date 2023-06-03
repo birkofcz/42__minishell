@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:28:41 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/02 15:14:41 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/03 19:56:37 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,11 @@ int	ft_read(t_env *env)
 	{
 		add_history(input);
 		exit = ft_prompt_crossroad(input, env);
-		free(input); //uvolnit pred exitem
-
+		free(input); 
 	}
 	free(prompt);
-	return (exit);//uvolnit pred exitem
+	return (exit);
 }
-
 
 int	main(int ac, char **av, char **environ)
 {
@@ -55,7 +53,6 @@ int	main(int ac, char **av, char **environ)
 	(void)environ;
 	
 	t_env	env;
-
 	ft_set_envdata(&env);
 	while (ft_read(&env))
 		(void)environ;

@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 15:21:02 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/01 17:57:55 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/03 18:15:29 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,18 @@ void	ft_pwd(t_env *env, int words_count)
 /*
 	if there is only cd command -> change directory to home,
 	else if there is + 1 argument -> change directory to desired destination.
+	3+ -> error;
 	*/
 void	ft_cd(t_env *env, char **arg, int words_count)
 {
-	char cwd[MAX_PATH_LENGTH]; // current working directory
+	char cwd[MAX_PATH_LENGTH];
 
-	/*when there are 3+ arguments after cd*/
 	if (words_count > 3)
 		printf("cd: too many arguments\n");
-	/*when there are 2 arguments after cd*/
 	else if (words_count == 3)
 		printf("OPRAVIT cd: no such file or directory: %s\n", arg[1]); //zjistit co dela cd s 2 argumenty
 	else if (words_count < 3)
 	{
-		/*when only cd*/
 		if (words_count == 1)
 			chdir(env->home);//error managment
 		else if (chdir(arg[1]) == -1)

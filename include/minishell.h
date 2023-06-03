@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/01 14:04:19 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/03 19:58:53 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,12 @@ extern char	**environ;
 
 /* prompt_crossroad.c */
 int	ft_prompt_crossroad(const char *input, t_env *env);
-int		word_counting(char **words);
-char	**parse_double_quated_strings(char **words);
-char	*prepare_double_quoted_string(const char *input);
+
+/* parsing_quotes_env_vars.c */
+char *prepare_quoted_string(const char *input);
+char **parse_double_quated_strings(char **words);
+char **replace_env_var_nonquated (char **words);
+char	*dollar_check(char *word);
 
 /* builtins_pwd_cd.c */
 void	ft_pwd(t_env *env, int words_count);
@@ -69,7 +72,9 @@ void	ft_export(char **words);
 /* builtin_unset.c */
 void	ft_unset(char **words);
 
-
+/* utils.c*/
+int		word_counting(char **words);
+void 	free_args(char **args);
 
 
 #endif
