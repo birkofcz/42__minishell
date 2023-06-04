@@ -6,7 +6,7 @@
 #    By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/26 16:36:32 by sbenes            #+#    #+#              #
-#    Updated: 2023/06/04 14:02:30 by tkajanek         ###   ########.fr        #
+#    Updated: 2023/06/04 15:59:33 by tkajanek         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ INC =	-I ./include/\
 
 #sources
 SRC_PATH =	src/
-SRC = 	minishell.c prompt_crossroad.c builtin_echo.c builtins_cd_pwd.c builtin_env.c builtin_export.c builtin_unset.c utils.c parsing_quotes_env_vars.c 
+SRC = 	minishell.c prompt_crossroad.c builtin_echo.c builtins_cd_pwd.c builtin_env.c builtin_export.c builtin_unset.c utils.c parsing_quotes_env_vars.c redirections.c 
 SRCS =	$(addprefix $(SRC_PATH), $(SRC))
 
 #objects
