@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 18:02:23 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/03 19:57:45 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/04 14:00:37 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ char *prepare_quoted_string(const char *input)
 		{
 			i++;
 			while(copy[i] !='\'')
+				i++;
+		}
+		else if(copy[i] == '{')
+		{
+			i++;
+			while(copy[i] !='}')
 				i++;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 15:21:02 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/03 18:15:29 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/04 13:51:37 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	ft_cd(t_env *env, char **arg, int words_count)
 {
 	char cwd[MAX_PATH_LENGTH];
 
-	if (words_count > 3)
+	if (words_count > 2)
 		printf("cd: too many arguments\n");
-	else if (words_count == 3)
-		printf("OPRAVIT cd: no such file or directory: %s\n", arg[1]); //zjistit co dela cd s 2 argumenty
+	/*else if (words_count == 3)
+		printf("OPRAVIT cd: no such file or directory: %s\n", arg[1]); //zjistit co dela cd s 2 argumenty*/
 	else if (words_count < 3)
 	{
 		if (words_count == 1)
