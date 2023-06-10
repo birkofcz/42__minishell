@@ -33,7 +33,13 @@
 /* Structs and typedefs */
 typedef struct s_data
 {
-	char redir[3];
+	char **commands; // builtins
+	char **execs; // executable
+	char ***args;
+	int 	infile; //fd infilu
+	char **redirs; 
+	int	*outfile;
+	int	outfile_count; //file descriptor outfilu
 }	t_data;
 
 /* Environmental variables storage */
