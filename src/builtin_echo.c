@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 15:07:25 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/04 14:23:03 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/10 11:23:58 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,3 +154,23 @@ void	ft_echo(char **words, int fd)
 		write(fd, "\n", 1);
 	}
 }
+
+/* EXECVE version */
+/* void	ft_echo(char **words, int fd)
+{
+	(void)fd;
+	int pid = fork();
+	if (pid < 0)
+	{
+		printf("Fork failed.\n");
+		return ;
+	}
+	if (pid == 0)
+	{
+		execve("/usr/bin/echo", words, NULL);
+		printf("Failed to execute execve.\n");
+		exit(1);
+	}
+	else
+		wait(NULL);
+} */
