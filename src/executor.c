@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 11:05:42 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/11 11:49:50 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/11 13:14:06 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,19 @@ void	ft_executor(char **words)
 		}
 		if (pid == 0)
 		{
-			execve(words[0], words, NULL);
-			exit(1);
+			execve(words[0], words, environ);
+			//updated exit status
+			exit(0);
 		}
 		else
+		{
 			wait(NULL);
+			//update exit status
+		}
 	}
 	else
+	{
 		printf("No such file or directory: %s\n", words[0]);
+		//update exit status
+	}
 }
