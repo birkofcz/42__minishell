@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_crossroad.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 13:40:19 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/04 14:23:43 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/11 11:24:43 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,12 @@ int	ft_prompt_crossroad(const char *input, t_env *env)
 		ft_export(words);
 	else if (ft_strncmp(words[0], "unset", ft_strlen("unset") + 1) == 0)
 		ft_unset(words);
+	else if (ft_strncmp(words[0], "clear", ft_strlen(words[0])) == 0)
+		printf("\033[2J\033[1;1H");
+		//using ANSI escape sequences - refer to: https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
 	else if (ft_strncmp(words[0], "exit", ft_strlen("exit") + 1) == 0)
 		return (free_args(words),0);
+	else
+		ft_executor(words);
 	return (free_args(words), 1);
 }
