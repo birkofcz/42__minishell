@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
 /*   Updated: 2023/06/04 16:00:24 by tkajanek         ###   ########.fr       */
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -43,7 +44,7 @@ typedef struct s_data
 }	t_data;
 
 /* Environmental variables storage */
-extern char	**environ;
+extern char **environ;
 
 /* Functions by files */
 
@@ -77,8 +78,8 @@ void	ft_export(char **words);
 /* builtin_unset.c */
 void	ft_unset(char **words);
 
-/*  redirections.c  */
-void ft_redir_crossroad(char **words, t_data *data);
+/* executor.c */
+void	ft_executor(char **words);
 
 /* utils.c*/
 int		word_counting(char **words);

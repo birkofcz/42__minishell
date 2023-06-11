@@ -1,39 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/30 16:18:18 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/11 11:40:11 by sbenes           ###   ########.fr       */
+/*   Created: 2023/06/11 11:05:42 by sbenes            #+#    #+#             */
+/*   Updated: 2023/06/11 13:14:06 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/* 
-FT_ENV - to printout environmental variables - or write them in the file
-(implemented with fd)
- */
-
-
-/* envoronmental variables are usually stored in char **environ global 
-variable in C. That is defined as extern char **environ - global var 
-in header file*/
-
-void	ft_env(int fd)
+void	ft_executor(char **words)
 {
-	int	i;
+	int	result;
+	int	pid;
 
-	i = 0;
-	while (environ[i])
+	result = access(words[0], X_OK);
+	if (result == 0)
 	{
-		if (environ[i][0] != '?' && environ[i][0] != '-')
+		pid = fork();
+		if (pid < 0)
 		{
-			write(fd, environ[i], ft_strlen(environ[i]));
-			write(fd, "\n", 1);
+			printf("Fork failed.\n");
+			return ;
 		}
-		i++;
+		if (pid == 0)
+		{
+			execve(words[0], words, environ);
+			//updated exit status
+			exit(0);
+		}
+		else
+		{
+			wait(NULL);
+			//update exit status
+		}
+	}
+	else
+	{
+		printf("No such file or directory: %s\n", words[0]);
+		//update exit status
 	}
 }
