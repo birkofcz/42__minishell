@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/11 11:40:43 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/04 16:00:24 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <fcntl.h>
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -31,12 +32,16 @@
 # define MAX_PATH_LENGTH 1024	
 
 /* Structs and typedefs */
-typedef struct s_envdata
+typedef struct s_data
 {
-	char	*user;
-	char	*pwd;
-	char	*home;
-}	t_env;
+	char **commands; // builtins
+	char **execs; // executable
+	char ***args;
+	int 	infile; //fd infilu
+	char **redirs; 
+	int	*outfile;
+	int	outfile_count; //file descriptor outfilu
+}	t_data;
 
 /* Environmental variables storage */
 extern char **environ;
@@ -44,7 +49,7 @@ extern char **environ;
 /* Functions by files */
 
 /* prompt_crossroad.c */
-int	ft_prompt_crossroad(const char *input, t_env *env);
+int	ft_prompt_crossroad(const char *input, t_data *data);
 
 /* parsing_quotes_env_vars.c */
 char *prepare_quoted_string(const char *input);
@@ -53,8 +58,8 @@ char **replace_env_var_nonquated (char **words);
 char	*dollar_check(char *word);
 
 /* builtins_pwd_cd.c */
-void	ft_pwd(t_env *env, int words_count);
-void	ft_cd(t_env *env, char **arg, int words_count);
+//void	ft_pwd(t_env *env, int words_count);
+//void	ft_cd(t_env *env, char **arg, int words_count);
 
 /* buldin_echo.c */
 void	ft_echo(char **words, int fd);
@@ -75,7 +80,6 @@ void	ft_unset(char **words);
 
 /* executor.c */
 void	ft_executor(char **words);
-
 
 /* utils.c*/
 int		word_counting(char **words);

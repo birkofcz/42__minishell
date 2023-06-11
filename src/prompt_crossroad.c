@@ -19,12 +19,253 @@ function to read the input a set a proper function into motion
 //something like this - may do a int type to return the errors?
 
 //to do: osetrit pokud je input NULL
-int	ft_prompt_crossroad(const char *input, t_env *env)
+ /*char *analyze(char **words, t_data *data)
+{
+	int i;
+
+	i = 0;
+    while (words[i] != NULL)
+    {
+        if ((ft_strncmp(words[i], "<", ft_strlen("<") + 1) == 0))
+			ft_strlcpy(data->redir,words[i], 2);
+		else if ((ft_strncmp(words[i], ">", ft_strlen(">") + 1) == 0))
+			ft_strlcpy(data->redir,words[i], 2);
+		else if ((ft_strncmp(words[i], "<<", ft_strlen("<<") + 1) == 0))
+			ft_strlcpy(data->redir,words[i], 3);
+		else if ((ft_strncmp(words[i], ">>", ft_strlen(">>") + 1) == 0))
+			ft_strlcpy(data->redir,words[i], 3);
+		else if ((ft_strncmp(words[i], "|", ft_strlen("|") + 1) == 0))
+			ft_strlcpy(data->redir,words[i], 2);
+        i++;
+    }
+	return (data->redir);
+}*/
+ int	is_redir(char *word)
+ {
+		if ((ft_strncmp(word, "<", ft_strlen("<") + 1) == 0))
+			return(1);
+		else if ((ft_strncmp(word, ">", ft_strlen(">") + 1) == 0))
+			return(1);
+		else if ((ft_strncmp(word, "<<", ft_strlen("<<") + 1) == 0))
+			return(1);
+		else if ((ft_strncmp(word, ">>", ft_strlen(">>") + 1) == 0))
+			return(1);
+		else if ((ft_strncmp(word, "|", ft_strlen("|") + 1) == 0))
+			return(1);
+		return(0);
+ }
+
+
+/* do we need this shit? */
+void tokenize_redir(char **words, t_data *data)
+{
+	int i;
+	int j;
+	int	count;
+	char	**redirs;
+
+	i = -1;
+	count = 0;
+	while (words[++i] != NULL)
+	{
+		if (is_redir(words[i]))
+			count++;
+	}
+	i = -1;
+	redirs = (char **)malloc(sizeof(char *) * (count + 1));
+	j = 0;
+    while (words[++i] != NULL)
+    {
+        if (is_redir(words[i]))
+		{
+			redirs[j] = ft_strdup(words[i]);
+			j++;
+		}
+    }
+	redirs[j] = NULL;
+	data->redirs = redirs;
+	i = 0;
+}
+
+int	is_command(char *word)
+{
+	if (ft_strncmp(word, "echo", ft_strlen("echo") + 1) == 0)
+    	return(1);
+	else if (ft_strncmp(word, "pwd", ft_strlen("pwd") + 1) == 0)
+		return(1);
+	else if (ft_strncmp(word, "cd", ft_strlen("cd") + 1) == 0)
+		return(1);
+	else if (ft_strncmp(word, "env", ft_strlen("env") + 1) == 0)
+		return(1);
+	else if (ft_strncmp(word, "export", ft_strlen("export") + 1) == 0)
+		return(1);
+	else if (ft_strncmp(word, "unset", ft_strlen("unset") + 1) == 0)
+		return(1);
+	else if (ft_strncmp(word, "clear", ft_strlen("clear") + 1) == 0)
+		return(1);
+	else if (ft_strncmp(word, "exit", ft_strlen("exit") + 1) == 0)
+		return(1);
+	return (0);
+}
+
+int	args_counter(char **words, int i)
+{
+	int	count;
+
+	count = 0;
+	while (words[i] != NULL && ((is_redir(words[i]) == 1) || (is_command(words[i]) == 1)))
+		i++;
+	while (words[i] != NULL && (is_redir(words[i]) == 0) && (is_command(words[i]) == 0))
+	{
+		printf ("word[%d] in argument count : %s\n", i, words[i]);
+		count ++;
+		i++;
+	}
+	return (count);
+}
+
+void	tokenize_arg(char **words, t_data *data, int count) //predelat na druhem miste muze byt infile
+{
+	int i;
+	int j;
+	int k;
+	char	***args;
+
+	i = 0;
+	j = 0;
+	k = 0;
+	printf ("command count : %d\n", count);
+	args = (char ***)malloc(sizeof(char **) * (count + 1));//command_count
+	while (words[i] != NULL)
+	{
+			count = args_counter (words, i);
+			printf ("argument count : %d\n", count);
+			write (1, "test1\n", 7);
+			args[j] = (char **)malloc(sizeof(char *) * (count + 1));
+			while (words[i] != NULL && ((is_redir(words[i]) == 1) || (is_command(words[i]) == 1)))
+				i++;
+			while (words[i] != NULL && (is_redir(words[i]) == 0) && (is_command(words[i]) == 0))
+			{
+				args[j][k] = ft_strdup(words[i]);
+				k++;
+				i++;
+				write (1, "test2\n", 7);
+			}
+			args[j][k] = NULL;
+			write (1, "zapis 0\n", 8);
+			k = 0;
+			j++;
+			if (words[i] == NULL)
+				break ;
+			i++;
+	}
+	args[j] = NULL;
+	data->args = args;
+	write (1, "konec args\n", 12);
+}
+
+void	tokenize_command(char **words, t_data *data)
+{
+	int i;
+	int j;
+	int	count;
+	char	**commands;
+
+	i = -1;
+	count = 0;
+	
+	while (words[++i] != NULL)
+	{
+		if ((is_command(words[i]) ))
+			count ++;
+	}
+	i = -1;
+	commands = (char **)malloc(sizeof(char *) * (count + 1));
+	j = 0;
+	while (words[++i] != NULL)
+	{
+		if (is_command(words[i]))
+		{
+			commands[j] = ft_strdup(words[i]);
+			j++;
+		}
+	}
+	data->commands = commands;
+	i = 0;
+	while (data->commands[i])
+	{
+        printf("commands[%d] :%s\n",i, data->commands[i]);
+		i++;
+    }
+	tokenize_arg(words, data, count);
+}
+
+void	tokenize_infile(char **words, t_data *data)
+{
+	int i;
+
+	i = - 1;
+	while (words[++i] != NULL)
+	{
+		if (ft_strncmp(words[i], "<", ft_strlen("<") + 1) == 0)
+			data->infile = open(words[i + 1], O_RDONLY, 0777);
+		i ++;
+	}
+}
+
+void	tokenize_outfile(char **words, t_data *data)
+{
+	int i;
+	int j;
+	int count;
+	int *outfile;
+
+	count = 0;
+//infile
+//if [0] == <, pak [i] = infile
+
+//outfile
+	i = - 1;
+	j = 0;
+	while (words[++i] != NULL)
+	{
+		if ((ft_strncmp(words[i], ">", ft_strlen(">") + 1) == 0) || (ft_strncmp(words[i], ">>", ft_strlen(">>") + 1) == 0))
+			count++;
+	}
+	outfile = (int *)malloc(sizeof(int) * (count + 1));//uzavrit 0
+	i = - 1;
+	while (words[++i] != NULL)
+	{
+		if (ft_strncmp(words[i], ">>", ft_strlen(">>") + 1) == 0)
+		{
+			outfile[j] = open(words[i + 1], O_WRONLY | O_CREAT | O_APPEND, 0777);
+			j++;
+		}
+		else if (ft_strncmp(words[i], ">", ft_strlen(">") + 1) == 0)
+		{
+			outfile[j] = open(words[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+			j++;
+		}
+	}
+	data->outfile = outfile;
+	data->outfile_count = count;
+}
+
+void	lexer(char **words, t_data *data)
+{
+	tokenize_redir(words, data);
+	tokenize_command(words, data);
+	tokenize_outfile(words, data);
+	tokenize_infile(words, data);
+	printf("infile : %d, outfile[0] = %d, outfile[1] = %d, outfile count = %d\n", data->infile, data->outfile[0], data->outfile[1], data->outfile_count);
+	//tokenize_heredoc(words, data);
+}
+
+int	ft_prompt_crossroad(const char *input, t_data *data)
 {
 	char	**words;
 	int		words_count;
 
-	(void)env;
 	words = ft_split(prepare_quoted_string(input), 29);
 	//tester
 	/*printf("\ntest words before trimming\n");
@@ -47,7 +288,25 @@ int	ft_prompt_crossroad(const char *input, t_env *env)
     }
 	printf("\n");*/
 	//konec testru
+	
 	words_count = word_counting(words);
+	lexer(words, data);
+	int i = 0;
+	while (data->args[0][i])
+	{
+        printf("args[0][%d] :%s\n",i, data->args[0][i]);
+		i++;
+    }
+	i = 0;
+	while (data->args[1][i])
+	{
+        printf("args[1][%d] :%s\n",i, data->args[1][i]);
+		i++;
+    }
+	i = 0;
+    printf("args[2][%d] :%p\n",i, data->args[2]);
+	/*if (analyze(words, data) != 0)
+		ft_redir_crossroad(words, data);
 	if (ft_strncmp(words[0], "echo", ft_strlen("echo") + 1) == 0)
     	ft_echo(words, 1);
 	else if (ft_strncmp(words[0], "pwd", ft_strlen("pwd") + 1) == 0) // $blabla pwd -> by melo fungovat
