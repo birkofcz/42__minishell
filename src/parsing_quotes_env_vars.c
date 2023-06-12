@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 18:02:23 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/04 14:00:37 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/11 18:23:40 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,15 @@ char	*dollar_check(char *word)
 	{
 		if (word[i] == '$')
 		{
-			while (ft_isalnum(word[i + 1 + j]))
+			while (ft_isalnum(word[i + 1 + j])) // pridat vyjimku pro $?
 				j++;
 			if (j != 0)
 			{
+				printf("test pred $\n");
 				temp = ft_substr(word, i + 1, j); //alokovany
 				if (!(env_v = getenv(temp)))
 					env_v = ""; //nealokovany
+				printf("test $: %s\n", env_v);
 				free(temp);
 				updated_str = ft_substr(word, 0, i);
 				temp = ft_strjoin(updated_str, env_v);

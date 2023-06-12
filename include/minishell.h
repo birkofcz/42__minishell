@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/04 16:00:24 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/11 14:56:31 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	ft_export(char **words);
 void	ft_unset(char **words);
 
 /* executor.c */
-void	ft_executor(char **words);
+void	ft_executor(char **words, t_data *data);
 
 /* utils.c*/
 int		word_counting(char **words);

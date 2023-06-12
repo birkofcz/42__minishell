@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_crossroad.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 13:40:19 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/11 11:24:43 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/12 15:19:44 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ int	is_command(char *word)
 		return(1);
 	else if (ft_strncmp(word, "exit", ft_strlen("exit") + 1) == 0)
 		return(1);
+	else if (ft_strchr(word, '/') != NULL)
+		return(1);
 	return (0);
 }
 
@@ -114,10 +116,13 @@ int	args_counter(char **words, int i)
 
 	count = 0;
 	while (words[i] != NULL && ((is_redir(words[i]) == 1) || (is_command(words[i]) == 1)))
+	{
+		if (is_redir(words[i]) == 1)
+			i++;
 		i++;
+	}
 	while (words[i] != NULL && (is_redir(words[i]) == 0) && (is_command(words[i]) == 0))
 	{
-		printf ("word[%d] in argument count : %s\n", i, words[i]);
 		count ++;
 		i++;
 	}
@@ -138,30 +143,29 @@ void	tokenize_arg(char **words, t_data *data, int count) //predelat na druhem mi
 	args = (char ***)malloc(sizeof(char **) * (count + 1));//command_count
 	while (words[i] != NULL)
 	{
-			count = args_counter (words, i);
-			printf ("argument count : %d\n", count);
-			write (1, "test1\n", 7);
-			args[j] = (char **)malloc(sizeof(char *) * (count + 1));
-			while (words[i] != NULL && ((is_redir(words[i]) == 1) || (is_command(words[i]) == 1)))
+		count = args_counter (words, i);
+		printf ("argument count : %d\n", count);
+		args[j] = (char **)malloc(sizeof(char *) * (count + 1));
+		while (words[i] != NULL && ((is_redir(words[i]) == 1) || (is_command(words[i]) == 1)))
+		{
+			if (is_redir(words[i]) == 1)
 				i++;
-			while (words[i] != NULL && (is_redir(words[i]) == 0) && (is_command(words[i]) == 0))
-			{
-				args[j][k] = ft_strdup(words[i]);
-				k++;
-				i++;
-				write (1, "test2\n", 7);
-			}
-			args[j][k] = NULL;
-			write (1, "zapis 0\n", 8);
-			k = 0;
-			j++;
-			if (words[i] == NULL)
-				break ;
 			i++;
+		}
+		while (words[i] != NULL && (is_redir(words[i]) == 0) && (is_command(words[i]) == 0))
+		{
+			args[j][k] = ft_strdup(words[i]);
+			k++;
+			i++;
+		}
+		args[j][k] = NULL;
+		k = 0;
+		j++;
+		if (words[i] == NULL)
+			break ;
 	}
 	args[j] = NULL;
 	data->args = args;
-	write (1, "konec args\n", 12);
 }
 
 void	tokenize_command(char **words, t_data *data)
@@ -190,13 +194,9 @@ void	tokenize_command(char **words, t_data *data)
 			j++;
 		}
 	}
+	commands[j] = NULL;
 	data->commands = commands;
 	i = 0;
-	while (data->commands[i])
-	{
-        printf("commands[%d] :%s\n",i, data->commands[i]);
-		i++;
-    }
 	tokenize_arg(words, data, count);
 }
 
@@ -205,11 +205,11 @@ void	tokenize_infile(char **words, t_data *data)
 	int i;
 
 	i = - 1;
+	data->infile = -1;
 	while (words[++i] != NULL)
 	{
 		if (ft_strncmp(words[i], "<", ft_strlen("<") + 1) == 0)
 			data->infile = open(words[i + 1], O_RDONLY, 0777);
-		i ++;
 	}
 }
 
@@ -255,9 +255,29 @@ void	lexer(char **words, t_data *data)
 {
 	tokenize_redir(words, data);
 	tokenize_command(words, data);
+	int i = 0;
+	while (data->commands[i])
+	{
+        printf("commands[%d] :%s\n",i, data->commands[i]);
+		i++;
+    }
+	/*i = 0;
+	while (data->args[0][i])
+	{
+        printf("args[0][%d] :%s\n",i, data->args[0][i]);
+		i++;
+    }
+	i = 0;
+	while (data->args[1][i])
+	{
+        printf("args[1][%d] :%s\n",i, data->args[1][i]);
+		i++;
+    }*/
 	tokenize_outfile(words, data);
 	tokenize_infile(words, data);
-	printf("infile : %d, outfile[0] = %d, outfile[1] = %d, outfile count = %d\n", data->infile, data->outfile[0], data->outfile[1], data->outfile_count);
+	printf("infile fd = %d\n", data->infile);
+	write(1, "test lexer\n", 11);
+	//printf("infile : %d, outfile[0] = %d, outfile[1] = %d, outfile count = %d\n", data->infile, data->outfile[0], data->outfile[1], data->outfile_count);
 	//tokenize_heredoc(words, data);
 }
 
@@ -280,7 +300,7 @@ int	ft_prompt_crossroad(const char *input, t_data *data)
 	words = parse_double_quated_strings(words);
 	//tester
 	/*printf("\ntest formated_words\n");
-	int i = 0;
+	i = 0;
     while (words[i] != NULL)
 	{
         printf("%s\n", words[i]);
@@ -297,17 +317,15 @@ int	ft_prompt_crossroad(const char *input, t_data *data)
         printf("args[0][%d] :%s\n",i, data->args[0][i]);
 		i++;
     }
-	i = 0;
+	i = 0;/*
 	while (data->args[1][i])
 	{
         printf("args[1][%d] :%s\n",i, data->args[1][i]);
 		i++;
     }
 	i = 0;
-    printf("args[2][%d] :%p\n",i, data->args[2]);
-	/*if (analyze(words, data) != 0)
-		ft_redir_crossroad(words, data);
-	if (ft_strncmp(words[0], "echo", ft_strlen("echo") + 1) == 0)
+    printf("args[2][%d] :%p\n",i, data->args[2]);*/
+	/*if (ft_strncmp(words[0], "echo", ft_strlen("echo") + 1) == 0)
     	ft_echo(words, 1);
 	else if (ft_strncmp(words[0], "pwd", ft_strlen("pwd") + 1) == 0) // $blabla pwd -> by melo fungovat
 		ft_pwd(env, words_count);
@@ -321,10 +339,9 @@ int	ft_prompt_crossroad(const char *input, t_data *data)
 		ft_unset(words);
 	else if (ft_strncmp(words[0], "clear", ft_strlen(words[0])) == 0)
 		printf("\033[2J\033[1;1H");
-		//using ANSI escape sequences - refer to: https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
 	else if (ft_strncmp(words[0], "exit", ft_strlen("exit") + 1) == 0)
 		return (free_args(words),0);
-	else
-		ft_executor(words);
+	else*/
+	ft_executor(words, data);
 	return (free_args(words), 1);
 }
