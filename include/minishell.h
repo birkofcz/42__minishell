@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/15 14:13:53 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/15 16:13:40 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	ft_unset(char **words);
 
 /*executor_binary.c*/
 void exe(t_data *data);
+void	executor_experim(t_data *data);
 
 /* executor.c */
 void	ft_executor(char **words, t_data *data);
