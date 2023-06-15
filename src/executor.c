@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 11:05:42 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/12 16:54:06 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/14 14:52:09 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,48 +68,3 @@ void	ft_executor(char **words, t_data *data)
 		//update exit status
 	}
 }
-/*
-pipex_exe(infile, outfile, pipe)
-(
-	if (infile)
-		redirect
-	if (outfile & last_command)
-		redirect
-	if (<last command)
-		pipe_redirection
-)
-
-pipex_builtins(infile, outfile, pipe)
-(
-	if (infile && first_command)
-		redirect;
-	if (outfile & last_command)
-		redirect;
-	if (<last command)
-		pipe_redirection; // while loop
-)
-execute(commands[i])
-{
-	if (command[i] == executable)
-		{
-		pipex_exe;
-		executor;
-		}
-	else
-		{
-		pipex_builtins
-		builtins();
-		}
-}
-
-void exe(t_data *data)
-{
-	int i;
-
-	i = 0;
-	while (data->commands[i] != NULL)
-	{
-		execute(commands[i])
-	}
-}
-*/

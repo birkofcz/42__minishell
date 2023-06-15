@@ -36,7 +36,7 @@ INC =	-I ./include/\
 
 #sources
 SRC_PATH =	src/
-SRC = 	minishell.c prompt_crossroad.c builtin_echo.c builtins_cd_pwd.c builtin_env.c builtin_export.c builtin_unset.c utils.c parsing_quotes_env_vars.c executor.c
+SRC = 	minishell.c prompt_crossroad.c builtin_echo.c builtins_cd_pwd.c builtin_env.c builtin_export.c builtin_unset.c utils.c parsing_quotes_env_vars.c executor.c executor_binary.c
 SRCS =	$(addprefix $(SRC_PATH), $(SRC))
 
 #objects

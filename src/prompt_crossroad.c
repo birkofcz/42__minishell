@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 13:40:19 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/12 15:19:44 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/15 14:23:04 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ function to read the input a set a proper function into motion
 			return(1);
 		else if ((ft_strncmp(word, ">>", ft_strlen(">>") + 1) == 0))
 			return(1);
-		else if ((ft_strncmp(word, "|", ft_strlen("|") + 1) == 0))
-			return(1);
+/*		else if ((ft_strncmp(word, "|", ft_strlen("|") + 1) == 0))
+			return(1);*/
 		return(0);
  }
 
@@ -113,19 +113,26 @@ int	is_command(char *word)
 int	args_counter(char **words, int i)
 {
 	int	count;
+	int command;
 
 	count = 0;
-	while (words[i] != NULL && ((is_redir(words[i]) == 1) || (is_command(words[i]) == 1)))
+	command = 0;
+	while (words[i] != NULL && command != 2 && ((is_redir(words[i]) == 1) || (is_command(words[i]) == 1) || (ft_strncmp(words[i], "|", ft_strlen("|") + 1) == 0)))
 	{
 		if (is_redir(words[i]) == 1)
 			i++;
+		if ((is_command(words[i]) == 1))
+			command ++;
 		i++;
 	}
-	while (words[i] != NULL && (is_redir(words[i]) == 0) && (is_command(words[i]) == 0))
+	if (command == 2)
+		i --;
+	while (words[i] != NULL && (is_redir(words[i]) == 0) && (is_command(words[i]) == 0) && (ft_strncmp(words[i], "|", ft_strlen("|") + 1) != 0))
 	{
 		count ++;
 		i++;
 	}
+	printf ("args_count = %d\n", count);
 	return (count);
 }
 
@@ -134,6 +141,7 @@ void	tokenize_arg(char **words, t_data *data, int count) //predelat na druhem mi
 	int i;
 	int j;
 	int k;
+	int command;
 	char	***args;
 
 	i = 0;
@@ -145,14 +153,24 @@ void	tokenize_arg(char **words, t_data *data, int count) //predelat na druhem mi
 	{
 		count = args_counter (words, i);
 		printf ("argument count : %d\n", count);
-		args[j] = (char **)malloc(sizeof(char *) * (count + 1));
-		while (words[i] != NULL && ((is_redir(words[i]) == 1) || (is_command(words[i]) == 1)))
+		if (count == 0)
+		{
+			args[j] = (char **)malloc(sizeof(char *) * (2));
+		}
+		else
+			args[j] = (char **)malloc(sizeof(char *) * (count + 1));
+		command = 0;
+		while (words[i] != NULL && command != 2 &&((is_redir(words[i]) == 1) || (is_command(words[i]) == 1) || (ft_strncmp(words[i], "|", ft_strlen("|") + 1) == 0)))
 		{
 			if (is_redir(words[i]) == 1)
 				i++;
+			if ((is_command(words[i]) == 1))
+				command ++;
 			i++;
 		}
-		while (words[i] != NULL && (is_redir(words[i]) == 0) && (is_command(words[i]) == 0))
+		if (command == 2)
+			i --;
+		while (count != 0 && words[i] != NULL && (is_redir(words[i]) == 0) && (is_command(words[i]) == 0) && (ft_strncmp(words[i], "|", ft_strlen("|") + 1) != 0))
 		{
 			args[j][k] = ft_strdup(words[i]);
 			k++;
@@ -276,6 +294,7 @@ void	lexer(char **words, t_data *data)
 	tokenize_outfile(words, data);
 	tokenize_infile(words, data);
 	printf("infile fd = %d\n", data->infile);
+	printf("outfile fd = %d\n", data->outfile[0]);
 	write(1, "test lexer\n", 11);
 	//printf("infile : %d, outfile[0] = %d, outfile[1] = %d, outfile count = %d\n", data->infile, data->outfile[0], data->outfile[1], data->outfile_count);
 	//tokenize_heredoc(words, data);
@@ -284,7 +303,6 @@ void	lexer(char **words, t_data *data)
 int	ft_prompt_crossroad(const char *input, t_data *data)
 {
 	char	**words;
-	int		words_count;
 
 	words = ft_split(prepare_quoted_string(input), 29);
 	//tester
@@ -308,14 +326,18 @@ int	ft_prompt_crossroad(const char *input, t_data *data)
     }
 	printf("\n");*/
 	//konec testru
-	
-	words_count = word_counting(words);
 	lexer(words, data);
+	data->last_command = commands_counting(data->commands) - 1;
 	int i = 0;
-	while (data->args[0][i])
+    while (data->args[i])
 	{
-        printf("args[0][%d] :%s\n",i, data->args[0][i]);
-		i++;
+        int j = 0;
+        while (data->args[i][j])
+		{
+            printf("args[%d][%d]: %s\n", i, j, data->args[i][j]);
+            j++;
+        }
+        i++;
     }
 	i = 0;/*
 	while (data->args[1][i])
@@ -342,6 +364,6 @@ int	ft_prompt_crossroad(const char *input, t_data *data)
 	else if (ft_strncmp(words[0], "exit", ft_strlen("exit") + 1) == 0)
 		return (free_args(words),0);
 	else*/
-	ft_executor(words, data);
+	exe(data);
 	return (free_args(words), 1);
 }
