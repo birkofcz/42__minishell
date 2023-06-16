@@ -1,41 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   executor_builtin.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/03 18:05:14 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/14 15:10:17 by tkajanek         ###   ########.fr       */
+/*   Created: 2023/06/14 14:28:16 by tkajanek          #+#    #+#             */
+/*   Updated: 2023/06/15 14:07:31 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	commands_counting(char **words)
-{
-    int count;
-    int i;
-	
-	count = 0;
-	i = 0;
-    while (words[i] != NULL)
-	{
-        count++;
-        i++;
-    }
-    return (count);
-}
-
-void free_args(char **args)
-{
-    int i;
-
-	i = 0;
-    while (args[i] != NULL)
-    {
-        free(args[i]);
-        i++;
-    }
-    free(args);
-}

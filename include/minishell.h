@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/04 16:00:24 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/16 16:40:30 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@
 # define BC "\033[96m"
 # define RES "\033[0m"
 
+/* Redirs macros */
+# define OUTFILE ">"
+# define INFILE "<"
+# define PIPE "|"
+# define HEREDOC "<<"
+
 /* constants*/
 # define MAX_PATH_LENGTH 1024	
 
@@ -35,12 +41,19 @@
 typedef struct s_data
 {
 	char **commands; // builtins
+	int	last_command;
 	char **execs; // executable
 	char ***args;
 	int 	infile; //fd infilu
 	char **redirs; 
+	char ***redirections;
 	int	*outfile;
 	int	outfile_count; //file descriptor outfilu
+	int saved_stdin;
+	int	saved_stdout;
+	int	outflag;
+	int inflag;
+
 }	t_data;
 
 /* Environmental variables storage */
@@ -78,11 +91,14 @@ void	ft_export(char **words);
 /* builtin_unset.c */
 void	ft_unset(char **words);
 
+/*executor_binary.c*/
+void exe(t_data *data);
+
 /* executor.c */
-void	ft_executor(char **words);
+void	ft_executor(char **words, t_data *data);
 
 /* utils.c*/
-int		word_counting(char **words);
+int	commands_counting(char **words);
 void 	free_args(char **args);
 
 

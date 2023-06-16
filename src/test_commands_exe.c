@@ -1,41 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   commands_exe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/03 18:05:14 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/14 15:10:17 by tkajanek         ###   ########.fr       */
+/*   Created: 2023/06/11 14:34:37 by tkajanek          #+#    #+#             */
+/*   Updated: 2023/06/12 14:59:36 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	commands_counting(char **words)
+void	exe(t_data)
 {
-    int count;
-    int i;
-	
-	count = 0;
-	i = 0;
-    while (words[i] != NULL)
-	{
-        count++;
-        i++;
-    }
-    return (count);
-}
+	int	command_count = 0;
 
-void free_args(char **args)
-{
-    int i;
+	while ()
 
-	i = 0;
-    while (args[i] != NULL)
-    {
-        free(args[i]);
-        i++;
-    }
-    free(args);
+	if()
 }
