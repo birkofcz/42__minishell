@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_commands_exe.c                                :+:      :+:    :+:   */
+/*   TEST_commands_exe.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 14:34:37 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/15 17:35:43 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/17 18:03:30 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 void	executor_experim(t_data *data) 
-{   //save standart? in/out
+{   //save standart in/out
 	int tmpin = dup(STDIN_FILENO);
 	int tmpout = dup(STDOUT_FILENO);
 

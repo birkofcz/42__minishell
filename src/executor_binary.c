@@ -5,174 +5,78 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 14:28:32 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/15 14:30:36 by tkajanek         ###   ########.fr       */
+/*   Created: 2023/06/17 15:11:12 by tkajanek          #+#    #+#             */
+/*   Updated: 2023/06/17 18:31:59 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_executor_binary(char **commands, int position, t_data *data)
+void	execute(char *command, int position, t_data *data)
 {
-	int	result;
+	char *args_execve[] = {data->commands[position], *data->args[position], NULL};
+	execve(command,args_execve, environ);
+}
+
+void	child(char *command, int position, t_data *data)
+{
 	int	pid;
+	int	fd[2];
 
-	result = access(commands[position], X_OK);
-	write (1, "test inside executor\n", 22);
-	if (result == 0)
-	{
-		pid = fork();
-		if (pid < 0)
-		{
-			printf("Fork failed.\n");
-			return ;
-		}
-		if (pid == 0)
-		{
-			write (1, "we are in child before execve\n", 30);
-			char *args_execve[] = {data->commands[position], *data->args[position], NULL};
-			/*int i = 0;
-			while (args_execve[i] != NULL)
-			{
-				printf("args_execve[%d] = %s\n", i, args_execve[i]);
-				i++;
-			}*/
-			execve(commands[position], args_execve, environ);
-			printf("we are in child\n");
-			//updated exit status
-			exit(0);
-		}
-		else
-		{
-			wait(NULL);
-			//update exit status
-		}
-		/* if (data->infile)
-        {
-            dup2(saved_stdin, STDIN_FILENO); // restore the original stdin file descriptor
-            close(saved_stdin); // close the duplicated file descriptor
-        }*/
-	}
-	else
-	{
-		printf("No such file or directory: %s\n", commands[position]);
-		//update exit status
-	}
-}
-
-/*pipex_builtins(infile, outfile, pipe)
-(
-	if (infile && first_command)
-		redirect;
-	if (outfile & last_command)
-		redirect;
-	if (<last command)
-		pipe_redirection; // while loop
-)*/
-
-void redirect_infile(t_data *data)
-{
-	data->saved_stdin = dup(STDIN_FILENO);
-	if (data->infile)
-	{
-		dup2(data->infile, STDIN_FILENO);
-		//uzavre STDIN=0, a priradi cislu 0 referenci na infile
-		close(data->infile);
-		printf("infile after redirection and close : %d\n", data->infile);
-		data->inflag = 1;
-	}
-	write (1, "test after redirection infile\n", 31);
-}
-
-void redirect_outfile(t_data *data)
-{
-	data->saved_stdout = dup(STDOUT_FILENO);
-	printf("outfile in redirection : %d\n", data->outfile[0]);
-	if (data->outfile[0])
-	{
-		dup2(data->outfile[0], STDOUT_FILENO);
-		close(data->outfile[0]);
-		data->outflag = 1;
-
-	}
-	write (1, "test after redirection outfile\n", 32);
-}
-
-void	pipe_redirection(t_data *data)
-{
-	int pipe_fd[2];
-
-	if(data->inflag == 0 || data->outflag == 0)
-	{
-		pipe(pipe_fd);
-		printf("uvnitr pipe redirection: inflag = %d, outflag = %d\n", data->inflag, data->outflag);
-		if (data->outflag == 0)
-		{
-			dup2(pipe_fd[0], STDIN_FILENO);
-			close(pipe_fd[0]);
-			write (1, "pipe stdin redirected\n", 23);
-		}
-		//else
-		//	close(pipe_fd[0]); // ?
-		if (data->inflag == 0)
-		{
-			dup2(pipe_fd[1], STDOUT_FILENO);
-			close(pipe_fd[1]);
-			write (1, "pipe stdout redirected\n", 24);
-		}
-		//else
-		//	close(pipe_fd[1]); // ?
-	}
-	else
-	{
-		close(pipe_fd[0]); // Close unused read end
-		close(pipe_fd[1]); // Close unused write end
-	}
+	pipe(fd);
+	/*if (pipe(fd) == -1)
+		error();*/
+	pid = fork();
+	/*if (pid == -1)
+		error();*/
 	
-	write (1, "test after redirection pipe\n", 29);
-}
-
-void pipex_exe(int position, t_data *data)
-{
-	data->inflag = 0;
-	data->outflag = 0;
-	if (position == 0 && data->infile != -1)
-		redirect_infile(data);
-	if (position == data->last_command && data->outfile[1] != -1)
-		redirect_outfile(data); // loop for every outfiles 
-	printf ("inflag = %d, outflag = %d\n", data->inflag, data->outflag);
-	if (position < data->last_command)
-		{
-			write(1, "test uvnitr if pipe\n", 21);
-			pipe_redirection(data);
-		}
-}
-
-
-void execute(char **commands, int position, t_data *data)
-{
-	if (ft_strchr(commands[position], '/') != NULL)
+	if (pid == 0)
 	{
-		pipex_exe(position, data);
-		ft_executor_binary(commands, position, data);
-	//restore io?
+		close(fd[0]); //read end
+		dup2(fd[1], STDOUT_FILENO);
+		execute(command, position, data);
 	}
-	/*else
-		{
-		pipex_builtins
-		builtins();
-		//restore io?
-		}*/
+	else
+	{
+		close(fd[1]); //write end
+		dup2(fd[0], STDIN_FILENO);
+		waitpid(pid, NULL, 0);
+	}
 }
 
-void exe(t_data *data)
+void	ft_executor_binary(t_data *data)
 {
-	int i;
+	int		i;
+	//pid_t	pid;
 
 	i = 0;
-	while (data->commands[i] != NULL)
+	if (data->infile != - 1)
 	{
-		execute(data->commands, i, data);
+		printf("we are inside infile redirection\n");
+		dup2(data->infile, STDIN_FILENO);
+		close(data->infile);
+	}
+	while (i < data->last_command)
+	{
+		printf("we are inside child loop\n");
+		child(data->commands[i], i, data); // v tuto chvili rozhodnout zda-li exe nebo builtin
 		i++;
 	}
+	if (data->outfile[0] != -1)
+	{
+		printf("we are inside outfile redirection\n");
+		dup2(data->outfile[0], STDOUT_FILENO);
+		close(data->outfile[0]);
+	}
+	// v tuto chvili rozhodnout zda-li exe nebo builtin
+	/*pid = fork();
+	if (pid == -1)
+	{
+		// Handle fork error
+		perror("fork");
+		exit(1);
+	}
+	else if (pid == 0) Je treba pak vratit STDIN a STDOUT aby fungoval dal program */
+	execute(data->commands[data->last_command], data->last_command, data);
+	//free_args(data->args);
 }

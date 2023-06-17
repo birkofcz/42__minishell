@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/15 16:13:40 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/17 18:05:58 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,16 @@ void	ft_export(char **words);
 void	ft_unset(char **words);
 
 /*executor_binary.c*/
-void exe(t_data *data);
+void	ft_executor_binary(t_data *data);
 void	executor_experim(t_data *data);
+void	ft_executor_binary_exp(t_data *data);
 
 /* executor.c */
 void	ft_executor(char **words, t_data *data);
 
 /* utils.c*/
 int	commands_counting(char **words);
-void 	free_args(char **args);
-
+void 	free_split(char **args);
+void 	free_args(char ***args);
 
 #endif

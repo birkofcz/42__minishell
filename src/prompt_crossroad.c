@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 13:40:19 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/15 16:13:05 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/17 18:04:26 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -364,6 +364,6 @@ int	ft_prompt_crossroad(const char *input, t_data *data)
 	else if (ft_strncmp(words[0], "exit", ft_strlen("exit") + 1) == 0)
 		return (free_args(words),0);
 	else*/
-	executor_experim(data);
-	return (free_args(words), 1);
+	ft_executor_binary(data);
+	return (free_split(words), 1);
 }
