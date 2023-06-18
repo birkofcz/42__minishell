@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:53:38 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/16 16:18:28 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/18 13:10:21 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	ft_exec_simple(char *command, int command_group, t_data *data)
 		ft_exe_builtin(command, command_group, data, 1);
 }
 
-void	ft_exe_redir(char *command, int command_group, t_data *data)
+/* void	ft_exe_redir(char *command, int command_group, t_data *data)
 {
 	int	i;
 
@@ -93,9 +93,9 @@ void	ft_exe_redir(char *command, int command_group, t_data *data)
 		ft_exe_builtin(command, command_group, data, data->outfile[i]);
 	}
 }
+ */
 
-
-void	ft_exec_multiple(char *command, int command_group, t_data *data)
+/* void	ft_exec_multiple(char *command, int command_group, t_data *data)
 {
 	int	i;
 
@@ -107,7 +107,7 @@ void	ft_exec_multiple(char *command, int command_group, t_data *data)
 			ft_exe_redir(command, command_group, data);
 
 	}
-}
+} */
 
 void	exe(t_data *data)
 {
@@ -122,10 +122,11 @@ void	exe(t_data *data)
 	printf("TEST1: number of commands: %d\n", count);
 	if (count == 1 && !data->redirs[0])
 		ft_exec_simple(data->commands[i], i, data);
-	else if (count == 1 && data->redirs[0])
+	while (data->redirs[i])
 	{
-		while (data->commands[i])
-			ft_exec_multiple(data->commands[i], i, data);
+		if (ft_strncmp(data->redirs[i], "<<", ft_strlen("<<")))
+			ft_heredoc(data->args[0][0]);
+		i++;
 	}
 
 }

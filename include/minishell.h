@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/16 16:40:30 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/18 13:10:48 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_data
 	char ***args;
 	int 	infile; //fd infilu
 	char **redirs; 
-	char ***redirections;
+	//char ***redirections;
 	int	*outfile;
 	int	outfile_count; //file descriptor outfilu
 	int saved_stdin;
@@ -96,6 +96,11 @@ void exe(t_data *data);
 
 /* executor.c */
 void	ft_executor(char **words, t_data *data);
+
+/* heredoc.c */
+void	ft_heredoc(char *delimiter);
+
+
 
 /* utils.c*/
 int	commands_counting(char **words);

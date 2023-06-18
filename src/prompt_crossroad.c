@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 13:40:19 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/16 17:11:11 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/18 13:54:40 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,78 +268,13 @@ void	tokenize_outfile(char **words, t_data *data)
 	data->outfile = outfile;
 	data->outfile_count = count;
 }
-/* Zkousim jiny zpusob - redirs into ***array to have it connected to commands */
-/* void	ft_tokenize_redirections(char **words, t_data *data)
-{
-	int	i;
-	
 
-	i = 0;
-	while (words[i])
-	{
-
-	}
-}
- */
-
-void ft_tokenize_redirections(char **words, t_data *data)
-{
-	int i = 0;
-	int j = 0; // for redirection index
-	int pipe_count; // to keep track of command groups (split by '|')
-	int command_group;
-
-	// je potreba dokoncit - spocitat redirections pred pipe/za pipe/mezi pipes
-	// kolik pipes, tolik +1 command groups
-	// zapsat pipes do command groups *redurections[command_group][redir_index];
-	
-	while (words[i])
-	{
-		if (is_redir(words[i]) == 1)
-		if (ft_strncmp(words[i], PIPE, ft_strlen(PIPE)) == 0)
-			pipe_count++;
-		i++;
-	}
-	data->redirections = (char ***)malloc(sizeof(char **) * (pipe_count + 2));
-	i = 0;
-	command_group = pipe_count - pipe_count;
-	while (words[i])
-	{
-		data->redirections[command_group] = (char **)malloc(sizeof(char *) * (data->redir_count
-		while (words[i] && strcmp(words[i], "|") != 0)
-		{
-			// Check if word is a redirection
-			if (is_redirection(words[i]))
-			{
-				data->redirections[command_group][j] = ft_strdup(words[i]);
-				j++;
-			}
-			i++;
-		
-		}
-
-		// Terminate redirections for the command group
-		data->redirections[command_group][j] = NULL;
-
-		if (words[i])
-		{
-			// If we hit a pipe, move to the next command group
-			command_group++;
-			j = 0;  // reset redirection index for the new command group
-			i++;    // skip the pipe
-		}
-	}
-
-	// Mark the end of redirection groups
-	data->redirections[command_group] = NULL;
-}
 
 
 void	lexer(char **words, t_data *data)
 {
 	//tokenize_redir(words, data);
 	tokenize_command(words, data);
-	ft_tokenize_redirections(words, data);
 	int i = 0;
 	while (data->commands[i])
 	{
