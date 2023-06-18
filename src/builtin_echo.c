@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 15:07:25 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/10 11:23:58 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/16 15:37:42 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,47 +116,47 @@ void	ft_echo_expander(char *word, int fd)
 		write(fd, word, ft_strlen(word));
 }
 
-void	ft_echoprint(char **words, int i, int fd)
+void	ft_echoprint(char **args, int i, int fd)
 {
-	while (words[i] != NULL)
+	while (args[i] != NULL)
 	{
-		//POZOR, strtrim alokuje novy string, stare words[i] je treba uvolnit free
+		//POZOR, strtrim alokuje novy string, stare args[i] je treba uvolnit free
 		//Taking care of various cases with $ sign + error management
-		if (words[i][0] == '{' && words[i][ft_strlen(words[i]) -1 ] == '}')
-			ft_echo_expander(words[i], fd);
-		else if (words[i][0] == '$')
+		if (args[i][0] == '{' && args[i][ft_strlen(args[i]) -1 ] == '}')
+			ft_echo_expander(args[i], fd);
+		else if (args[i][0] == '$')
 		{
-			if (words[i][1] != '\0' && (getenv(&words[i][i]) != NULL))
-				write(fd, getenv(&words[i][1]), ft_strlen(getenv(&words[i][1])));
-			else if (words[i][1] != '\0' && !(getenv(&words[i][1])))
+			if (args[i][1] != '\0' && (getenv(&args[i][i]) != NULL))
+				write(fd, getenv(&args[i][1]), ft_strlen(getenv(&args[i][1])));
+			else if (args[i][1] != '\0' && !(getenv(&args[i][1])))
 				break ;
 			else
 				write(fd, "$", 1);
 		}
 		//else printing word
 		else
-			write(fd, words[i], ft_strlen(words[i]));
-		if (words[i + 1] != NULL)
+			write(fd, args[i], ft_strlen(args[i]));
+		if (args[i + 1] != NULL)
 			write(fd, " ", 1);
 		i++;
 	}
 }
 
-void	ft_echo(char **words, int fd)
+void	ft_echo(char **args, int fd)
 {
-	if (!words[1])
+	if (!args[0])
 		write(fd, "\n", 1);
-	else if (ft_strncmp(words[1], "-n", ft_strlen(words[1])) == 0)
-		ft_echoprint(words, 2, fd);
+	else if (ft_strncmp(args[0], "-n", ft_strlen(args[0])) == 0)
+		ft_echoprint(args, 1, fd);
 	else
 	{
-		ft_echoprint(words, 1, fd);
+		ft_echoprint(args, 0, fd);
 		write(fd, "\n", 1);
 	}
 }
 
 /* EXECVE version */
-/* void	ft_echo(char **words, int fd)
+/* void	ft_echo(char **args, int fd)
 {
 	(void)fd;
 	int pid = fork();
@@ -167,7 +167,7 @@ void	ft_echo(char **words, int fd)
 	}
 	if (pid == 0)
 	{
-		execve("/usr/bin/echo", words, NULL);
+		execve("/usr/bin/echo", args, NULL);
 		printf("Failed to execute execve.\n");
 		exit(1);
 	}

@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/17 18:05:58 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/18 13:10:48 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@
 # define BC "\033[96m"
 # define RES "\033[0m"
 
+/* Redirs macros */
+# define OUTFILE ">"
+# define INFILE "<"
+# define PIPE "|"
+# define HEREDOC "<<"
+
 /* constants*/
 # define MAX_PATH_LENGTH 1024	
 
@@ -40,6 +46,7 @@ typedef struct s_data
 	char ***args;
 	int 	infile; //fd infilu
 	char **redirs; 
+	//char ***redirections;
 	int	*outfile;
 	int	outfile_count; //file descriptor outfilu
 	int saved_stdin;
@@ -91,6 +98,9 @@ void	ft_executor_binary_exp(t_data *data);
 
 /* executor.c */
 void	ft_executor(char **words, t_data *data);
+
+/* heredoc.c */
+void	ft_heredoc(char *delimiter);
 
 /* utils.c*/
 int	commands_counting(char **words);

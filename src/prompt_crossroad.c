@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 13:40:19 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/17 18:04:26 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/18 13:54:40 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,9 +269,11 @@ void	tokenize_outfile(char **words, t_data *data)
 	data->outfile_count = count;
 }
 
+
+
 void	lexer(char **words, t_data *data)
 {
-	tokenize_redir(words, data);
+	//tokenize_redir(words, data);
 	tokenize_command(words, data);
 	int i = 0;
 	while (data->commands[i])
