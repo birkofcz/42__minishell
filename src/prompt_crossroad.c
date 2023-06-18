@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_crossroad.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 13:40:19 by sbenes            #+#    #+#             */
 /*   Updated: 2023/06/18 13:54:40 by sbenes           ###   ########.fr       */
@@ -366,6 +366,6 @@ int	ft_prompt_crossroad(const char *input, t_data *data)
 	else if (ft_strncmp(words[0], "exit", ft_strlen("exit") + 1) == 0)
 		return (free_args(words),0);
 	else*/
-	exe(data);
-	return (free_args(words), 1);
+	ft_executor_binary(data);
+	return (free_split(words), 1);
 }

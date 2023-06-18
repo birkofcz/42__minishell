@@ -27,7 +27,27 @@ int	commands_counting(char **words)
     return (count);
 }
 
-void free_args(char **args)
+void	free_args(char ***args)
+{
+	int i;
+	int j;
+	
+	i = 0;
+    while (args[i] != NULL)
+	{
+        j = 0;
+        while (args[i][j] != NULL)
+		{
+            free(args[i][j]);
+            j++;
+        }
+        free(args[i]);
+        i++;
+    }
+    free(args);
+}
+
+void	free_split(char **args)
 {
     int i;
 

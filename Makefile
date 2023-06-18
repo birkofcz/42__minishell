@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+         #
+#    By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/26 16:36:32 by sbenes            #+#    #+#              #
 #    Updated: 2023/06/18 12:42:30 by sbenes           ###   ########.fr        #
