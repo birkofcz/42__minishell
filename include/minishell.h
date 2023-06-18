@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/04 16:00:24 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/17 18:05:58 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,18 @@
 typedef struct s_data
 {
 	char **commands; // builtins
+	int	last_command;
 	char **execs; // executable
 	char ***args;
 	int 	infile; //fd infilu
 	char **redirs; 
 	int	*outfile;
 	int	outfile_count; //file descriptor outfilu
+	int saved_stdin;
+	int	saved_stdout;
+	int	outflag;
+	int inflag;
+
 }	t_data;
 
 /* Environmental variables storage */
@@ -78,12 +84,17 @@ void	ft_export(char **words);
 /* builtin_unset.c */
 void	ft_unset(char **words);
 
+/*executor_binary.c*/
+void	ft_executor_binary(t_data *data);
+void	executor_experim(t_data *data);
+void	ft_executor_binary_exp(t_data *data);
+
 /* executor.c */
-void	ft_executor(char **words);
+void	ft_executor(char **words, t_data *data);
 
 /* utils.c*/
-int		word_counting(char **words);
-void 	free_args(char **args);
-
+int	commands_counting(char **words);
+void 	free_split(char **args);
+void 	free_args(char ***args);
 
 #endif
