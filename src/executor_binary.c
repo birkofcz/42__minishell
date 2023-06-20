@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_binary.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 14:28:32 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/15 15:53:33 by sbenes           ###   ########.fr       */
+/*   Created: 2023/06/17 15:11:12 by tkajanek          #+#    #+#             */
+/*   Updated: 2023/06/20 16:40:08 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,13 @@ void	child(char *command, int position, t_data *data)
 void	ft_executor_binary(t_data *data)
 {
 	int		i;
-	//pid_t	pid;
+	pid_t	pid;
+	int saved_stdin;
+	int saved_stdout;
 
 	i = 0;
+	saved_stdin = dup(STDIN_FILENO);
+	saved_stdout = dup(STDOUT_FILENO);
 	if (data->infile != - 1)
 	{
 		printf("we are inside infile redirection\n");
@@ -59,24 +63,35 @@ void	ft_executor_binary(t_data *data)
 	while (i < data->last_command)
 	{
 		printf("we are inside child loop\n");
+		access(data->commands[i], X_OK);
 		child(data->commands[i], i, data); // v tuto chvili rozhodnout zda-li exe nebo builtin
 		i++;
 	}
-	if (data->outfile[0] != -1)
+	i = 0;
+	if (data->outfile != NULL)
 	{
 		printf("we are inside outfile redirection\n");
-		dup2(data->outfile[0], STDOUT_FILENO);
-		close(data->outfile[0]);
+		dup2(data->outfile[i], STDOUT_FILENO);
+		close(data->outfile[i]);
 	}
 	// v tuto chvili rozhodnout zda-li exe nebo builtin
-	/*pid = fork();
+	pid = fork();
 	if (pid == -1)
 	{
 		// Handle fork error
 		perror("fork");
 		exit(1);
 	}
-	else if (pid == 0) Je treba pak vratit STDIN a STDOUT aby fungoval dal program */
-	execute(data->commands[data->last_command], data->last_command, data);
-	//free_args(data->args);
+	else if (pid == 0)
+		execute(data->commands[data->last_command], data->last_command, data);
+	else
+		waitpid(pid, NULL, 0);
+	dup2(saved_stdout,STDOUT_FILENO);
+	dup2(saved_stdin,STDIN_FILENO);
+	close(saved_stdin);
+	close(saved_stdout);
+	free_command_table(data);
 }
+//outfiles : prvni udelat normalne,
+//druhy a x-ty pouze kopirovat-(zachovat adresu/filename + OREADONLY)
+//outfile mame

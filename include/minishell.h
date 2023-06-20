@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/18 13:10:48 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/20 14:54:46 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,17 @@
 /* Structs and typedefs */
 typedef struct s_data
 {
-	char **commands; // builtins
+	char **commands; //alocated
 	int	last_command;
-	char **execs; // executable
-	char ***args;
+	char ***args; //alocated
 	int 	infile; //fd infilu
+	char * delimiter; //alocated
 	char **redirs; 
 	//char ***redirections;
-	int	*outfile;
-	int	outfile_count; //file descriptor outfilu
+	int	*outfile;//allocated
+	int	outfile_count;
 	int saved_stdin;
 	int	saved_stdout;
-	int	outflag;
-	int inflag;
-
 }	t_data;
 
 /* Environmental variables storage */
@@ -63,12 +60,23 @@ extern char **environ;
 
 /* prompt_crossroad.c */
 int	ft_prompt_crossroad(const char *input, t_data *data);
+int	is_redir(char *word);
 
 /* parsing_quotes_env_vars.c */
 char *prepare_quoted_string(const char *input);
 char **parse_double_quated_strings(char **words);
 char **replace_env_var_nonquated (char **words);
 char	*dollar_check(char *word);
+
+ /* in_outfiles.c */
+void	tokenize_outfile(char **words, t_data *data);
+void	tokenize_infile_heredoc(char **words, t_data *data);
+
+/* tokenize_commands_args.c */
+int	is_command(char *word);
+int	args_counter(char **words, int i);
+void	tokenize_arg(char **words, t_data *data, int count);
+void	tokenize_command(char **words, t_data *data);
 
 /* builtins_pwd_cd.c */
 //void	ft_pwd(t_env *env, int words_count);
@@ -106,5 +114,6 @@ void	ft_heredoc(char *delimiter);
 int	commands_counting(char **words);
 void 	free_split(char **args);
 void 	free_args(char ***args);
+void	free_command_table(t_data *data);
 
 #endif
