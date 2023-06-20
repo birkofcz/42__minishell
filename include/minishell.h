@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/20 14:54:46 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/20 17:00:51 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,6 @@
 # define BG "\033[92m"
 # define BC "\033[96m"
 # define RES "\033[0m"
-
-/* Redirs macros */
-# define OUTFILE ">"
-# define INFILE "<"
-# define PIPE "|"
-# define HEREDOC "<<"
 
 /* constants*/
 # define MAX_PATH_LENGTH 1024	
@@ -110,10 +104,13 @@ void	ft_executor(char **words, t_data *data);
 /* heredoc.c */
 void	ft_heredoc(char *delimiter);
 
+/* command_check.c */
+void	ft_command_check(char **commands);
+
 /* utils.c*/
-int	commands_counting(char **words);
-void 	free_split(char **args);
-void 	free_args(char ***args);
+int		commands_counting(char **words);
+void	free_split(char **args);
+void	free_args(char ***args);
 void	free_command_table(t_data *data);
 
 #endif
