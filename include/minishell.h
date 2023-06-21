@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/21 14:22:31 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/21 14:45:38 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ typedef struct s_data
 }	t_data;
 
 /* Environmental variables storage */
-extern char **environ;
+extern char	**environ;
+
+/* global var for exit status storage */
+int	g_exit_status;
 
 /* Functions by files */
 

@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:44:40 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/21 14:25:01 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/21 14:26:32 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ bool	ft_isnopathx(char *command)
 		with_slash = ft_strjoin(paths[i], "/");
 		path = ft_strjoin(with_slash, command);
 		free(with_slash);
-		if (access(path, F_OK) == 0)
+		if (access(path, X_OK) == 0)
 			return (true);
 		free(path);
 		i++;
@@ -89,7 +89,7 @@ char	*ft_return_path(char *command)
 		with_slash = ft_strjoin(paths[i], "/");
 		path = ft_strjoin(with_slash, command);
 		free(with_slash);
-		if (access(path, F_OK) == 0)
+		if (access(path, X_OK) == 0)
 			return (path);
 		free(path);
 		i++;
