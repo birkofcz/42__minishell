@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/20 14:54:46 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/21 14:45:38 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include <stdbool.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -27,12 +28,6 @@
 # define BG "\033[92m"
 # define BC "\033[96m"
 # define RES "\033[0m"
-
-/* Redirs macros */
-# define OUTFILE ">"
-# define INFILE "<"
-# define PIPE "|"
-# define HEREDOC "<<"
 
 /* constants*/
 # define MAX_PATH_LENGTH 1024	
@@ -54,7 +49,10 @@ typedef struct s_data
 }	t_data;
 
 /* Environmental variables storage */
-extern char **environ;
+extern char	**environ;
+
+/* global var for exit status storage */
+int	g_exit_status;
 
 /* Functions by files */
 
@@ -110,10 +108,17 @@ void	ft_executor(char **words, t_data *data);
 /* heredoc.c */
 void	ft_heredoc(char *delimiter);
 
+/* command_check.c */
+bool	ft_is_builtin(char *command);
+bool	ft_is_pathx(char *command);
+bool	ft_isnopathx(char *command);
+char	*ft_return_path(char *command);
+void	ft_command_check(t_data *data);
+
 /* utils.c*/
-int	commands_counting(char **words);
-void 	free_split(char **args);
-void 	free_args(char ***args);
+int		commands_counting(char **words);
+void	free_split(char **args);
+void	free_args(char ***args);
 void	free_command_table(t_data *data);
 
 #endif
