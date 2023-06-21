@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 13:40:19 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/20 16:40:06 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:30:04 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,8 @@ char	**destroy_redirections(char **words)
 void	lexer(char **words, t_data *data)
 {
 	//tokenize_redir(words, data);
-	tokenize_command(words, data);
+	
 	int i = 0;
-	while (data->commands[i])
-	{
-        printf("commands[%d] :%s\n",i, data->commands[i]);
-		i++;
-    }
 	/*i = 0;
 	while (data->args[0][i])
 	{
@@ -126,23 +121,27 @@ void	lexer(char **words, t_data *data)
 	tokenize_outfile(words, data);
 	tokenize_infile_heredoc(words, data);
 	i = 0;
-    while (words[i] != NULL)
+    /*while (words[i] != NULL)
 	{
         printf("words pred cistkou: %s\n", words[i]);
         i++;
-    }
+    }*/
 	words = destroy_redirections(words);
-	i = 0;
+	/*i = 0;
     while (words[i] != NULL)
 	{
-        printf("words po cistkou:%s\n", words[i]);
+        printf("words po cistce:%s\n", words[i]);
         i++;
-    }
+    }*/
+	tokenize_command(words, data);
+	
+	i = 0;
+	
 	printf("infile fd = %d\n", data->infile);
 	printf("outfile count = %d, fd[0]= %d, fd[1] = %d\n", data->outfile_count, data->outfile[0], data->outfile[1]);
 	write(1, "test lexer\n", 11);
 	//printf("infile : %d, outfile[0] = %d, outfile[1] = %d, outfile count = %d\n", data->infile, data->outfile[0], data->outfile[1], data->outfile_count);
-	//free_split(words);
+	free_split(words);
 }
 
 int	ft_prompt_crossroad(const char *input, t_data *data)
