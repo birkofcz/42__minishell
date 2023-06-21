@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 13:40:19 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/21 16:30:04 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:10:53 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ void	lexer(char **words, t_data *data)
     }*/
 	tokenize_outfile(words, data);
 	tokenize_infile_heredoc(words, data);
-	i = 0;
     /*while (words[i] != NULL)
 	{
         printf("words pred cistkou: %s\n", words[i]);
@@ -134,9 +133,13 @@ void	lexer(char **words, t_data *data)
         i++;
     }*/
 	tokenize_command(words, data);
-	
+	ft_command_check(data);
 	i = 0;
-	
+	while (data->commands[i])
+	{
+        printf("after check commands[%d] :%s\n",i, data->commands[i]);
+		i++;
+    }
 	printf("infile fd = %d\n", data->infile);
 	printf("outfile count = %d, fd[0]= %d, fd[1] = %d\n", data->outfile_count, data->outfile[0], data->outfile[1]);
 	write(1, "test lexer\n", 11);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/21 16:46:52 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:14:32 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <stdbool.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <stdbool.h>
 
 /* Colors for program */
 # define BG "\033[92m"
@@ -53,7 +52,7 @@ typedef struct s_data
 extern char	**environ;
 
 /* global var for exit status storage */
-int	g_exit_status;
+//int	g_exit_status;
 
 /* Functions by files */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:44:40 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/21 14:26:32 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/21 17:43:55 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ char	*ft_return_path(char *command)
 	while (paths[++i])
 		free(paths[i]);
 	free(paths);
+	return (NULL);
 }
 
 void	ft_command_check(t_data *data)
@@ -109,11 +110,16 @@ void	ft_command_check(t_data *data)
 	{
 		if (ft_is_builtin(data->commands[i]) == true)
 			i++;
-		if (ft_is_pathexec(data->commands[i]) == true)
+		if (ft_is_pathx(data->commands[i]) == true)
 			i++;
-		else if (ft_is_nopathx(data->commands[i]) == true)
+		else if (ft_isnopathx(data->commands[i]) == true)
 			data->commands[i] = ft_strdup(ft_return_path(data->commands[i]));
 		else
-			data->commands[i] = NULL;
+		{
+			write(2, "minishell: Command not found: ", 31);
+			write(2, data->commands[i], ft_strlen(data->commands[i]));
+			write(2, "\n", 1);
+			break ;
+		}
 	}
 }

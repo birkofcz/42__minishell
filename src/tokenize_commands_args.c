@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 15:22:21 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/21 17:01:48 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:10:55 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ void	tokenize_command(char **words, t_data *data)
 	i = 0;
 	while (commands[i])
 	{
-        printf("commands[%d] :%s\n",i, commands[i]);
+        printf("commands pred checkem[%d] :%s\n",i, commands[i]);
 		i++;
     }
 	tokenize_arg(words, data, count);

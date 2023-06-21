@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 15:07:25 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/21 14:50:02 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/21 17:15:49 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,8 @@ void	ft_echoprint(char **args, int i, int fd)
 			if (args[i][1] != '\0' && (getenv(&args[i][i]) != NULL))
 				write(fd, getenv(&args[i][1]), ft_strlen(getenv(&args[i][1])));
 			// LAST EXIT STATUS FOR ECHO $?
-			else if (args[i][1] == '?' && args[i][2] == '\0')
-				write(fd, ft_itoa(g_exit_status), ft_strlen(ft_itoa(g_exit_status)));
+			/*else if (args[i][1] == '?' && args[i][2] == '\0')
+				write(fd, ft_itoa(g_exit_status), ft_strlen(ft_itoa(g_exit_status)));*/
 			else if (args[i][1] != '\0' && !(getenv(&args[i][1])))
 				break ;
 			else
