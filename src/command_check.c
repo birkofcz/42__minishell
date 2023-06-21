@@ -6,64 +6,114 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:44:40 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/20 17:23:16 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/21 14:25:01 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_is_builtin(char *command)
+bool	ft_is_builtin(char *command)
 {
-	//otestuje, zda je command builtin.
 	if (ft_strncmp(command, "echo", ft_strlen("echo") + 1) == 0)
-		return (0);
+		return (true);
 	else if (ft_strncmp(command, "pwd", ft_strlen("pwd") + 1) == 0)
-		return (0);
+		return (true);
 	else if (ft_strncmp(command, "cd", ft_strlen("cd") + 1) == 0)
-		return (0);
+		return (true);
 	else if (ft_strncmp(command, "env", ft_strlen("env") + 1) == 0)
-		return (0);
+		return (true);
 	else if (ft_strncmp(command, "export", ft_strlen("export") + 1) == 0)
-		return (0);
+		return (true);
 	else if (ft_strncmp(command, "unset", ft_strlen("unset") + 1) == 0)
-		return (0);
+		return (true);
 	else if (ft_strncmp(command, "exit", ft_strlen("exit") + 1) == 0)
-		return (0);
+		return (true);
 	else
-		return (1);
+		return (false);
 }
 
-int	ft_is_pathexec(char *command)
+bool	ft_is_pathx(char *command)
 {
-	//otestuje, zda jde o command s cestou
 	int	test;
 
 	test = access(command, X_OK);
 	if (test == 0)
-		return (0);
+		return (true);
 	else
-		return (1);
+		return (false);
 }
 
-int	ft_is_nopathexec(char *command);
+bool	ft_isnopathx(char *command)
 {
-	
+	char	**paths;
+	char	*path;
+	char	*with_slash;
+	int		i;
+
+	i = 0;
+	while (ft_strnstr(environ[i], "PATH", 4) == 0)
+		i++;
+	paths = ft_split(environ[i] + 5, ':');
+	i = 0;
+	while (paths[i] != NULL)
+	{
+		with_slash = ft_strjoin(paths[i], "/");
+		path = ft_strjoin(with_slash, command);
+		free(with_slash);
+		if (access(path, F_OK) == 0)
+			return (true);
+		free(path);
+		i++;
+	}
+	i = -1;
+	while (paths[++i])
+		free(paths[i]);
+	free(paths);
+	return (false);
 }
 
-char	*ft_return_path(char *command);
-//vraci cestu ke commandu, kterou nasel.
+char	*ft_return_path(char *command)
+{
+	char	**paths;
+	char	*path;
+	char	*with_slash;
+	int		i;
 
-void	ft_command_check(char **commands)
-/* 
-vezme command table, projde commandy, vrati upravy command table:
-pokud neni builtin a pokud to neni executable path, zacne to hledat v $PATH.
-Pokud najde, upravi command table - na spravne misto zapise nalezeny executable jako cestu (pouzitelnou pro execve).
-Predpokladame, ze v command table uz jsou je executable.
+	i = 0;
+	while (ft_strnstr(environ[i], "PATH", 4) == 0)
+		i++;
+	paths = ft_split(environ[i] + 5, ':');
+	i = 0;
+	while (paths[i] != NULL)
+	{
+		with_slash = ft_strjoin(paths[i], "/");
+		path = ft_strjoin(with_slash, command);
+		free(with_slash);
+		if (access(path, F_OK) == 0)
+			return (path);
+		free(path);
+		i++;
+	}
+	i = -1;
+	while (paths[++i])
+		free(paths[i]);
+	free(paths);
+}
+
+void	ft_command_check(t_data *data)
+{
 	int	i;
 
 	i = 0;
 	while (data->commands[i] != NULL)
 	{
-
+		if (ft_is_builtin(data->commands[i]) == true)
+			i++;
+		if (ft_is_pathexec(data->commands[i]) == true)
+			i++;
+		else if (ft_is_nopathx(data->commands[i]) == true)
+			data->commands[i] = ft_strdup(ft_return_path(data->commands[i]));
+		else
+			data->commands[i] = NULL;
 	}
- */
+}
