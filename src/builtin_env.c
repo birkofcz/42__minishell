@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:18:18 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/11 11:40:11 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/22 16:32:22 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ FT_ENV - to printout environmental variables - or write them in the file
 variable in C. That is defined as extern char **environ - global var 
 in header file*/
 
-void	ft_env(int fd)
+void	ft_env(void)
 {
 	int	i;
 
@@ -31,8 +31,8 @@ void	ft_env(int fd)
 	{
 		if (environ[i][0] != '?' && environ[i][0] != '-')
 		{
-			write(fd, environ[i], ft_strlen(environ[i]));
-			write(fd, "\n", 1);
+			write(1, environ[i], ft_strlen(environ[i]));
+			write(1, "\n", 1);
 		}
 		i++;
 	}

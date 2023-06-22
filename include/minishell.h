@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/22 15:30:38 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:31:58 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,11 @@ void	tokenize_command(char **words, t_data *data);
 //void	ft_cd(t_env *env, char **arg, int words_count);
 
 /* buldin_echo.c */
-void	ft_echo(char **words, int fd);
-void	ft_echoprint(char **words, int i, int fd);
+void	ft_echo(char **args);
+void	ft_echoprint(char **words, int i);
 
 /* builtin_env.c */
-void	ft_env(int fd);
+void	ft_env(void);
 
 /* builtin_export.c */
 int		ft_checkforexisting(char *var);
@@ -95,6 +95,7 @@ void	ft_export(char **words);
 
 /* builtin_unset.c */
 void	ft_unset(char **words);
+
 
 /*executor_binary.c*/
 void	ft_executor_binary(t_data *data);
@@ -113,6 +114,10 @@ bool	ft_is_pathx(char *command);
 bool	ft_isnopathx(char *command);
 char	*ft_return_path(char *command);
 void	ft_command_check(t_data *data);
+
+/* executor_builtin.c */
+void	builtin_redirection(char *command, char **args);
+
 
 /* utils.c*/
 int		commands_counting(char **words);

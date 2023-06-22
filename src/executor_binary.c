@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_binary.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:11:12 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/22 15:55:51 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:48:36 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 void	execute(char *command, int position, t_data *data)
 {
 	char *args_execve[] = {data->commands[position], *data->args[position], NULL};
-	if (ft_is_builtin)
-		builtin_redirection(command,args_execve);
+
+	if (ft_is_builtin(command) == true)
+		builtin_redirection(command, args_execve);
 	else
-		execve(command,args_execve, environ);
+		execve(command, args_execve, environ);
 }
 
 void	child(char *command, int position, t_data *data)
