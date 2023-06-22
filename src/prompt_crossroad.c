@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 13:40:19 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/21 17:10:53 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:34:33 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void	lexer(char **words, t_data *data)
 		i++;
     }
 	printf("infile fd = %d\n", data->infile);
-	printf("outfile count = %d, fd[0]= %d, fd[1] = %d\n", data->outfile_count, data->outfile[0], data->outfile[1]);
+	printf("outfile fd = %d\n", data->outfile);
 	write(1, "test lexer\n", 11);
 	//printf("infile : %d, outfile[0] = %d, outfile[1] = %d, outfile count = %d\n", data->infile, data->outfile[0], data->outfile[1], data->outfile_count);
 	free_split(words);

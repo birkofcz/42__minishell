@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:11:12 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/21 17:43:51 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:55:51 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 void	execute(char *command, int position, t_data *data)
 {
 	char *args_execve[] = {data->commands[position], *data->args[position], NULL};
-	execve(command,args_execve, environ);
+	if (ft_is_builtin)
+		builtin_redirection(command,args_execve);
+	else
+		execve(command,args_execve, environ);
 }
 
 void	child(char *command, int position, t_data *data)
@@ -68,11 +71,11 @@ void	ft_executor_binary(t_data *data)
 		i++;
 	}
 	i = 0;
-	if (data->outfile != NULL)
+	if (data->outfile != -1)
 	{
 		printf("we are inside outfile redirection\n");
-		dup2(data->outfile[i], STDOUT_FILENO);
-		close(data->outfile[i]);
+		dup2(data->outfile, STDOUT_FILENO);
+		close(data->outfile);
 	}
 	// v tuto chvili rozhodnout zda-li exe nebo builtin
 	pid = fork();

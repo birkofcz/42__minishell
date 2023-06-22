@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/21 17:14:32 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:30:38 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ typedef struct s_data
 	char * delimiter; //alocated
 	char **redirs; 
 	//char ***redirections;
-	int	*outfile;//allocated
-	int	outfile_count;
+	int	outfile;
 	int saved_stdin;
 	int	saved_stdout;
 }	t_data;

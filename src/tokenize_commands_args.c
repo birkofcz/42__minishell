@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 15:22:21 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/21 17:10:55 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:39:57 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ void	tokenize_command(char **words, t_data *data)
 	{
 		while (words[i] != NULL)
 		{
-			write(1, "test1\n", 7);
 			count++;
 			i++;
 			if (words[i] != NULL)
@@ -128,7 +127,6 @@ void	tokenize_command(char **words, t_data *data)
 				}
 		}
 	}
-	printf ("command count = %d", count);
 	commands = (char **)malloc(sizeof(char *) * (count + 1));
 	i = 0;
 	j = 0;
@@ -136,7 +134,6 @@ void	tokenize_command(char **words, t_data *data)
 	{
 		while (words[i] != NULL)
 		{
-			write(1, "test2\n", 7);
 			commands[j++] = ft_strdup(words[i++]);
 			if (words[i] != NULL)
 				{
@@ -172,7 +169,6 @@ void	tokenize_command(char **words, t_data *data)
 	data->commands = commands;
 	i = 0;*/
 	data->commands = commands;
-	write(1, "test_konec\n", 12);
 	i = 0;
 	while (commands[i])
 	{

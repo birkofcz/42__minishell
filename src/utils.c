@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 18:05:14 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/20 15:10:29 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:30:51 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ int	commands_counting(char **words)
 }
 void	free_command_table(t_data *data)
 {
-	if (data->outfile != NULL)
-		free(data->outfile);
+
 	//write(1, "test before args free\n", 23);
 	//free_args(data->args);
 	//write(1, "test before commands free\n", 27);

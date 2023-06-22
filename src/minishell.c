@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:28:41 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/19 16:31:48 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:31:32 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@ void	ft_initialize_data(t_data *data)
 	data->last_command = 0;
 	data->args = NULL;
 	data->infile = -1; //fd infilu
-	data-> delimiter = NULL;
+	data->delimiter = NULL;
 	data->redirs = NULL; 
-	data->outfile = NULL;
-	data->outfile_count = 0; //file descriptor outfilu
+	data->outfile = -1;
 	//data->saved_stdin;
 	//data->saved_stdout;
 	//fill up the structure with usefull environmental variables
