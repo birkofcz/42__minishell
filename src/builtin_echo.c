@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 15:07:25 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/22 17:20:39 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/22 17:33:59 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,10 @@ void	ft_echo_expander(char *word)
 	//FREEEEEEEEEEEEEEEE NA SPLIT A TEMP!
 	if ((ft_strlen(split[0]) > 1) || ft_strlen(split[1]) > 1)
 	{
-		//NEPROJDE TIMTO IF - opravit
-		
-		if ((ft_isdigit(split[0][0]) && ft_isdigit(split[0][1])) && (ft_isdigit(split[1][0]) && ft_isdigit(split[1][1])) && dots == 2)
-		{
+		//NEPROJDE TIMTO IF - mela by testovat, zda jsou vsechno cisla, pokud ne, print word.Testuje jen jedno - asi samoistatna funkce na test?
+		//upravit ft_isdigit aby brala char**
+		if (ft_isdigit(split[0][0]) && ft_isdigit(split[1][0]) && dots == 2)
 			ft_write_expander_num(word);
-		}
 		else
 			write(1, word, ft_strlen(word));
 	}
