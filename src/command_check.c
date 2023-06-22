@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:44:40 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/21 14:26:32 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/21 15:29:32 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void	ft_command_check(t_data *data)
 		else if (ft_is_nopathx(data->commands[i]) == true)
 			data->commands[i] = ft_strdup(ft_return_path(data->commands[i]));
 		else
+		//tenhle pripad by mel koncit nejakym error message? 
 			data->commands[i] = NULL;
 	}
 }
