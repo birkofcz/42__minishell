@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/22 16:31:58 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/24 16:22:56 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,7 @@ int		commands_counting(char **words);
 void	free_split(char **args);
 void	free_args(char ***args);
 void	free_command_table(t_data *data);
+int		ft_isdigit_array(char **arg);
+
 
 #endif

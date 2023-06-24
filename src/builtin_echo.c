@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 15:07:25 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/22 17:33:59 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/24 17:44:42 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,19 @@ void	ft_write_expander_char(char *word)
 	}
 }
 
-void	ft_write_expander_num(char *word)
+void	ft_write_expander_num(char **splitted_args)
 {
 	int		start_int;
 	int		end_int;
-	char	*num_str;
-	char	**split;
-	char	*temp;
 
-	temp = ft_strtrim(word, "{}");
-	split = ft_split(temp, '.');
-	start_int = ft_atoi(split[0]);
-	end_int = ft_atoi(split[1]);
+	start_int = ft_atoi(splitted_args[0]);
+	end_int = ft_atoi(splitted_args[1]);
+	free_split(splitted_args);
 	if (start_int < end_int)
 	{
 		while (start_int <= end_int)
 		{
-			num_str = ft_itoa(start_int);
-			write(1, num_str, ft_strlen(num_str));
-			free(num_str);  // Remember to free the allocated string!
+			ft_putnbr_fd(start_int, 1);
 			if (start_int != end_int)
 				write(1, " ", 1);
 			start_int++;
@@ -69,9 +63,7 @@ void	ft_write_expander_num(char *word)
 	{
 		while (start_int >= end_int)
 		{
-			num_str = ft_itoa(start_int);
-			write(1, num_str, ft_strlen(num_str));
-			free(num_str);  // Remember to free the allocated string!
+			ft_putnbr_fd(start_int, 1);
 			if (start_int != end_int)
 				write(1, " ", 1);
 			start_int--;
@@ -79,37 +71,55 @@ void	ft_write_expander_num(char *word)
 	}
 }
 
+int	ft_count_spaces(char *arg)
+{
+	int	i;
+	int	spaces;
+
+	spaces = 0;
+	i = -1;
+	while (arg[++i] != '\0')
+	{
+		if (arg[i] == ' ')
+			spaces++;
+	}
+	return (spaces);
+}
+
+int	ft_count_dots(char *arg)
+{
+	int	i;
+	int	dots;
+
+	dots = 0;
+	i = -1;
+	while (arg[++i] != '\0')
+	{
+		if (arg[i] == '.')
+			dots++;	
+	}
+	return (dots);
+}
+
 void	ft_echo_expander(char *word)
 {
 	int		dots;
 	int		spaces;
-	int		i;
 	char	**split;
 	char	*temp;
 
-	dots = 0;
-	spaces = 0;
-	i = -1;
-	while (word[++i] != '\0')
-	{
-		if (word[i] == '.')
-			dots++;
-		else if (word[i] == ' ')
-			spaces++;
-	}
+	dots = ft_count_dots(word);
+	spaces = ft_count_spaces(word);
 	temp = ft_strtrim(word, "{}");
 	split = ft_split(temp, '.');
 	//FREEEEEEEEEEEEEEEE NA SPLIT A TEMP!
 	if ((ft_strlen(split[0]) > 1) || ft_strlen(split[1]) > 1)
 	{
-		//NEPROJDE TIMTO IF - mela by testovat, zda jsou vsechno cisla, pokud ne, print word.Testuje jen jedno - asi samoistatna funkce na test?
-		//upravit ft_isdigit aby brala char**
-		if (ft_isdigit(split[0][0]) && ft_isdigit(split[1][0]) && dots == 2)
-			ft_write_expander_num(word);
+		if ((ft_isdigit_array(split) == 0) && dots == 2)
+			ft_write_expander_num(split);
 		else
 			write(1, word, ft_strlen(word));
 	}
-	///TADY JE POTREBA UPRAVA NA PARSE ARGUMENTS = V PRIPADE { 1..6}, VRACI DVE SLOVA - { A 1..6}.
 	else if (spaces != 0)
 		write(1, "parse error\n", 13);
 	else if (dots == 2)
