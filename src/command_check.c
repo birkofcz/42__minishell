@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:44:40 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/21 17:43:55 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:41:27 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	ft_command_check(t_data *data)
 	{
 		if (ft_is_builtin(data->commands[i]) == true)
 			i++;
-		if (ft_is_pathx(data->commands[i]) == true)
+		else if (ft_is_pathx(data->commands[i]) == true)
 			i++;
 		else if (ft_isnopathx(data->commands[i]) == true)
 			data->commands[i] = ft_strdup(ft_return_path(data->commands[i]));

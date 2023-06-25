@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:11:12 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/22 15:55:51 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/25 15:21:31 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 void	execute(char *command, int position, t_data *data)
 {
-	char *args_execve[] = {data->commands[position], *data->args[position], NULL};
-	if (ft_is_builtin)
-		builtin_redirection(command,args_execve);
+	if (ft_is_builtin(command))
+		builtin_redirection(command,data->args[position]);
 	else
-		execve(command,args_execve, environ);
+		execve(command,data->args[position], environ);
 }
 
 void	child(char *command, int position, t_data *data)
@@ -78,17 +77,24 @@ void	ft_executor_binary(t_data *data)
 		close(data->outfile);
 	}
 	// v tuto chvili rozhodnout zda-li exe nebo builtin
-	pid = fork();
-	if (pid == -1)
-	{
-		// Handle fork error
-		perror("fork");
-		exit(1);
-	}
-	else if (pid == 0)
-		execute(data->commands[data->last_command], data->last_command, data);
+	if (ft_is_builtin(data->commands[data->last_command]))
+		{
+		builtin_nonfork_redirection(data->commands[data->last_command], data->args[i]);
+		}
 	else
-		waitpid(pid, NULL, 0);
+		{
+		pid = fork();
+		if (pid == -1)
+		{
+			// Handle fork error
+			perror("fork");
+			exit(1);
+		}
+		else if (pid == 0)
+			execute(data->commands[data->last_command], data->last_command, data);
+		else
+			waitpid(pid, NULL, 0);
+		}
 	dup2(saved_stdout,STDOUT_FILENO);
 	dup2(saved_stdin,STDIN_FILENO);
 	close(saved_stdin);
