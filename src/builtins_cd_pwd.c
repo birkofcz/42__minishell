@@ -6,43 +6,70 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 15:21:02 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/20 16:40:09 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/25 15:24:39 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-/*
-void	ft_pwd(t_env *env, int words_count)
+
+void	ft_pwd(char **args)
 {
-	if (words_count == 1)
-		printf("%s\n", env->pwd);
-	else
-		printf("pwd: too many arguments\n");
+	(void) args;
+	printf("%s\n", getenv("PWD"));
+	exit(0);
 }
 
-	if there is only cd command -> change directory to home,
-	else if there is + 1 argument -> change directory to desired destination.
-	3+ -> error;
-
-void	ft_cd(t_env *env, char **arg, int words_count)
+int	ft_pwd_nonfork(char **args)
 {
-	char cwd[MAX_PATH_LENGTH];
+	(void) args;
+	printf("%s\n", getenv("PWD"));
+	return(0);
+}
 
-	if (words_count > 2)
+void	ft_cd(char **args)
+{
+	//char cwd[MAX_PATH_LENGTH];
+	int	argument_count;
+
+	argument_count = commands_counting(args);
+	if (argument_count > 2)
 		printf("cd: too many arguments\n");
-	else if (words_count == 3)
-		printf("OPRAVIT cd: no such file or directory: %s\n", arg[1]); zjistit co dela cd s 2 argumenty
-	else if (words_count < 3)
+	else
 	{
-		if (words_count == 1)
-			chdir(env->home);//error managment
-		else if (chdir(arg[1]) == -1)
+		if (argument_count == 1)
+			chdir(getenv("HOME"));//error managment
+		else if (chdir(args[1]) == -1)
 		{
-        	printf("cd: no such file or directory: %s.\n", arg[1]);
+        	printf("cd: %s:no such file or directory.\n", args[1]);
     	}
-   		if (getcwd(cwd, MAX_PATH_LENGTH) != NULL) // error managment
+   		/*if (getcwd(cwd, MAX_PATH_LENGTH) != NULL) // error managment
 		{
 			ft_strlcpy(env->pwd, cwd, ft_strlen(cwd) + 1); //nealokuje
-		}
+		}*/
 	}
-}*/
+	exit(0);
+}
+
+int	ft_cd_nonfork(char **args)
+{
+	//char cwd[MAX_PATH_LENGTH];
+	int	argument_count;
+
+	argument_count = commands_counting(args);
+	if (argument_count > 2)
+		printf("cd: too many arguments\n");
+	else
+	{
+		if (argument_count == 1)
+			chdir(getenv("HOME"));//error managment
+		else if (chdir(args[1]) == -1)
+		{
+        	printf("cd: %s:no such file or directory.\n", args[1]);
+    	}
+   		/*if (getcwd(cwd, MAX_PATH_LENGTH) != NULL) // error managment
+		{
+			ft_strlcpy(env->pwd, cwd, ft_strlen(cwd) + 1); //nealokuje
+		}*/
+	}
+	return(0);
+}

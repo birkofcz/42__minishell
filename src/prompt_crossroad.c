@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 13:40:19 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/22 15:34:33 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/25 15:04:47 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,18 +106,6 @@ void	lexer(char **words, t_data *data)
 	//tokenize_redir(words, data);
 	
 	int i = 0;
-	/*i = 0;
-	while (data->args[0][i])
-	{
-        printf("args[0][%d] :%s\n",i, data->args[0][i]);
-		i++;
-    }
-	i = 0;
-	while (data->args[1][i])
-	{
-        printf("args[1][%d] :%s\n",i, data->args[1][i]);
-		i++;
-    }*/
 	tokenize_outfile(words, data);
 	tokenize_infile_heredoc(words, data);
     /*while (words[i] != NULL)
@@ -140,6 +128,7 @@ void	lexer(char **words, t_data *data)
         printf("after check commands[%d] :%s\n",i, data->commands[i]);
 		i++;
     }
+	data->args = argument_parser(data->commands, data->args);
 	printf("infile fd = %d\n", data->infile);
 	printf("outfile fd = %d\n", data->outfile);
 	write(1, "test lexer\n", 11);
@@ -186,14 +175,6 @@ int	ft_prompt_crossroad(const char *input, t_data *data)
         }
         i++;
     }
-	i = 0;/*
-	while (data->args[1][i])
-	{
-        printf("args[1][%d] :%s\n",i, data->args[1][i]);
-		i++;
-    }
-	i = 0;
-    printf("args[2][%d] :%p\n",i, data->args[2]);*/
 	/*if (ft_strncmp(words[0], "echo", ft_strlen("echo") + 1) == 0)
     	ft_echo(words, 1);
 	else if (ft_strncmp(words[0], "pwd", ft_strlen("pwd") + 1) == 0) // $blabla pwd -> by melo fungovat

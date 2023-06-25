@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 15:22:21 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/22 15:39:57 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/25 13:37:22 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	args_counter(char **words, int i)
 	}
 	return (count);
 }
-
+//blbne to pokud napr < infile | pwd
 void	tokenize_arg(char **words, t_data *data, int count) //predelat na druhem miste muze byt infile
 {
 	int i;

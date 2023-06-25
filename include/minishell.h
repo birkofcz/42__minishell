@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/25 15:02:32 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/25 15:47:03 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,15 @@ int	args_counter(char **words, int i);
 void	tokenize_arg(char **words, t_data *data, int count);
 void	tokenize_command(char **words, t_data *data);
 
+/* args_lexer_parser.c */
+char ***argument_parser(char **commands, char ***args);
+char	**copy_args(char **arr_src, char *command);
+
 /* builtins_pwd_cd.c */
-//void	ft_pwd(t_env *env, int words_count);
-//void	ft_cd(t_env *env, char **arg, int words_count);
+void	ft_pwd(char **args);
+int		ft_pwd_nonfork(char **args);
+void	ft_cd(char **args);
+int		ft_cd_nonfork(char **args);
 
 /* buldin_echo.c */
 void	ft_echo(char **args);
@@ -107,6 +113,12 @@ void	ft_unset(char **words);
 void	ft_executor_binary(t_data *data);
 void	executor_experim(t_data *data);
 void	ft_executor_binary_exp(t_data *data);
+
+/* executor_builtin_forked.c */
+void	builtin_redirection(char *command, char **args);
+
+/* executor_builtin_nonforked.c  */
+void builtin_nonfork_redirection(char *command, char **args);
 
 /* executor.c */
 void	ft_executor(char **words, t_data *data);
