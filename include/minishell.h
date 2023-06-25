@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/25 15:06:46 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/25 15:47:03 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef struct s_data
 	int 	infile; //fd infilu
 	char * delimiter; //alocated
 	char **redirs; 
-	//char ***redirections;
 	int	outfile;
 	int saved_stdin;
 	int	saved_stdout;
@@ -65,7 +64,7 @@ char **parse_double_quated_strings(char **words);
 char **replace_env_var_nonquated (char **words);
 char	*dollar_check(char *word);
 
- /* in_outfiles.c */
+/* in_outfiles.c */
 void	tokenize_outfile(char **words, t_data *data);
 void	tokenize_infile_heredoc(char **words, t_data *data);
 
@@ -86,11 +85,18 @@ void	ft_cd(char **args);
 int		ft_cd_nonfork(char **args);
 
 /* buldin_echo.c */
-void	ft_echo(char **words, int fd);
-void	ft_echoprint(char **words, int i, int fd);
+void	ft_echo(char **args);
+void	ft_echo_nonfork(char **args);
+void	ft_echoprint(char **words, int i);
+
+/* builtin_echo_utils.c */
+void	ft_write_expander_char(char *word);
+void	ft_write_expander_num(int start_int, int end_int);
+void	ft_echo_expander(char *word);
+
 
 /* builtin_env.c */
-void	ft_env(int fd);
+void	ft_env(void);
 
 /* builtin_export.c */
 int		ft_checkforexisting(char *var);
@@ -101,6 +107,7 @@ void	ft_export(char **words);
 
 /* builtin_unset.c */
 void	ft_unset(char **words);
+
 
 /*executor_binary.c*/
 void	ft_executor_binary(t_data *data);
@@ -126,10 +133,16 @@ bool	ft_isnopathx(char *command);
 char	*ft_return_path(char *command);
 void	ft_command_check(t_data *data);
 
+/* executor_builtin.c */
+void	builtin_redirection(char *command, char **args);
+
+
 /* utils.c*/
 int		commands_counting(char **words);
 void	free_split(char **args);
 void	free_args(char ***args);
 void	free_command_table(t_data *data);
+int		ft_isdigit_array(char **arg);
+
 
 #endif

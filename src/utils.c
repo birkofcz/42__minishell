@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 18:05:14 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/22 15:30:51 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/24 16:22:28 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	ft_isdigit_array(char **arg)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (arg[i])
+	{
+		j = 0;
+		while (arg[i][j])
+		{
+			if (arg[i][j] < '0' || arg[i][j] > '9')
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
 
 int	commands_counting(char **words)
 {
