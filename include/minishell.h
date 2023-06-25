@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/25 15:47:03 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/25 16:31:42 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <fcntl.h>
 # include <sys/wait.h>
 # include <stdbool.h>
+# include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -48,6 +49,7 @@ typedef struct s_data
 
 /* Environmental variables storage */
 extern char	**environ;
+extern int	errno ;
 
 /* global var for exit status storage */
 //int	g_exit_status;
@@ -97,6 +99,8 @@ void	ft_echo_expander(char *word);
 
 /* builtin_env.c */
 void	ft_env(void);
+int		ft_env_nonfork(char **args);
+
 
 /* builtin_export.c */
 int		ft_checkforexisting(char *var);
@@ -104,9 +108,12 @@ void	ft_rewrite(int index, char *var);
 void	ft_add(char *var);
 char	*ft_checkarg(char *arg);
 void	ft_export(char **words);
+int		ft_export_nonfork(char **args);
 
 /* builtin_unset.c */
 void	ft_unset(char **words);
+int		ft_unset_nonfork(char **args);
+
 
 
 /*executor_binary.c*/

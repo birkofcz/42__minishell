@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 14:22:34 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/01 16:55:43 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/25 16:30:18 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +122,32 @@ void	ft_export(char **words)
 		}
 		i++;
 	}
+	exit(0);
 }
 
+int	ft_export_nonfork(char **words)
+{
+	char	**split;
+	int		i;
+	int		existing_index;
+	char	*arg;
+
+	i = 1;
+	while (words[i] != NULL)
+	{
+		if ((ft_checkarg(words[i])) != NULL)
+		{
+			split = ft_split(words[i], '=');
+			existing_index = ft_checkforexisting(split[0]);
+			arg = ft_checkarg(words[i]);
+			if (existing_index != -1)
+				ft_rewrite(existing_index, arg);
+			else
+				ft_add(arg);
+			free(split[0]);
+			free(split);
+		}
+		i++;
+	}
+	return (0);
+}
