@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:53:38 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/20 17:18:28 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/25 15:35:20 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ int	ft_exe_exe(char *command, int command_group, t_data *data)
 	if (pid < 0)
 		return (1);
 	if (pid == 0)
-	{
+	{  
+
+
+		gg
 		execve(command, args_execve, environ);
 		exit(1);
 	}
