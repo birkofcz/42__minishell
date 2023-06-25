@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/24 16:22:56 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/25 15:02:32 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef struct s_data
 	int 	infile; //fd infilu
 	char * delimiter; //alocated
 	char **redirs; 
-	//char ***redirections;
 	int	outfile;
 	int saved_stdin;
 	int	saved_stdout;
@@ -65,7 +64,7 @@ char **parse_double_quated_strings(char **words);
 char **replace_env_var_nonquated (char **words);
 char	*dollar_check(char *word);
 
- /* in_outfiles.c */
+/* in_outfiles.c */
 void	tokenize_outfile(char **words, t_data *data);
 void	tokenize_infile_heredoc(char **words, t_data *data);
 
@@ -81,7 +80,14 @@ void	tokenize_command(char **words, t_data *data);
 
 /* buldin_echo.c */
 void	ft_echo(char **args);
+void	ft_echo_nonfork(char **args);
 void	ft_echoprint(char **words, int i);
+
+/* builtin_echo_utils.c */
+void	ft_write_expander_char(char *word);
+void	ft_write_expander_num(int start_int, int end_int);
+void	ft_echo_expander(char *word);
+
 
 /* builtin_env.c */
 void	ft_env(void);

@@ -6,7 +6,7 @@
 #    By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/26 16:36:32 by sbenes            #+#    #+#              #
-#    Updated: 2023/06/22 16:27:43 by sbenes           ###   ########.fr        #
+#    Updated: 2023/06/25 13:32:53 by sbenes           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ INC =	-I ./include/\
 
 #sources
 SRC_PATH =	src/
-SRC = 	minishell.c prompt_crossroad.c builtin_echo.c builtins_cd_pwd.c builtin_env.c builtin_export.c builtin_unset.c utils.c parsing_quotes_env_vars.c executor_binary.c heredoc.c tokenize_commands_args.c in_outfiles.c command_check.c executor_builtin.c
+SRC = 	minishell.c prompt_crossroad.c builtin_echo.c builtin_echo_utils.c builtins_cd_pwd.c builtin_env.c builtin_export.c builtin_unset.c utils.c parsing_quotes_env_vars.c executor_binary.c heredoc.c tokenize_commands_args.c in_outfiles.c command_check.c executor_builtin.c
 SRCS =	$(addprefix $(SRC_PATH), $(SRC))
 
 #objects
