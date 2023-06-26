@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/26 15:27:39 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/26 16:32:58 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_data
 	char ***args; //alocated
 	int 	infile; //fd infilu
 	char * delimiter; //alocated
-	char **redirs; 
+	char **redirs; //alocated, ale nejspis uplne smazat: neni treba
 	int	outfile;
 	int saved_stdin;
 	int	saved_stdout;

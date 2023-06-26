@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_binary.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:11:12 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/25 15:48:20 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/25 15:59:25 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,23 +78,23 @@ void	ft_executor_binary(t_data *data)
 	}
 	// v tuto chvili rozhodnout zda-li exe nebo builtin
 	if (ft_is_builtin(data->commands[data->last_command]))
-		{
+	{
 		builtin_nonfork_redirection(data->commands[data->last_command], data->args[i]);
-		}
+	}
 	else
-		{
+	{
 		pid = fork();
 		if (pid == -1)
-		{
+	{
 			// Handle fork error
 			perror("fork");
 			exit(1);
-		}
-		else if (pid == 0)
-			execute(data->commands[data->last_command], data->last_command, data);
-		else
-			waitpid(pid, NULL, 0);
-		}
+	}
+	else if (pid == 0)
+		execute(data->commands[data->last_command], data->last_command, data);
+	else
+		waitpid(pid, NULL, 0);
+	}
 	dup2(saved_stdout,STDOUT_FILENO);
 	dup2(saved_stdin,STDIN_FILENO);
 	close(saved_stdin);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_builtin_nonforked.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 14:11:35 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/25 16:05:25 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/26 16:35:51 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void builtin_nonfork_redirection(char *command, char **args)
 {
 	if (ft_strncmp(command, "echo", ft_strlen("echo") + 1) == 0)
     	ft_echo_nonfork(args);
-	if (ft_strncmp(command, "pwd", ft_strlen("pwd") + 1) == 0) // $blabla pwd -> by melo fungovat
+	else if(ft_strncmp(command, "pwd", ft_strlen("pwd") + 1) == 0) // $blabla pwd -> by melo fungovat
 		ft_pwd_nonfork(args);
 	else if (ft_strncmp(command, "cd", ft_strlen("cd") + 1) == 0)
 		ft_cd_nonfork(args);
