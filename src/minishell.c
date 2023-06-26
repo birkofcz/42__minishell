@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:28:41 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/26 15:42:37 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/26 16:02:32 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ void	ft_initialize_data(t_data *data)
 	data->outfile = -1;
 	data->minishell_env = ft_alloc_env();
 	environ = data->minishell_env;
-	int i = 0;
 	
+	printf("TESTPRINT OF MINISHELL_ENV\n");
+	int i = 0;
 	while (data->minishell_env[i] != NULL)
 	{
 		printf("%s\n", data->minishell_env[i]);
