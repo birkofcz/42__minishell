@@ -1,3 +1,0 @@
-inside execute
-inside redir to builtin
-12

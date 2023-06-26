@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:28:41 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/22 15:31:32 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/26 15:42:37 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+static	char **ft_alloc_env(void)
+{
+	int		size;
+	int		i;
+	char	**minishell_env;
+
+	size = 0;
+	i = -1;
+	while (environ[size] != NULL)
+		size++;
+	minishell_env = malloc((size + 1) * sizeof(char *));
+	while (++i < size)
+		minishell_env[i] = ft_strdup(environ[i]);
+	minishell_env[i] = NULL;
+	return (minishell_env);
+}
 
 void	ft_initialize_data(t_data *data)
 {
@@ -19,8 +36,17 @@ void	ft_initialize_data(t_data *data)
 	data->args = NULL;
 	data->infile = -1; //fd infilu
 	data->delimiter = NULL;
-	data->redirs = NULL; 
+	data->redirs = NULL;
 	data->outfile = -1;
+	data->minishell_env = ft_alloc_env();
+	environ = data->minishell_env;
+	int i = 0;
+	
+	while (data->minishell_env[i] != NULL)
+	{
+		printf("%s\n", data->minishell_env[i]);
+		i++;
+	}
 	//data->saved_stdin;
 	//data->saved_stdout;
 	//fill up the structure with usefull environmental variables

@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/25 16:31:42 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/26 15:27:39 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_data
 	int	outfile;
 	int saved_stdin;
 	int	saved_stdout;
+	char	**minishell_env;
 }	t_data;
 
 /* Environmental variables storage */
