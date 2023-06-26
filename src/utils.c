@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 18:05:14 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/24 16:22:28 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/25 17:14:02 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ int	commands_counting(char **words)
 }
 void	free_command_table(t_data *data)
 {
-
-	//write(1, "test before args free\n", 23);
-	//free_args(data->args);
-	//write(1, "test before commands free\n", 27);
+	free_args(data->args);
 	free_split(data->commands);
+	if (data->delimiter != NULL)
+		free(data->delimiter);
 } 
+
 void	free_args(char ***args)
 {
 	int i;
@@ -62,19 +62,15 @@ void	free_args(char ***args)
 	i = 0;
 	if (args != NULL)
 	{
-		write(1, "test 1\n", 8);
 		while (args[i] != NULL)
 		{
-			write(1, "test 2\n", 8);
 			j = 0;
 			while (args[i][j] != NULL)
 			{
-				write(1, "test 3\n", 8);
 				free(args[i][j]);
 				j++;
 			}
 			free(args[i]);
-			write(1, "test 4\n", 8);
 			i++;
 		}
 		free(args);
@@ -86,10 +82,13 @@ void	free_split(char **args)
     int i;
 
 	i = 0;
-    while (args[i] != NULL)
-    {
-        free(args[i]);
-        i++;
-    }
+	if (args != NULL)
+	{
+		while (args[i] != NULL)
+		{
+			free(args[i]);
+			i++;
+		}
+	}
     free(args);
 }

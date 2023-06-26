@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 15:21:02 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/25 15:24:39 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/25 17:13:11 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,19 @@
 
 void	ft_pwd(char **args)
 {
+	char cwd[MAX_PATH_LENGTH];
 	(void) args;
-	printf("%s\n", getenv("PWD"));
+	if (getcwd(cwd, MAX_PATH_LENGTH) != NULL) // error managment{
+		printf("%s\n", cwd);
 	exit(0);
 }
 
 int	ft_pwd_nonfork(char **args)
 {
+	char cwd[MAX_PATH_LENGTH];
 	(void) args;
-	printf("%s\n", getenv("PWD"));
+	if (getcwd(cwd, MAX_PATH_LENGTH) != NULL) // error managment{
+		printf("%s\n", cwd);
 	return(0);
 }
 
