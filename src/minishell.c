@@ -31,6 +31,9 @@ static	char **ft_alloc_env(void)
 
 void	ft_initialize_data(t_data *data)
 {
+	int	index;
+
+	index = ft_checkforexisting("SHELL");
 	data->commands = NULL;
 	data->last_command = 0;
 	data->args = NULL;
@@ -40,6 +43,8 @@ void	ft_initialize_data(t_data *data)
 	data->outfile = -1;
 	data->minishell_env = ft_alloc_env();
 	environ = data->minishell_env;
+	ft_rewrite(index, "SHELL=[TS]minishell");
+
 	
 	/*printf("TESTPRINT OF MINISHELL_ENV\n");
 	int i = 0;
@@ -63,7 +68,7 @@ int	ft_read(t_data *data)
 	char	*prompt;
 	int		exit; //making the loop of readline to continue
 
-	prompt = ft_strjoin(getenv("USER"), "@\033[96mminishell\033[0m>> ");
+	prompt = ft_strjoin(getenv("USER"), "@\033[96m[TS]minishell\033[0m>> ");
 	input = readline(prompt);
 	//Here we put some crossroad function to read the lines commad
 	//using basic function to test here

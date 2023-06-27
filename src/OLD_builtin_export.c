@@ -3,19 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 14:22:34 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/26 17:43:49 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/26 15:06:46 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/* 
-FT_CHECKFOREXISTING - loops through minishell env, check if var exists there.
-If so, returs index. Else returns erorr.
- */
+
 int	ft_checkforexisting(char *var)
 {
 	int		i;
@@ -27,22 +24,22 @@ int	ft_checkforexisting(char *var)
 		split = ft_split(environ[i], '=');
 		if (ft_strncmp(split[0], var, ft_strlen(var)) == 0)
 		{
-			free_split(split);
+			free(split[0]);
+			free(split);
 			return (i);
 		}
 		else
-			free_split(split);
+		{
+			free(split[0]);
+			free(split);
+		}
 		i++;
 	}
 	return (-1);
 }
 
-/* 
-FT_REWRITE - rewrite the envvar on found index (found by ft_checkforexisting)
- */
 void	ft_rewrite(int index, char *var)
 {
-	free(environ[index]);
 	environ[index] = ft_strdup(var);
 }
 
@@ -63,38 +60,42 @@ void	ft_add(char *var)
 		new_environ[i] = ft_strdup(environ[i]);
 	new_environ[size] = new_var;
 	new_environ[size + 1] = NULL;
-	free_split(environ);
+	//Musime tohle nekde vypustit  - probehl malloc. Mozna free(environ) pri exitu?make
 	environ = new_environ;
 }
 
-/* 
-FT_CHECKARG - checks the argument format
- */
 char	*ft_checkarg(char *arg)
 {
 	int		i;
 	int		flag;
+	char	**split;
 
+/* FREE SPLIT!!!! POMOCI TOMASOVI FUNKCE FREEARG */
 	i = 0;
 	flag = 0;
+	split = ft_split(arg, '=');
 	if (!ft_isalpha(arg[i]))
-		return (NULL);
+		return (printf("export: error %s\n", split[0]), free(split[0]),
+			free(split), NULL);
 	while (arg[i] != '\0')
 	{
 		if (arg[i] == '=')
 			flag++;
 		i++;
 	}
-	i = -1;
-	while (arg[++i] != '=')
+	i = 0;
+	while (arg[i] != '=')
+	{
 		if ((!ft_isalnum(arg[i])) && arg[i] != '_')
-			return (NULL);
+			return (printf("export: error %s\n", split[0]), NULL);
+		i++;
+	}
 	if (flag == 0)
-		return (NULL);
+		return (free(split[0]), free(split), NULL);
 	else if (flag == 1 && arg[0] != '=' && arg[i - 1] != '=')
-		return (arg);
+		return (free(split[0]), free(split), arg);
 	else
-		return (NULL);
+		return (free(split[0]), free(split), NULL);
 }
 
 void	ft_export(char **words)
@@ -116,8 +117,8 @@ void	ft_export(char **words)
 				ft_rewrite(existing_index, arg);
 			else
 				ft_add(arg);
-			free_split(split);
-			free(arg);
+			free(split[0]);
+			free(split);
 		}
 		i++;
 	}
@@ -143,8 +144,8 @@ int	ft_export_nonfork(char **words)
 				ft_rewrite(existing_index, arg);
 			else
 				ft_add(arg);
-			free_split(split);
-			free(arg);
+			free(split[0]);
+			free(split);
 		}
 		i++;
 	}
