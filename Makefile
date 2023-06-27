@@ -6,7 +6,7 @@
 #    By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/26 16:36:32 by sbenes            #+#    #+#              #
-#    Updated: 2023/06/25 15:46:14 by sbenes           ###   ########.fr        #
+#    Updated: 2023/06/27 13:12:19 by sbenes           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,19 +64,18 @@ $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) -lreadline -o $(NAME) $(OBJS) $(LIBFT) $(INC)
 	@echo "$(BOLD)$(GREEN)[ 🪄 Program ready! ]$(NC)"
 	@echo ""
-	@echo ""
-	@echo "$(BCYAN)           _       _     _          _ _"
-	@echo "$(BCYAN)          (_)     (_)   | |        | | |"
-	@echo "$(BCYAN)_ __ __ _  _ _ __  _ ___| |__   ___| | |"
-	@echo "$(BCYAN)|  _   _ \| | '_ \| / __| '_ \ / _ \ | |"
-	@echo "$(BCYAN)| | | | | | | | | | \__ \ | | |  __/ | |"
-	@echo "$(BCYAN)|_| |_| |_|_|_| |_|_|___/_| |_|\___|_|_|"
+	@echo ""				
+	@echo "$(BCYAN) __ _____ ____ __           _       _     _          _ _ "
+	@echo "$(BCYAN)| _|_   _/ ___|_ |_ __ ___ (_)_ __ (_)___| |__   ___| | |"
+	@echo "$(BCYAN)| |  | | \___ \| | '_   _ \| | '_ \| / __| '_ \ / _ \ | |"
+	@echo "$(BCYAN)| |  | |  ___) | | | | | | | | | | | \__ \ | | |  __/ | |"
+	@echo "$(BCYAN)| |  |_| |____/| |_| |_| |_|_|_| |_|_|___/_| |_|\___|_|_|"
+	@echo "$(BCYAN)|__|          |__|                                       "
 	@echo ""
 	@echo "$(NC)"
 	@echo "TS Team 2023"
 	@echo "run ./minishell"
 	@echo ""
-
 
 bonus: all
 
