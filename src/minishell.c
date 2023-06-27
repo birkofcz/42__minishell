@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:28:41 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/26 17:31:21 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/26 17:32:54 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ void	ft_initialize_data(t_data *data)
 	ft_rewrite(index, "SHELL=[TS]minishell");
 
 	
-	printf("TESTPRINT OF MINISHELL_ENV\n");
+	/*printf("TESTPRINT OF MINISHELL_ENV\n");
 	int i = 0;
 	while (data->minishell_env[i] != NULL)
 	{
 		printf("%s\n", data->minishell_env[i]);
 		i++;
-	}
+	}*/
 	//data->saved_stdin;
 	//data->saved_stdout;
 	//fill up the structure with usefull environmental variables

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 13:45:53 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/25 16:22:05 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/26 17:09:59 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,25 @@ void	ft_delenv(int index)
 	char	**new_environ;
 	int		size;
 	int		i;
+	int		j;
 
 	size = 0;
-	i = -1;
+	i = 0;
+	j = 0;
 	while (environ[size] != NULL)
 		size++;
 	new_environ = malloc((size) * sizeof(char *));
-	free(environ[index]);
-	while (++i < size - 1)
-		new_environ[i] = ft_strdup(environ[i]);
-	new_environ[size + 1] = NULL;
-	//Musime tohle nekde vypustit  - probehl malloc. Mozna free(environ) pri exitu?make
+	while (i < size)
+	{
+		if (i != index)
+		{
+			new_environ[j] = ft_strdup(environ[i]);
+			j++;
+		} 
+		i++;
+	}
+	new_environ[j] = NULL;
+	free_split(environ);
 	environ = new_environ;
 }
 

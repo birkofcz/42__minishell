@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 15:21:02 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/25 17:13:11 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/26 17:49:30 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,48 +32,65 @@ int	ft_pwd_nonfork(char **args)
 
 void	ft_cd(char **args)
 {
-	//char cwd[MAX_PATH_LENGTH];
 	int	argument_count;
+	char old_pwd[MAX_PATH_LENGTH];
+	char cwd[MAX_PATH_LENGTH];
 
 	argument_count = commands_counting(args);
 	if (argument_count > 2)
 		printf("cd: too many arguments\n");
 	else
 	{
+		getcwd(old_pwd, MAX_PATH_LENGTH);
+		write(1, "old pwd: ", 10);
+		write(1, old_pwd, strlen(old_pwd));
+		write(1, "\n", 1);
 		if (argument_count == 1)
 			chdir(getenv("HOME"));//error managment
 		else if (chdir(args[1]) == -1)
 		{
         	printf("cd: %s:no such file or directory.\n", args[1]);
+			exit(1);
     	}
-   		/*if (getcwd(cwd, MAX_PATH_LENGTH) != NULL) // error managment
-		{
-			ft_strlcpy(env->pwd, cwd, ft_strlen(cwd) + 1); //nealokuje
-		}*/
+		getcwd(cwd, MAX_PATH_LENGTH);
+		write(1, "cwd: ", 6);
+		write(1, cwd, strlen(cwd));
+		write(1, "\n", 1);
+		ft_rewrite(ft_checkforexisting("PWD"), cwd);
+		ft_rewrite(ft_checkforexisting("OLDPWD"), old_pwd);
 	}
 	exit(0);
 }
 
 int	ft_cd_nonfork(char **args)
 {
-	//char cwd[MAX_PATH_LENGTH];
 	int	argument_count;
+	char old_pwd[MAX_PATH_LENGTH];
+	char cwd[MAX_PATH_LENGTH];
 
 	argument_count = commands_counting(args);
 	if (argument_count > 2)
 		printf("cd: too many arguments\n");
 	else
 	{
+		getcwd(old_pwd, MAX_PATH_LENGTH);
+		write(1, "old pwd: ", 10);
+		write(1, old_pwd, strlen(old_pwd));
+		write(1, "\n", 1);
 		if (argument_count == 1)
 			chdir(getenv("HOME"));//error managment
 		else if (chdir(args[1]) == -1)
 		{
         	printf("cd: %s:no such file or directory.\n", args[1]);
+			return(1);
     	}
-   		/*if (getcwd(cwd, MAX_PATH_LENGTH) != NULL) // error managment
-		{
-			ft_strlcpy(env->pwd, cwd, ft_strlen(cwd) + 1); //nealokuje
-		}*/
+		getcwd(cwd, MAX_PATH_LENGTH);
+		write(1, "cwd: ", 6);
+		write(1, cwd, strlen(cwd));
+		write(1, "\n", 1);
+		ft_rewrite(ft_checkforexisting("PWD"), cwd);
+		ft_rewrite(ft_checkforexisting("OLDPWD"), old_pwd);
+		//PWD=cwd pomoci strjoin
 	}
 	return(0);
 }
