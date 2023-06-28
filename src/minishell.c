@@ -6,11 +6,13 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:28:41 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/26 17:32:54 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/27 14:40:11 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int g_exit;
 
 static	char **ft_alloc_env(void)
 {

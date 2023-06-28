@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/26 16:32:58 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/28 17:19:22 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_data
 /* Environmental variables storage */
 extern char	**environ;
 extern int	errno ;
+extern int g_exit;
 
 /* global var for exit status storage */
 //int	g_exit_status;
@@ -66,6 +67,8 @@ char *prepare_quoted_string(const char *input);
 char **parse_double_quated_strings(char **words);
 char **replace_env_var_nonquated (char **words);
 char	*dollar_check(char *word);
+char **substitution(char **words);
+char *status_substitution(char *word);
 
 /* in_outfiles.c */
 void	tokenize_outfile(char **words, t_data *data);
@@ -89,7 +92,7 @@ int		ft_cd_nonfork(char **args);
 
 /* buldin_echo.c */
 void	ft_echo(char **args);
-void	ft_echo_nonfork(char **args);
+int	ft_echo_nonfork(char **args);
 void	ft_echoprint(char **words, int i);
 
 /* builtin_echo_utils.c */

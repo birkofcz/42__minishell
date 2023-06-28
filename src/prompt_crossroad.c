@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 13:40:19 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/26 15:43:46 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/27 16:06:35 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ void	lexer(char **words, t_data *data)
 	free_split(words);
 }
 
+
 int	ft_prompt_crossroad(const char *input, t_data *data)
 {
 	char	**words;
@@ -139,6 +140,7 @@ int	ft_prompt_crossroad(const char *input, t_data *data)
 	words = ft_split(prepare_quoted_string(input), 29);
 	words = replace_env_var_nonquated (words);
 	words = parse_double_quated_strings(words);
+	words = substitution(words); 
 	//tester
 	/*printf("\ntest formated_words\n");
 	i = 0;
@@ -150,6 +152,7 @@ int	ft_prompt_crossroad(const char *input, t_data *data)
 	printf("\n");*/
 	//konec testru
 	lexer(words, data);
+	
 	data->last_command = commands_counting(data->commands) - 1;
 	int i = 0;
     while (data->args[i])

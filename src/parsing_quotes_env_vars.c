@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 18:02:23 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/11 18:23:40 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/27 16:17:33 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*dollar_check(char *word)
 	int		i;
 	int		j;
 	char *env_v;
-	char *temp;
+	char * temp;
 	char *updated_str;
 
 	i = 0;
@@ -135,4 +135,46 @@ char **replace_env_var_nonquated(char **words)
 	return (words);
 }
 
+char *status_substitution(char *word)
+{
+	int 	i;
+	char	*temp;
+	char	*status;
+	char	*updated_str;
+
+	i = 0;
+	while (word[i] != '\0')
+	{
+		if (word[i] == '$' && word[i + 1] == '?')
+		{
+				status = ft_itoa(g_exit >> 8); //alokovany
+				updated_str = ft_substr(word, 0, i);
+				temp = ft_strjoin(updated_str, status);
+				free(updated_str);
+				free(status);
+				updated_str = ft_strjoin(temp, word + i + 2);
+				free(temp);
+				free(word);
+				word = updated_str;
+				i = -1;
+		}
+		i ++;
+	}
+	printf("test final $?: %s\n", word);
+	return(word);
+}
+
+char **substitution(char **words)
+{
+	int 	i;
+
+	i = 0;
+	while (words[i] != NULL)
+	{
+		if (ft_strchr(words[i], '$'))
+			words[i] = status_substitution(words[i]);
+		i ++;
+	}
+	return (words);
+}
 

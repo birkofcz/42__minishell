@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 15:21:02 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/26 17:49:30 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/28 17:19:20 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ void	ft_cd(char **args)
 
 	argument_count = commands_counting(args);
 	if (argument_count > 2)
+	{
 		printf("cd: too many arguments\n");
+		exit (256);
+	}
 	else
 	{
 		getcwd(old_pwd, MAX_PATH_LENGTH);
@@ -49,8 +52,8 @@ void	ft_cd(char **args)
 			chdir(getenv("HOME"));//error managment
 		else if (chdir(args[1]) == -1)
 		{
-        	printf("cd: %s:no such file or directory.\n", args[1]);
-			exit(1);
+        	printf("cd: %s: no such file or directory.\n", args[1]);
+			exit(256);
     	}
 		getcwd(cwd, MAX_PATH_LENGTH);
 		write(1, "cwd: ", 6);
@@ -58,6 +61,7 @@ void	ft_cd(char **args)
 		write(1, "\n", 1);
 		ft_rewrite(ft_checkforexisting("PWD"), cwd);
 		ft_rewrite(ft_checkforexisting("OLDPWD"), old_pwd);
+		//PWD=cwd pomoci strjoin
 	}
 	exit(0);
 }
@@ -70,7 +74,10 @@ int	ft_cd_nonfork(char **args)
 
 	argument_count = commands_counting(args);
 	if (argument_count > 2)
+	{
 		printf("cd: too many arguments\n");
+		return (256);
+	}
 	else
 	{
 		getcwd(old_pwd, MAX_PATH_LENGTH);
@@ -81,8 +88,8 @@ int	ft_cd_nonfork(char **args)
 			chdir(getenv("HOME"));//error managment
 		else if (chdir(args[1]) == -1)
 		{
-        	printf("cd: %s:no such file or directory.\n", args[1]);
-			return(1);
+        	printf("cd: %s: no such file or directory.\n", args[1]);
+			return(256);
     	}
 		getcwd(cwd, MAX_PATH_LENGTH);
 		write(1, "cwd: ", 6);
