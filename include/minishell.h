@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/28 17:19:22 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/29 16:21:50 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <sys/wait.h>
 # include <stdbool.h>
 # include <errno.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -154,6 +155,13 @@ void	free_split(char **args);
 void	free_args(char ***args);
 void	free_command_table(t_data *data);
 int		ft_isdigit_array(char **arg);
+
+/* signals.c */
+void	ft_sigint_handler(int signal);
+void	ft_sigabrt_handler(int signal);
+void	ft_sigquit_handler(int signal);
+
+
 
 
 #endif
