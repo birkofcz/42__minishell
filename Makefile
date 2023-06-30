@@ -6,7 +6,7 @@
 #    By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/26 16:36:32 by sbenes            #+#    #+#              #
-#    Updated: 2023/06/29 15:09:36 by sbenes           ###   ########.fr        #
+#    Updated: 2023/06/30 16:16:19 by sbenes           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ SRC = 	minishell.c prompt_crossroad.c builtin_echo.c \
 		parsing_quotes_env_vars.c executor_binary.c \
 		heredoc.c tokenize_commands_args.c in_outfiles.c \
 		command_check.c executor_builtin_forked.c executor_builtin_nonforked.c \
-		args_lexer_parser.c signals.c
+		args_lexer_parser.c signals.c builtin_export_utils.c
 SRCS =	$(addprefix $(SRC_PATH), $(SRC))
 
 #objects

@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/29 16:21:50 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/06/30 16:12:57 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_data
 
 /* Environmental variables storage */
 extern char	**environ;
-extern int	errno ;
+//extern int	errno ;
 extern int g_exit;
 
 /* global var for exit status storage */
@@ -108,12 +108,16 @@ int		ft_env_nonfork(char **args);
 
 
 /* builtin_export.c */
-int		ft_checkforexisting(char *var);
 void	ft_rewrite(int index, char *var);
 void	ft_add(char *var);
-char	*ft_checkarg(char *arg);
 void	ft_export(char **words);
 int		ft_export_nonfork(char **args);
+
+/* builtin_export_utils.c */
+int		ft_checkforexisting(char *var);
+char	*ft_checkarg(char *arg);
+
+
 
 /* builtin_unset.c */
 void	ft_unset(char **words);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 15:07:25 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/28 16:52:27 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:06:21 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_echoprint(char **args, int i)
 {
 	while (args[i] != NULL)
 	{
-		if (args[i][0] == '{' && args[i][ft_strlen(args[i]) -1 ] == '}')
+		if (args[i][0] == '{' && args[i][ft_strlen(args[i]) -1] == '}')
 			ft_echo_expander(args[i]);
 		else
 			write(1, args[i], ft_strlen(args[i]));
@@ -52,5 +52,5 @@ int	ft_echo_nonfork(char **args)
 		ft_echoprint(args, 1);
 		write(1, "\n", 1);
 	}
-	return(0);
+	return (0);
 }
