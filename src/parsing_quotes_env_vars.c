@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 18:02:23 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/27 16:17:33 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/02 20:49:41 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*dollar_check(char *word)
 	{
 		if (word[i] == '$')
 		{
-			while (ft_isalnum(word[i + 1 + j])) // pridat vyjimku pro $?
+			while (ft_isalnum(word[i + 1 + j]) || word[i + 1 + j] == '_') // pridat vyjimku pro $?
 				j++;
 			if (j != 0)
 			{

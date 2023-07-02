@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 14:22:34 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/30 16:16:48 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/02 20:13:48 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_add(char *var)
 	environ = new_environ;
 }
 
-void	ft_export(char **words)
+void	ft_export_fork(char **words)
 {
 	char	**split;
 	int		i;
@@ -62,7 +62,7 @@ void	ft_export(char **words)
 			else
 				ft_add(arg);
 			free_split(split);
-			free(arg);
+			//free(arg);
 		}
 		i++;
 	}
@@ -89,7 +89,7 @@ int	ft_export_nonfork(char **words)
 			else
 				ft_add(arg);
 			free_split(split);
-			free(arg);
+			//free(arg);
 		}
 		i++;
 	}

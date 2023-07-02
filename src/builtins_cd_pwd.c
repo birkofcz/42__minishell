@@ -6,13 +6,13 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 15:21:02 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/28 17:19:20 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/02 20:01:31 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_pwd(char **args)
+void	ft_pwd_fork(char **args)
 {
 	char cwd[MAX_PATH_LENGTH];
 	(void) args;
@@ -30,7 +30,30 @@ int	ft_pwd_nonfork(char **args)
 	return(0);
 }
 
-void	ft_cd(char **args)
+char *custom_strjoin_env(char *var, char *value)
+{
+	char *temp_value;
+	int	i;
+	int j;
+	int	len;
+
+	i = -1;
+	j = 0;
+	len = ft_strlen(var) + ft_strlen(value) + 1;
+	temp_value = ft_strdup(value);
+	value[len] = '\0';
+	while (++i < len && var[i] != '\0')
+		value[i] = var[i];
+	value[i++] = '=';
+	while (i < len && value[j] != '\0')
+		value[i++] = temp_value[j++];
+	value[i] = '\0';
+	printf("env variable = %s\n", value);
+	free(temp_value);
+	return(value);
+}
+
+void	ft_cd_fork(char **args)
 {
 	int	argument_count;
 	char old_pwd[MAX_PATH_LENGTH];
@@ -45,9 +68,6 @@ void	ft_cd(char **args)
 	else
 	{
 		getcwd(old_pwd, MAX_PATH_LENGTH);
-		write(1, "old pwd: ", 10);
-		write(1, old_pwd, strlen(old_pwd));
-		write(1, "\n", 1);
 		if (argument_count == 1)
 			chdir(getenv("HOME"));//error managment
 		else if (chdir(args[1]) == -1)
@@ -56,12 +76,8 @@ void	ft_cd(char **args)
 			exit(256);
     	}
 		getcwd(cwd, MAX_PATH_LENGTH);
-		write(1, "cwd: ", 6);
-		write(1, cwd, strlen(cwd));
-		write(1, "\n", 1);
-		ft_rewrite(ft_checkforexisting("PWD"), cwd);
-		ft_rewrite(ft_checkforexisting("OLDPWD"), old_pwd);
-		//PWD=cwd pomoci strjoin
+		ft_rewrite(ft_checkforexisting("PWD"), custom_strjoin_env("PWD", cwd));
+		ft_rewrite(ft_checkforexisting("OLDPWD"), custom_strjoin_env("OLDPWD",old_pwd));
 	}
 	exit(0);
 }
@@ -81,9 +97,6 @@ int	ft_cd_nonfork(char **args)
 	else
 	{
 		getcwd(old_pwd, MAX_PATH_LENGTH);
-		write(1, "old pwd: ", 10);
-		write(1, old_pwd, strlen(old_pwd));
-		write(1, "\n", 1);
 		if (argument_count == 1)
 			chdir(getenv("HOME"));//error managment
 		else if (chdir(args[1]) == -1)
@@ -92,11 +105,8 @@ int	ft_cd_nonfork(char **args)
 			return(256);
     	}
 		getcwd(cwd, MAX_PATH_LENGTH);
-		write(1, "cwd: ", 6);
-		write(1, cwd, strlen(cwd));
-		write(1, "\n", 1);
-		ft_rewrite(ft_checkforexisting("PWD"), cwd);
-		ft_rewrite(ft_checkforexisting("OLDPWD"), old_pwd);
+		ft_rewrite(ft_checkforexisting("PWD"), custom_strjoin_env("PWD", cwd));
+		ft_rewrite(ft_checkforexisting("OLDPWD"), custom_strjoin_env("OLDPWD",old_pwd));
 		//PWD=cwd pomoci strjoin
 	}
 	return(0);

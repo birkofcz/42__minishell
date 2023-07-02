@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:18:18 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/30 16:07:22 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/02 20:00:35 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ FT_ENV - to printout environmental variables
 variable in C. That is defined as extern char **environ - global var 
 in header file*/
 
-void	ft_env(void)
+void	ft_env_fork(void)
 {
 	int	i;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:28:41 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/30 16:04:32 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/02 20:14:45 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ int	ft_read(t_data *data)
 	char	*prompt;
 	int		exit_l; //making the loop of readline to continue
 
-	signal(SIGINT, ft_sigint_handler);
-	signal(SIGQUIT, SIG_IGN);
 	prompt = ft_strjoin(getenv("USER"), "@\033[96m[TS]minishell\033[0m>> ");
 	input = readline(prompt);
 	exit_l = 1;
@@ -99,6 +97,8 @@ int	main(int ac, char **av, char **environ)
 	(void)av;
 	(void)environ;
 	ft_initialize_data(&data);
+	signal(SIGINT, ft_sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
 	while (ft_read(&data))
 	{
 		(void)environ;

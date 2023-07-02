@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+         #
+#    By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/26 16:36:32 by sbenes            #+#    #+#              #
-#    Updated: 2023/06/30 16:16:19 by sbenes           ###   ########.fr        #
+#    Updated: 2023/07/02 20:09:46 by tkajanek         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,9 +39,9 @@ SRC_PATH =	src/
 SRC = 	minishell.c prompt_crossroad.c builtin_echo.c \
 		builtin_echo_utils.c builtins_cd_pwd.c builtin_env.c \
 		builtin_export.c builtin_unset.c utils.c \
-		parsing_quotes_env_vars.c executor_binary.c \
+		parsing_quotes_env_vars.c executor.c \
 		heredoc.c tokenize_commands_args.c in_outfiles.c \
-		command_check.c executor_builtin_forked.c executor_builtin_nonforked.c \
+		command_check.c builtins_redirection.c \
 		args_lexer_parser.c signals.c builtin_export_utils.c
 SRCS =	$(addprefix $(SRC_PATH), $(SRC))
 

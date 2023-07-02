@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor_binary.c                                  :+:      :+:    :+:   */
+/*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:11:12 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/28 17:15:00 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/02 20:54:50 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,20 @@
 void	execute(char *command, int position, t_data *data)
 {
 	if (ft_is_builtin(command))
-		builtin_redirection(command,data->args[position]);
+		builtin_redirection_fork(command,data->args[position], data);
 	else
-		execve(command,data->args[position], environ);
+	{
+		write(2, "executing command: ", 19);
+		write(2, command, ft_strlen(command));
+		write(2, "\n", 1);
+		if (execve(command, data->args[position], environ) == -1)
+		{
+			write(2, "[TS]minishell: Command not found: ", 35);
+			write(2, command, ft_strlen(command));
+			write(2, "\n", 1);
+			g_exit = 127 << 8;
+		}
+	}
 }
 
 void	child(char *command, int position, t_data *data)
@@ -42,11 +53,11 @@ void	child(char *command, int position, t_data *data)
 	{
 		close(fd[1]); //write end
 		dup2(fd[0], STDIN_FILENO);
-		g_exit = waitpid(pid, &g_exit, 0);
+		waitpid(pid, &g_exit, 0);
 	}
 }
 
-void	ft_executor_binary(t_data *data)
+void	ft_executor(t_data *data)
 {
 	int		i;
 	pid_t	pid;
@@ -81,7 +92,7 @@ void	ft_executor_binary(t_data *data)
 	// v tuto chvili rozhodnout zda-li exe nebo builtin
 	if (ft_is_builtin(data->commands[data->last_command]))
 	{
-		builtin_nonfork_redirection(data->commands[data->last_command], data->args[data->last_command]);
+		builtin_nonfork_redirection(data->commands[data->last_command], data->args[data->last_command], data);
 	}
 	else
 	{

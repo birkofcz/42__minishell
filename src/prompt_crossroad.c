@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 13:40:19 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/27 16:06:35 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/02 20:09:32 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ int	ft_prompt_crossroad(const char *input, t_data *data)
         }
         i++;
     }
-	ft_executor_binary(data);
+	ft_executor(data);
 	return (1);
 }
  
