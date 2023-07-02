@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/28 17:19:22 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:12:57 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <sys/wait.h>
 # include <stdbool.h>
 # include <errno.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -50,7 +51,7 @@ typedef struct s_data
 
 /* Environmental variables storage */
 extern char	**environ;
-extern int	errno ;
+//extern int	errno ;
 extern int g_exit;
 
 /* global var for exit status storage */
@@ -107,12 +108,16 @@ int		ft_env_nonfork(char **args);
 
 
 /* builtin_export.c */
-int		ft_checkforexisting(char *var);
 void	ft_rewrite(int index, char *var);
 void	ft_add(char *var);
-char	*ft_checkarg(char *arg);
 void	ft_export(char **words);
 int		ft_export_nonfork(char **args);
+
+/* builtin_export_utils.c */
+int		ft_checkforexisting(char *var);
+char	*ft_checkarg(char *arg);
+
+
 
 /* builtin_unset.c */
 void	ft_unset(char **words);
@@ -154,6 +159,13 @@ void	free_split(char **args);
 void	free_args(char ***args);
 void	free_command_table(t_data *data);
 int		ft_isdigit_array(char **arg);
+
+/* signals.c */
+void	ft_sigint_handler(int signal);
+void	ft_sigabrt_handler(int signal);
+void	ft_sigquit_handler(int signal);
+
+
 
 
 #endif
