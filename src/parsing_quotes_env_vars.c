@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 18:02:23 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/07/02 20:49:41 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/05 17:13:49 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,38 +51,44 @@ char *prepare_quoted_string(const char *input)
 	return (copy);
 }
 
-char	*dollar_check(char *word)
+char *env_replacement(char *word, int i, int j)
 {
-	int		i;
-	int		j;
 	char *env_v;
 	char * temp;
 	char *updated_str;
 
+	updated_str = NULL;
+	printf("test pred $\n");
+	temp = ft_substr(word, i + 1, j); //alokovany
+	if (!(env_v = getenv(temp)))
+		env_v = ""; //nealokovany
+	printf("test $: %s\n", env_v);
+	free(temp);
+	updated_str = ft_substr(word, 0, i);
+	temp = ft_strjoin(updated_str, env_v);
+	free(updated_str);
+	updated_str = ft_strjoin(temp, word + i + j + 1);
+	free(temp);
+	free(word);
+	return (updated_str);
+}
+
+char	*dollar_check(char *word)
+{
+	int		i;
+	int		j;
+
 	i = 0;
 	j = 0;
-	updated_str = NULL;
 	while (word[i] != '\0')
 	{
 		if (word[i] == '$')
 		{
-			while (ft_isalnum(word[i + 1 + j]) || word[i + 1 + j] == '_') // pridat vyjimku pro $?
+			while (ft_isalnum(word[i + 1 + j]) || word[i + 1 + j] == '_')
 				j++;
 			if (j != 0)
 			{
-				printf("test pred $\n");
-				temp = ft_substr(word, i + 1, j); //alokovany
-				if (!(env_v = getenv(temp)))
-					env_v = ""; //nealokovany
-				printf("test $: %s\n", env_v);
-				free(temp);
-				updated_str = ft_substr(word, 0, i);
-				temp = ft_strjoin(updated_str, env_v);
-				free(updated_str);
-				updated_str = ft_strjoin(temp, word + i + j + 1);
-				free(temp);
-				free(word);
-				word = updated_str;
+				word = env_replacement(word, i, j);
 				i = -1;
 				j = 0;
 			}
@@ -135,7 +141,7 @@ char **replace_env_var_nonquated(char **words)
 	return (words);
 }
 
-char *status_substitution(char *word)
+char *status_replace(char *word)
 {
 	int 	i;
 	char	*temp;
@@ -164,7 +170,7 @@ char *status_substitution(char *word)
 	return(word);
 }
 
-char **substitution(char **words)
+char **status_var_check(char **words)
 {
 	int 	i;
 
@@ -172,7 +178,7 @@ char **substitution(char **words)
 	while (words[i] != NULL)
 	{
 		if (ft_strchr(words[i], '$'))
-			words[i] = status_substitution(words[i]);
+			words[i] = status_replace(words[i]);
 		i ++;
 	}
 	return (words);

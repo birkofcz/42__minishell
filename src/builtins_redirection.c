@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:28:16 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/07/02 20:57:24 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/02 21:25:22 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	builtin_redirection_fork(char *command, char **args, t_data	*data)
 {
 	if (ft_strncmp(command, "echo", ft_strlen("echo") + 1) == 0)
     	ft_echo_fork(args);
-	else if (ft_strncmp(command, "pwd", ft_strlen("pwd") + 1) == 0) // $blabla pwd -> by melo fungovat
+	else if (ft_strncmp(command, "pwd", ft_strlen("pwd") + 1) == 0)
 		ft_pwd_fork(args);
 	else if (ft_strncmp(command, "cd", ft_strlen("cd") + 1) == 0)
 		ft_cd_fork(args);
@@ -37,7 +37,7 @@ void builtin_nonfork_redirection(char *command, char **args, t_data	*data)
 {
 	if (ft_strncmp(command, "echo", ft_strlen("echo") + 1) == 0)
     	g_exit = ft_echo_nonfork(args);
-	else if(ft_strncmp(command, "pwd", ft_strlen("pwd") + 1) == 0) // $blabla pwd -> by melo fungovat
+	else if(ft_strncmp(command, "pwd", ft_strlen("pwd") + 1) == 0)
 		g_exit = ft_pwd_nonfork(args);
 	else if (ft_strncmp(command, "cd", ft_strlen("cd") + 1) == 0)
 		g_exit = ft_cd_nonfork(args);

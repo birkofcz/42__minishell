@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 15:22:21 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/25 13:37:22 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/05 17:24:51 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,18 +94,15 @@ void	tokenize_arg(char **words, t_data *data, int count) //predelat na druhem mi
 		if (words[i] == NULL)
 			break ;
 		i++;
-		/**/
 	}
 	args[j] = NULL;
 	data->args = args;
 }
 
-void	tokenize_command(char **words, t_data *data)
+static int	cmnd_counter(char **words)
 {
 	int i;
-	int j;
-	int	count;
-	char	**commands;
+	int count;
 
 	i = 0;
 	count = 0;
@@ -117,7 +114,7 @@ void	tokenize_command(char **words, t_data *data)
 			i++;
 			if (words[i] != NULL)
 				{
-					while (words[i] != NULL && (ft_strncmp(words[i], "|", 2)))
+					while (words[i] != NULL && !is_pipe(words[i]))
 					i++;
 					if (words[i] != NULL)
 					{
@@ -127,6 +124,16 @@ void	tokenize_command(char **words, t_data *data)
 				}
 		}
 	}
+	return (count);
+}
+void	tokenize_command(char **words, t_data *data)
+{
+	int i;
+	int j;
+	int	count;
+	char	**commands;
+
+	count = cmnd_counter(words);
 	commands = (char **)malloc(sizeof(char *) * (count + 1));
 	i = 0;
 	j = 0;
@@ -137,7 +144,7 @@ void	tokenize_command(char **words, t_data *data)
 			commands[j++] = ft_strdup(words[i++]);
 			if (words[i] != NULL)
 				{
-					while (words[i] != NULL && (ft_strncmp(words[i], "|", 2)))
+					while (words[i] != NULL && !is_pipe(words[i]))
 					i++;
 					if (words[i] != NULL)
 					{
@@ -148,32 +155,6 @@ void	tokenize_command(char **words, t_data *data)
 		}
 		commands[j] = NULL;
 	}
-	/*
-	while (words[++i] != NULL)
-	{
-		if ((is_command(words[i]) ))
-			count ++;
-	}
-	i = -1;
-	commands = (char **)malloc(sizeof(char *) * (count + 1));
-	j = 0;
-	while (words[++i] != NULL)
-	{
-		if (is_command(words[i]))
-		{
-			commands[j] = ft_strdup(words[i]);
-			j++;
-		}
-	}
-	commands[j] = NULL;
 	data->commands = commands;
-	i = 0;*/
-	data->commands = commands;
-	i = 0;
-	while (commands[i])
-	{
-        printf("commands pred checkem[%d] :%s\n",i, commands[i]);
-		i++;
-    }
 	tokenize_arg(words, data, count);
 }

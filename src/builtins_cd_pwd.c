@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 15:21:02 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/07/02 20:01:31 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/05 17:08:26 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_cd_fork(char **args)
 	{
 		getcwd(old_pwd, MAX_PATH_LENGTH);
 		if (argument_count == 1)
-			chdir(getenv("HOME"));//error managment
+			chdir(getenv("HOME"));
 		else if (chdir(args[1]) == -1)
 		{
         	printf("cd: %s: no such file or directory.\n", args[1]);
@@ -98,7 +98,7 @@ int	ft_cd_nonfork(char **args)
 	{
 		getcwd(old_pwd, MAX_PATH_LENGTH);
 		if (argument_count == 1)
-			chdir(getenv("HOME"));//error managment
+			chdir(getenv("HOME"));
 		else if (chdir(args[1]) == -1)
 		{
         	printf("cd: %s: no such file or directory.\n", args[1]);
@@ -107,7 +107,6 @@ int	ft_cd_nonfork(char **args)
 		getcwd(cwd, MAX_PATH_LENGTH);
 		ft_rewrite(ft_checkforexisting("PWD"), custom_strjoin_env("PWD", cwd));
 		ft_rewrite(ft_checkforexisting("OLDPWD"), custom_strjoin_env("OLDPWD",old_pwd));
-		//PWD=cwd pomoci strjoin
 	}
 	return(0);
 }
