@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/06 14:41:32 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/06 16:28:41 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,9 @@ int		counter_without_redirs(char **words);
 
 /* parsing_quotes_env_vars.c */
 char	*prepare_quoted_string(const char *input);
-char	**parse_double_quated_strings(char **words);
+char	**parse_quated_strings(char **words);
+
+/* env_vars.c */ 
 char	**replace_env_var_nonquated (char **words);
 char	*env_replacement(char *word, int i, int j);
 char	*dollar_check(char *word);
@@ -86,8 +88,6 @@ void	tokenize_command(char **words, t_data *data);
 
 /* tokenize_arguments.c */
 void	tokenize_arg(char **words, t_data *data, int count);
-
-/* args_lexer_parser.c */
 char	***argument_parser(char **commands, char ***args);
 char	**copy_args(char **arr_src, char *command);
 
@@ -130,6 +130,9 @@ int		ft_unset_nonfork(char **args);
 void	ft_executor(t_data *data);
 void	executor_experim(t_data *data);
 void	ft_executor_binary_exp(t_data *data);
+void 	save_restore_std(t_data *data, int i);
+void	set_infile(t_data *data);
+void	set_outfile(t_data *data);
 
 /* builtins_redirection.c  */
 void	builtin_redirection_fork(char *command, char **args, t_data	*data);

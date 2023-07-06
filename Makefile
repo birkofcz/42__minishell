@@ -6,7 +6,7 @@
 #    By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/26 16:36:32 by sbenes            #+#    #+#              #
-#    Updated: 2023/07/06 14:29:53 by tkajanek         ###   ########.fr        #
+#    Updated: 2023/07/06 16:28:54 by tkajanek         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,10 +39,10 @@ SRC_PATH =	src/
 SRC = 	minishell.c parser.c builtin_echo.c \
 		builtin_echo_utils.c builtins_cd_pwd.c builtin_env.c \
 		builtin_export.c builtin_unset.c utils.c \
-		parsing_quotes_env_vars.c executor.c \
+		parsing_quotes.c env_vars.c executor.c \
 		heredoc.c tokenize_commands.c tokenize_arguments.c in_outfiles.c \
 		command_check.c builtins_redirection.c \
-		args_lexer_parser.c signals.c builtin_export_utils.c
+		signals.c builtin_export_utils.c
 SRCS =	$(addprefix $(SRC_PATH), $(SRC))
 
 #objects

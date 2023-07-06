@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 13:40:19 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/06 14:34:50 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/06 15:02:02 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	ft_parser(const char *input, t_data *data)
 
 	words = ft_split(prepare_quoted_string(input), 29);
 	words = replace_env_var_nonquated (words);
-	words = parse_double_quated_strings(words);
+	words = parse_quated_strings(words);
 	words = status_var_check(words); 
 	lexer(words, data);
 }

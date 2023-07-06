@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:28:41 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/05 16:35:43 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/06 15:50:05 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	ft_initialize_data(t_data *data)
 	data->delimiter = NULL;
 	data->redirs = NULL;
 	data->outfile = -1;
+	data->saved_stdin = -1;
+	data->saved_stdout = -1;
 	data->minishell_env = ft_alloc_env();
 	environ = data->minishell_env;
 	ft_rewrite(index, "SHELL=[TS]minishell");
@@ -73,7 +75,7 @@ void	ft_read(t_data *data)
 	input = readline(prompt);
 	if (input == NULL)
 	{
-		write(1, "exit\n", 5);
+		write(1, "exit\n", 5); // nechame tento error?
 		free(prompt);
 		exit(0);
 	}
