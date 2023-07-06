@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/05 17:12:02 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/06 14:41:32 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,11 @@ void	tokenize_outfile(char **words, t_data *data);
 
 /* tokenize_commands_args.c */
 int		is_command(char *word);
-int		args_counter(char **words, int i);
-void	tokenize_arg(char **words, t_data *data, int count);
+bool 	is_pipe(char *word);
 void	tokenize_command(char **words, t_data *data);
+
+/* tokenize_arguments.c */
+void	tokenize_arg(char **words, t_data *data, int count);
 
 /* args_lexer_parser.c */
 char	***argument_parser(char **commands, char ***args);

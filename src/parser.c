@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 13:40:19 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/05 17:07:30 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/06 14:34:50 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,17 @@ void	lexer(char **words, t_data *data)
 	tokenize_command(words, data);
 	ft_command_check(data);
 	data->args = argument_parser(data->commands, data->args);
+	int i = 0;
+    while (data->args[i])
+	{
+        int j = 0;
+        while (data->args[i][j])
+		{
+            printf("args[%d][%d]: %s\n", i, j, data->args[i][j]);
+            j++;
+        }
+        i++;
+    }
 	free_split(words);
 }
 

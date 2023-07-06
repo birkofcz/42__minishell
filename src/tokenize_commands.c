@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenize_commands_args.c                           :+:      :+:    :+:   */
+/*   tokenize_commands.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 15:22:21 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/07/05 17:24:51 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/06 14:30:16 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,62 +43,6 @@ bool is_pipe(char *word)
 		return (false);
 }
 
-int	args_counter(char **words, int i)
-{
-	int	count;
-
-	count = 0;
-	if (words[i] != NULL)
-		i++;
-	while (words[i] != NULL && !is_pipe(words[i]))
-	{
-		count++;
-		i++;
-	}
-	return (count);
-}
-//blbne to pokud napr < infile | pwd
-void	tokenize_arg(char **words, t_data *data, int count) //predelat na druhem miste muze byt infile
-{
-	int i;
-	int j;
-	int k;
-	char	***args;
-
-	i = 0;
-	j = 0;
-	k = 0;
-	printf ("command count : %d\n", count);
-	args = (char ***)malloc(sizeof(char **) * (count + 1));//command_count
-	while (words[i] != NULL)
-	{
-		count = args_counter (words, i);
-		printf ("argument count : %d\n", count);
-		if (count == 0)
-		{
-			args[j] = (char **)malloc(sizeof(char *) * (2));
-		}
-		else
-			args[j] = (char **)malloc(sizeof(char *) * (count + 1));
-		if (words[i] != NULL)
-		i++;
-		while (words[i] != NULL && !is_pipe(words[i]))
-		{
-			args[j][k] = ft_strdup(words[i]);
-			k++;
-			i++;
-		}
-		args[j][k] = NULL;
-		k = 0;
-		j++;
-		if (words[i] == NULL)
-			break ;
-		i++;
-	}
-	args[j] = NULL;
-	data->args = args;
-}
-
 static int	cmnd_counter(char **words)
 {
 	int i;
@@ -126,6 +70,18 @@ static int	cmnd_counter(char **words)
 	}
 	return (count);
 }
+
+static int	jump_to_next_command (char **words, int i)
+{
+	while (words[i] != NULL && !is_pipe(words[i]))
+		i++;
+	if (words[i] != NULL)
+	{
+		if (is_pipe(words[i]))
+			i++;
+	}
+	return (i);
+}
 void	tokenize_command(char **words, t_data *data)
 {
 	int i;
@@ -143,15 +99,7 @@ void	tokenize_command(char **words, t_data *data)
 		{
 			commands[j++] = ft_strdup(words[i++]);
 			if (words[i] != NULL)
-				{
-					while (words[i] != NULL && !is_pipe(words[i]))
-					i++;
-					if (words[i] != NULL)
-					{
-						if (ft_strncmp(words[i], "|", 2) == 0)
-							i++;
-					}
-				}
+				i = jump_to_next_command(words, i);	
 		}
 		commands[j] = NULL;
 	}
