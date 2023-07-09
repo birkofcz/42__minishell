@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 12:40:29 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/28 15:49:49 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/09 15:25:09 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_heredoc(char *delimiter)
 	if (pipe(fd) == -1)
 		return ;
 	pid = fork();
+	heredoc_line = NULL;
 	if (pid == 0)
 	{
 		close(fd[0]);
@@ -36,6 +37,7 @@ void	ft_heredoc(char *delimiter)
 	{
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[1]);
+		close(fd[0]);
 		wait(NULL);
 	}
 }

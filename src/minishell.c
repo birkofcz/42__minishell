@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:28:41 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/06 15:50:05 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/09 15:13:42 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	ft_read(t_data *data)
 	input = readline(prompt);
 	if (input == NULL)
 	{
-		write(1, "exit\n", 5); // nechame tento error?
+		write(1, "exit\n", 5);
 		free(prompt);
 		exit(0);
 	}
@@ -103,9 +103,7 @@ int	main(int ac, char **av, char **environ)
 	signal(SIGINT, ft_sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
-	{
 		ft_read(&data);
-	}
 	return (0);
 }
 //vyzkouset jestli funguje bez environ

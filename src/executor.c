@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:11:12 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/07/06 16:25:12 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/09 14:44:52 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,19 @@ void	child(char *command, int position, t_data *data)
 	{
 		close(fd[0]); //read end
 		dup2(fd[1], STDOUT_FILENO);
+		close(fd[1]);
 		execute(command, position, data);
 	}
 	else
 	{
 		close(fd[1]); //write end
 		dup2(fd[0], STDIN_FILENO);
+		close(fd[1]);
 		waitpid(pid, &g_exit, 0);
 	}
 }
 
-void set_outfile(t_data *data)
+void	set_outfile(t_data *data)
 {
 	if (data->outfile != -1)
 	{
@@ -64,7 +66,7 @@ void set_outfile(t_data *data)
 	}
 }
 
-void set_infile(t_data *data)
+void	set_infile(t_data *data)
 {
 	if (data->infile != - 1)
 	{
