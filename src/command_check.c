@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:44:40 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/25 15:49:05 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/02 20:49:42 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,12 +113,13 @@ void	ft_command_check(t_data *data)
 		else if (ft_is_pathx(data->commands[i]) == true)
 			i++;
 		else if (ft_isnopathx(data->commands[i]) == true)
+			//nejspis free(data->commands[i]) 
 			data->commands[i] = ft_strdup(ft_return_path(data->commands[i]));
 		else
 		{
-			write(2, "minishell: Command not found: ", 31);
+		/*	write(2, "minishell: Command not found: ", 31);
 			write(2, data->commands[i], ft_strlen(data->commands[i]));
-			write(2, "\n", 1);
+			write(2, "\n", 1); */
 			break ;
 		}
 	}

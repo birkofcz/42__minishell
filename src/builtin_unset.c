@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 13:45:53 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/26 17:09:59 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/02 20:01:00 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_delenv(int index)
 	environ = new_environ;
 }
 
-void	ft_unset(char **words)
+void	ft_unset_fork(char **words)
 {
 	int	i;
 	int	index;

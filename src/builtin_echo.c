@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 15:07:25 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/30 16:06:21 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/02 20:00:24 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_echoprint(char **args, int i)
 	}
 }
 
-void	ft_echo(char **args)
+void	ft_echo_fork(char **args)
 {
 	if (!args[1])
 		write(1, "\n", 1);

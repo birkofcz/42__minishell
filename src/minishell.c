@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:28:41 by sbenes            #+#    #+#             */
-/*   Updated: 2023/06/30 16:04:32 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/09 15:13:42 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	ft_initialize_data(t_data *data)
 	data->delimiter = NULL;
 	data->redirs = NULL;
 	data->outfile = -1;
+	data->saved_stdin = -1;
+	data->saved_stdout = -1;
 	data->minishell_env = ft_alloc_env();
 	environ = data->minishell_env;
 	ft_rewrite(index, "SHELL=[TS]minishell");
@@ -64,31 +66,30 @@ void	ft_initialize_data(t_data *data)
 	//// To get updated PWD we have to use the getcwd function.
 }
 
-int	ft_read(t_data *data)
+void	ft_read(t_data *data)
 {
 	char	*input;
 	char	*prompt;
-	int		exit_l; //making the loop of readline to continue
 
-	signal(SIGINT, ft_sigint_handler);
-	signal(SIGQUIT, SIG_IGN);
 	prompt = ft_strjoin(getenv("USER"), "@\033[96m[TS]minishell\033[0m>> ");
 	input = readline(prompt);
-	exit_l = 1;
 	if (input == NULL)
 	{
 		write(1, "exit\n", 5);
+		free(prompt);
 		exit(0);
 	}
-	if (input && input[0] != '\0')
+	else if (input[0] != '\0')
 	{
 		add_history(input);
 		ft_initialize_data(data);
-		exit_l = ft_prompt_crossroad(input, data);
-		free(input);
+		ft_parser(input, data);
+		if((data->last_command = commands_counting(data->commands) - 1) >= 0)
+			ft_executor(data);
+	//mozna treba free(data->commands), args?
 	}
+	free(input);
 	free(prompt);
-	return (exit_l);
 }
 
 int	main(int ac, char **av, char **environ)
@@ -99,10 +100,10 @@ int	main(int ac, char **av, char **environ)
 	(void)av;
 	(void)environ;
 	ft_initialize_data(&data);
-	while (ft_read(&data))
-	{
-		(void)environ;
-	}
-
+	signal(SIGINT, ft_sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
+	while (1)
+		ft_read(&data);
 	return (0);
 }
+//vyzkouset jestli funguje bez environ

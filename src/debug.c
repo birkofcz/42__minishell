@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/29 14:57:44 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/03 16:41:24 by tkajanek         ###   ########.fr       */
+/*   Created: 2023/07/05 16:15:59 by tkajanek          #+#    #+#             */
+/*   Updated: 2023/07/05 17:09:19 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
-
-/* 
-FT_SIGINT_HANDLER - handles the ctrl + c pressed.
-Resets the line and display a new prompt.
- */
-void	ft_sigint_handler(int signal)
-{
-	if (signal == SIGINT)
+int i = 0;
+    while (data->args[i])
 	{
-		rl_replace_line("", 0); // Clear the current line
-		rl_on_new_line(); // Inform readline to read a new line
-		write(1, "\n", 1);
-		rl_redisplay(); // Redisplay the prompt
-	}
-}
+        int j = 0;
+        while (data->args[i][j])
+		{
+            printf("args[%d][%d]: %s\n", i, j, data->args[i][j]);
+            j++;
+        }
+        i++;
+    }
+
+	i = 0;
+	while (commands[i])
+	{
+        printf("commands pred checkem[%d] :%s\n",i, commands[i]);
+		i++;
+    }
