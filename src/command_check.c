@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:44:40 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/02 20:49:42 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/09 16:50:25 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,15 @@ bool	ft_isnopathx(char *command)
 	int		i;
 
 	i = 0;
-	while (ft_strnstr(environ[i], "PATH", 4) == 0)
-		i++;
+	while(environ[i] != NULL)
+	{
+		if (ft_strnstr(environ[i], "PATH", 4) == 0)
+			i++;
+		else
+			break ;
+	}
+	if (environ[i] == NULL)
+		return (false);
 	paths = ft_split(environ[i] + 5, ':');
 	i = 0;
 	while (paths[i] != NULL)

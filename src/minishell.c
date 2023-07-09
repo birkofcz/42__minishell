@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:28:41 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/09 15:13:42 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/09 16:32:44 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,26 @@ static	char **ft_alloc_env(void)
 	return (minishell_env);
 }
 
+static void	ft_clean_init(t_data *data)
+{
+	data->commands = NULL;
+	data->last_command = -1;
+	data->args = NULL;
+	data->infile = -1;
+	data->delimiter = NULL;
+	data->redirs = NULL;
+	data->outfile = -1;
+	data->saved_stdin = -1;
+	data->saved_stdout = -1;
+}
+
 void	ft_initialize_data(t_data *data)
 {
 	int	index;
 
 	index = ft_checkforexisting("SHELL");
 	data->commands = NULL;
-	data->last_command = 0;
+	data->last_command = -1;
 	data->args = NULL;
 	data->infile = -1;
 	data->delimiter = NULL;
@@ -82,7 +95,7 @@ void	ft_read(t_data *data)
 	else if (input[0] != '\0')
 	{
 		add_history(input);
-		ft_initialize_data(data);
+		ft_clean_init(data);
 		ft_parser(input, data);
 		if((data->last_command = commands_counting(data->commands) - 1) >= 0)
 			ft_executor(data);

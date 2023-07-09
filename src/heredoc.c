@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 12:40:29 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/09 15:25:09 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/09 17:06:59 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_heredoc(char *delimiter)
 	if (pipe(fd) == -1)
 		return ;
 	pid = fork();
-	heredoc_line = NULL;
+	//heredoc_line = NULL;
 	if (pid == 0)
 	{
 		close(fd[0]);
