@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:44:40 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/10 14:22:39 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/10 17:12:36 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,15 @@ bool	ft_isnopathx(char *command)
 		path = ft_strjoin(with_slash, command);
 		free(with_slash);
 		if (access(path, X_OK) == 0)
+		{
+			free_split(paths);
+			free(path);
 			return (true);
+		}
 		free(path);
 		i++;
 	}
-	i = -1;
-	while (paths[++i])
-		free(paths[i]);
-	free(paths);
+	free_split(paths);
 	return (false);
 }
 
@@ -90,14 +91,15 @@ char	*ft_return_path(char *command)
 		path = ft_strjoin(with_slash, command);
 		free(with_slash);
 		if (access(path, X_OK) == 0)
+		{
+			free(command);
+			free_split(paths);
 			return (path);
+		}
 		free(path);
 		i++;
 	}
-	i = -1;
-	while (paths[++i])
-		free(paths[i]);
-	free(paths);
+	free_split(paths);
 	return (NULL);
 }
 
@@ -113,8 +115,10 @@ void	ft_command_check(t_data *data)
 		else if (ft_is_pathx(data->commands[i]) == true)
 			i++;
 		else if (ft_isnopathx(data->commands[i]) == true)
-			//nejspis free(data->commands[i]) 
-			data->commands[i] = ft_strdup(ft_return_path(data->commands[i]));
+		{
+			//check for leeks
+			data->commands[i] = ft_return_path(data->commands[i]);
+		}
 		else
 			break ;
 	}

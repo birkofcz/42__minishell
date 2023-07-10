@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:11:12 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/07/10 14:04:26 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/10 15:59:34 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	execute(char *command, int position, t_data *data)
 			write(2, "[TS]minishell: Command not found: ", 35);
 			write(2, command, ft_strlen(command));
 			write(2, "\n", 1);
+			free_command_table(data);
+			free_split(data->minishell_env);
 			exit(127);
 		}
 	}

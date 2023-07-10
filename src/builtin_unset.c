@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 13:45:53 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/10 14:30:12 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/10 17:39:45 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /* Unset - deleting the env variable */
 /*  */
-void	ft_delenv(int index)
+void	ft_delenv(int index, t_data *data)
 {
 	char	**new_environ;
 	int		size;
@@ -37,11 +37,12 @@ void	ft_delenv(int index)
 		i++;
 	}
 	new_environ[j] = NULL;
-	free_split(environ);
+	free_split(data->minishell_env);
+	data->minishell_env = new_environ;
 	environ = new_environ;
 }
 
-void	ft_unset_fork(char **words)
+void	ft_unset_fork(char **words, t_data *data)
 {
 	int	i;
 	int	index;
@@ -51,13 +52,13 @@ void	ft_unset_fork(char **words)
 	{
 		index = ft_checkforexisting(words[i]);
 		if (index != -1)
-			ft_delenv(index);
+			ft_delenv(index, data);
 		i++;
 	}
 	exit(0);
 }
 
-int	ft_unset_nonfork(char **words)
+int	ft_unset_nonfork(char **words, t_data *data)
 {
 	int	i;
 	int	index;
@@ -67,7 +68,7 @@ int	ft_unset_nonfork(char **words)
 	{
 		index = ft_checkforexisting(words[i]);
 		if (index != -1)
-			ft_delenv(index);
+			ft_delenv(index, data);
 		i++;
 	}
 	return (0);
