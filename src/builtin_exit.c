@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 16:54:07 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/10 17:15:06 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/10 17:33:51 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,27 @@ static void	ft_exit_one(t_data *data)
 	{
 		exit_status = ft_atoi(data->args[0][1]);
 		free_command_table(data);
+		free_split(data->minishell_env);
 		exit(exit_status);
 	}
 	else if (ft_isnum(data->args[0][1]) == false)
 	{
-		write(1, "exit\n", 5);
+		write(2, "exit\n", 5);
 		write(2, "[TS]minishell: exit: ", 22);
 		write(2, data->args[0][1], ft_strlen(data->args[0][1]));
 		write(2, ": numeric argument required\n", 29);
 		free_command_table(data);
+		free_split(data->minishell_env);
 		exit(2);
 	}
+}
+
+static void	ft_write_bc_stupid_norminette(t_data *data)
+{
+	write(2, "exit\n", 5);
+	write(2, "[TS]minishell: exit: ", 22);
+	write(2, data->args[0][1], ft_strlen(data->args[0][1]));
+	write(2, ": numeric argument required\n", 29);
 }
 
 void	ft_exit(t_data *data)
@@ -55,22 +65,21 @@ void	ft_exit(t_data *data)
 	{
 		if (ft_isnum(data->args[0][1]) == false)
 		{
-			write(2, "exit\n[TS]minishell: exit: ", 27);
-			write(2, data->args[0][1], ft_strlen(data->args[0][1]));
-			write(2, ": numeric argument required\n", 29);
+			ft_write_bc_stupid_norminette(data);
 			free_command_table(data);
+			free_split(data->minishell_env);
 			exit(2);
 		}
 		else
 		{
-			write(1, "exit\n", 5);
-			write(2, "[TS]minishell: exit: too many arguments\n", 41);
+			write(2, "exit\n[TS]minishell: exit: too many arguments\n", 46);
 			g_exit = 1 << 8;
 		}
 	}
 	else
 	{
 		free_command_table(data);
+		free_split(data->minishell_env);
 		write(1, "exit", 4);
 		exit(0);
 	}
