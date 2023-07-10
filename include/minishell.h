@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/10 13:50:41 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/10 17:14:42 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,9 @@ char	*ft_checkarg(char *arg);
 /* builtin_unset.c */
 void	ft_unset_fork(char **words);
 int		ft_unset_nonfork(char **args);
+
+/* builtin_exit.c */
+void	ft_exit(t_data *data);
 
 /* executor.c */
 void	ft_executor(t_data *data);
