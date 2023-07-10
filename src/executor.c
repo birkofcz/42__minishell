@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:11:12 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/07/09 16:08:20 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/10 08:41:22 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	execute(char *command, int position, t_data *data)
 {
 	if (ft_is_builtin(command))
-		builtin_redirection_fork(command,data->args[position], data);
+		builtin_redirection_fork(command, data->args[position], data);
 	else
 	{
 		if (execve(command, data->args[position], environ) == -1)
@@ -28,6 +28,10 @@ void	execute(char *command, int position, t_data *data)
 	}
 }
 
+/* 
+Read end fd[0]
+Write end fd[1]
+ */
 void	child(char *command, int position, t_data *data)
 {
 	int	pid;
@@ -39,58 +43,19 @@ void	child(char *command, int position, t_data *data)
 	pid = fork();
 	/*if (pid == -1)
 		error();*/
-	
 	if (pid == 0)
 	{
-		close(fd[0]); //read end
+		close(fd[0]);
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 		execute(command, position, data);
 	}
 	else
 	{
-		close(fd[1]); //write end
+		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[1]);
 		waitpid(pid, &g_exit, 0);
-	}
-}
-
-void	set_outfile(t_data *data)
-{
-	if (data->outfile != -1)
-	{
-		printf("we are inside outfile redirection\n");
-		dup2(data->outfile, STDOUT_FILENO);
-		close(data->outfile);
-	}
-}
-
-void	set_infile(t_data *data)
-{
-	if (data->infile != - 1)
-	{
-		printf("we are inside infile redirection\n");
-		dup2(data->infile, STDIN_FILENO);
-		close(data->infile);
-	}
-	else if (data->delimiter != NULL)
-		ft_heredoc(data->delimiter);
-}
-
-void	save_restore_std(t_data *data, int i)
-{
-	if (i == 0)
-	{
-	data->saved_stdin = dup(STDIN_FILENO);
-	data->saved_stdout = dup(STDOUT_FILENO);
-	}
-	else if (i == 1)
-	{
-	dup2(data->saved_stdout,STDOUT_FILENO);
-	dup2(data->saved_stdin,STDIN_FILENO);
-	close(data->saved_stdin);
-	close(data->saved_stdout);
 	}
 }
 
@@ -111,18 +76,19 @@ void	ft_executor(t_data *data)
 	}
 	set_outfile(data);
 	if (ft_is_builtin(data->commands[data->last_command]))
-		builtin_nonfork_redirection(data->commands[data->last_command], data->args[data->last_command], data);
+		builtin_nonfork_redirection(data->commands[data->last_command],
+			data->args[data->last_command], data);
 	else
 	{
 		pid = fork();
 		if (pid == -1)
 		{
-			// Handle fork error
 			perror("fork");
 			exit(1);
 		}
 		else if (pid == 0)
-			execute(data->commands[data->last_command], data->last_command, data);
+			execute(data->commands[data->last_command],
+				data->last_command, data);
 		else
 			waitpid(pid, &g_exit, 0);
 	}

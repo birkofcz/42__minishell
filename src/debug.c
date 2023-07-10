@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:15:59 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/07/05 17:09:19 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/10 08:38:51 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int i = 0;
+	int i = 0;
     while (data->args[i])
 	{
         int j = 0;

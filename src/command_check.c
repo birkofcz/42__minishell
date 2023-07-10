@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:44:40 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/09 16:50:25 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/10 08:24:57 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ bool	ft_isnopathx(char *command)
 	int		i;
 
 	i = 0;
-	while(environ[i] != NULL)
+	while (environ[i] != NULL)
 	{
 		if (ft_strnstr(environ[i], "PATH", 4) == 0)
 			i++;
@@ -124,9 +124,9 @@ void	ft_command_check(t_data *data)
 			data->commands[i] = ft_strdup(ft_return_path(data->commands[i]));
 		else
 		{
-		/*	write(2, "minishell: Command not found: ", 31);
+			write(2, "minishell: Command not found: ", 31);
 			write(2, data->commands[i], ft_strlen(data->commands[i]));
-			write(2, "\n", 1); */
+			write(2, "\n", 1);
 			break ;
 		}
 	}

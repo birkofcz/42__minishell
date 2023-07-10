@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 13:45:53 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/02 20:01:00 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/10 08:14:52 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_delenv(int index)
 		{
 			new_environ[j] = ft_strdup(environ[i]);
 			j++;
-		} 
+		}
 		i++;
 	}
 	new_environ[j] = NULL;
