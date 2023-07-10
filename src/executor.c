@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:11:12 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/07/10 08:41:22 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/10 14:04:26 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ void	execute(char *command, int position, t_data *data)
 	}
 }
 
+static void	ft_error(void)
+{
+	perror("fork");
+	exit(1);
+}
+
 /* 
 Read end fd[0]
 Write end fd[1]
@@ -38,11 +44,11 @@ void	child(char *command, int position, t_data *data)
 	int	fd[2];
 
 	pipe(fd);
-	/*if (pipe(fd) == -1)
-		error();*/
+	if (pipe(fd) == -1)
+		ft_error();
 	pid = fork();
-	/*if (pid == -1)
-		error();*/
+	if (pid == -1)
+		ft_error();
 	if (pid == 0)
 	{
 		close(fd[0]);
@@ -64,16 +70,11 @@ void	ft_executor(t_data *data)
 	int		i;
 	pid_t	pid;
 
-	i = 0;
+	i = -1;
 	save_restore_std(data, 0);
 	set_infile(data);
-	while (i < data->last_command)
-	{
-		printf("we are inside child loop\n");
-		access(data->commands[i], X_OK);
+	while (++i < data->last_command)
 		child(data->commands[i], i, data);
-		i++;
-	}
 	set_outfile(data);
 	if (ft_is_builtin(data->commands[data->last_command]))
 		builtin_nonfork_redirection(data->commands[data->last_command],
@@ -82,10 +83,7 @@ void	ft_executor(t_data *data)
 	{
 		pid = fork();
 		if (pid == -1)
-		{
-			perror("fork");
-			exit(1);
-		}
+			ft_error();
 		else if (pid == 0)
 			execute(data->commands[data->last_command],
 				data->last_command, data);

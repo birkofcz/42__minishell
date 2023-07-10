@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/10 08:19:41 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/10 13:50:41 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,23 @@
 /* Structs and typedefs */
 typedef struct s_data
 {
-	char **commands; //alocated
-	int	last_command;
-	char ***args; //alocated
+	char	**commands; //alocated
+	int		last_command;
+	char	***args; //alocated
 	int 	infile; //fd infilu
-	char * delimiter; //alocated
-	char **redirs; //alocated, ale nejspis uplne smazat: neni treba
-	int	outfile;
-	int saved_stdin;
-	int	saved_stdout;
+	char	* delimiter; //alocated
+	char	**redirs; //alocated, ale nejspis uplne smazat: neni treba
+	int		outfile;
+	int		saved_stdin;
+	int		saved_stdout;
 	char	**minishell_env;
 }	t_data;
 
 /* Environmental variables storage */
 extern char	**environ;
-//extern int	errno ;
-extern int g_exit;
+extern int	g_exit;
 
-/* global var for exit status storage */
-//int	g_exit_status;
-
-/* Functions by files */
+/* FUNCTIONS BY FILES */
 
 /* parser.c */
 void	ft_parser(const char *input, t_data *data);
@@ -69,8 +65,8 @@ int		counter_without_redirs(char **words);
 char	*prepare_quoted_string(const char *input);
 char	**parse_quated_strings(char **words);
 
-/* env_vars.c */ 
-char	**replace_env_var_nonquated (char **words);
+/* env_vars.c */
+char	**replace_env_var_nonquated(char **words);
 char	*env_replacement(char *word, int i, int j);
 char	*dollar_check(char *word);
 char	**status_var_check(char **words);
@@ -83,7 +79,7 @@ void	tokenize_outfile(char **words, t_data *data);
 
 /* tokenize_commands_args.c */
 int		is_command(char *word);
-bool 	is_pipe(char *word);
+bool	is_pipe(char *word);
 void	tokenize_command(char **words, t_data *data);
 
 /* tokenize_arguments.c */
@@ -130,7 +126,7 @@ int		ft_unset_nonfork(char **args);
 void	ft_executor(t_data *data);
 void	executor_experim(t_data *data);
 void	ft_executor_binary_exp(t_data *data);
-void 	save_restore_std(t_data *data, int i);
+void	save_restore_std(t_data *data, int i);
 void	set_infile(t_data *data);
 void	set_outfile(t_data *data);
 
@@ -148,6 +144,9 @@ bool	ft_isnopathx(char *command);
 char	*ft_return_path(char *command);
 void	ft_command_check(t_data *data);
 
+/* command_check_utils.c */
+int		ft_isnopathx_util(void);
+
 /* utils.c*/
 int		commands_counting(char **words);
 void	free_split(char **args);
@@ -159,8 +158,5 @@ int		ft_isdigit_array(char **arg);
 void	ft_sigint_handler(int signal);
 void	ft_sigabrt_handler(int signal);
 void	ft_sigquit_handler(int signal);
-
-
-
 
 #endif

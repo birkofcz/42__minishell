@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_arguments.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:17:35 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/07/06 16:37:25 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/10 13:39:10 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	**copy_args(char **arr_src, char *command)
 	char	**arr_dst;
 	int		i;
 	int		counter;
-	
+
 	counter = 0;
 	i = 0;
 	while (arr_src[counter])
@@ -37,7 +37,7 @@ char	**copy_args(char **arr_src, char *command)
 	return (arr_dst);
 }
 
-char ***argument_parser(char **commands, char ***args)
+char	***argument_parser(char **commands, char ***args)
 {
 	int	i;
 
@@ -45,8 +45,8 @@ char ***argument_parser(char **commands, char ***args)
 	while (args[i])
 	{
 		args[i] = copy_args(args[i], commands[i]);
-        i++;
-    }
+		i++;
+	}
 	return (args);
 }
 
@@ -65,9 +65,9 @@ static int	args_counter(char **words, int i)
 	return (count);
 }
 
-static void argument_fill(char	***args, char ** words, int *i, int j)
+static void	argument_fill(char	***args, char **words, int *i, int j)
 {
-	int k;
+	int	k;
 
 	k = 0;
 	while (words[*i] != NULL && !is_pipe(words[*i]))
@@ -78,11 +78,11 @@ static void argument_fill(char	***args, char ** words, int *i, int j)
 	}
 	args[j][k] = NULL;
 }
-//blbne to pokud napr < infile | pwd
+
 void	tokenize_arg(char **words, t_data *data, int count)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
 	char	***args;
 
 	i = 0;
@@ -96,7 +96,7 @@ void	tokenize_arg(char **words, t_data *data, int count)
 		else
 			args[j] = (char **)malloc(sizeof(char *) * (count + 1));
 		if (words[i] != NULL)
-		i++;
+			i++;
 		argument_fill(args, words, &i, j);
 		j++;
 		if (words[i] == NULL)

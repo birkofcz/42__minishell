@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 18:05:14 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/06/25 17:14:02 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/10 13:42:27 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,31 +34,32 @@ int	ft_isdigit_array(char **arg)
 
 int	commands_counting(char **words)
 {
-    int count;
-    int i;
-	
+	int	count;
+	int	i;
+
 	count = 0;
 	i = 0;
-    while (words[i] != NULL)
+	while (words[i] != NULL)
 	{
-        count++;
-        i++;
-    }
-    return (count);
+		count++;
+		i++;
+	}
+	return (count);
 }
+
 void	free_command_table(t_data *data)
 {
 	free_args(data->args);
 	free_split(data->commands);
 	if (data->delimiter != NULL)
 		free(data->delimiter);
-} 
+}
 
 void	free_args(char ***args)
 {
-	int i;
-	int j;
-	
+	int	i;
+	int	j;
+
 	i = 0;
 	if (args != NULL)
 	{
@@ -79,7 +80,7 @@ void	free_args(char ***args)
 
 void	free_split(char **args)
 {
-    int i;
+	int	i;
 
 	i = 0;
 	if (args != NULL)
@@ -90,5 +91,5 @@ void	free_split(char **args)
 			i++;
 		}
 	}
-    free(args);
+	free(args);
 }

@@ -3,21 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 13:40:19 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/06 15:02:02 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/10 13:34:07 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-/* 
-FT_PROMPT_CROSSROAD
-function to read the input a set a proper function into motion
- */
 
-//something like this - may do a int type to return the errors?
- 
  bool	is_redir(char *word)
  {
 		if ((ft_strncmp(word, "<", ft_strlen("<") + 1) == 0))
@@ -82,17 +76,17 @@ void	lexer(char **words, t_data *data)
 	tokenize_command(words, data);
 	ft_command_check(data);
 	data->args = argument_parser(data->commands, data->args);
-	int i = 0;
-    while (data->args[i])
+	// int i = 0;
+/*     while (data->args[i])
 	{
-        int j = 0;
-        while (data->args[i][j])
+		int j = 0;
+		while (data->args[i][j])
 		{
-            printf("args[%d][%d]: %s\n", i, j, data->args[i][j]);
-            j++;
+			printf("args[%d][%d]: %s\n", i, j, data->args[i][j]);
+			j++;
         }
         i++;
-    }
+    } */
 	free_split(words);
 }
 

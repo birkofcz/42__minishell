@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:28:41 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/09 16:32:44 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/10 14:18:08 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int g_exit;
 
-static	char **ft_alloc_env(void)
+static char	**ft_alloc_env(void)
 {
 	int		size;
 	int		i;
@@ -61,22 +61,6 @@ void	ft_initialize_data(t_data *data)
 	data->minishell_env = ft_alloc_env();
 	environ = data->minishell_env;
 	ft_rewrite(index, "SHELL=[TS]minishell");
-
-	
-	/*printf("TESTPRINT OF MINISHELL_ENV\n");
-	int i = 0;
-	while (data->minishell_env[i] != NULL)
-	{
-		printf("%s\n", data->minishell_env[i]);
-		i++;
-	}*/
-	//data->saved_stdin;
-	//data->saved_stdout;
-	//fill up the structure with usefull environmental variables
-	// may need to call this when updating after pwd, cd and stuff?
-	
-	//// getenv takes the initial environment data and doesnt update it.
-	//// To get updated PWD we have to use the getcwd function.
 }
 
 void	ft_read(t_data *data)
@@ -97,7 +81,8 @@ void	ft_read(t_data *data)
 		add_history(input);
 		ft_clean_init(data);
 		ft_parser(input, data);
-		if((data->last_command = commands_counting(data->commands) - 1) >= 0)
+		data->last_command = commands_counting(data->commands) - 1;
+		if (data->last_command >= 0)
 			ft_executor(data);
 	//mozna treba free(data->commands), args?
 	}
@@ -105,13 +90,10 @@ void	ft_read(t_data *data)
 	free(prompt);
 }
 
-int	main(int ac, char **av, char **environ)
+int	main(void)
 {
 	t_data	data;
 
-	(void)ac;
-	(void)av;
-	(void)environ;
 	ft_initialize_data(&data);
 	signal(SIGINT, ft_sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
@@ -119,4 +101,3 @@ int	main(int ac, char **av, char **environ)
 		ft_read(&data);
 	return (0);
 }
-//vyzkouset jestli funguje bez environ
