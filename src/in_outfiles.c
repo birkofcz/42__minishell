@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   in_outfiles.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:51:58 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/07/03 15:44:59 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/10 08:47:15 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,16 @@
 
 int	redir_count(char **words, char *redir_frst, char *redir_scnd)
 {
-	int count;
-	int i;
+	int	count;
+	int	i;
 
 	count = 0;
 	i = -1;
 	while (words[++i] != NULL)
 	{
 		if ((ft_strncmp(words[i], redir_frst, ft_strlen(redir_frst) + 1) == 0)
-			|| (ft_strncmp(words[i], redir_scnd, ft_strlen(redir_scnd) + 1) == 0))
+			|| (ft_strncmp(words[i], redir_scnd, ft_strlen(redir_scnd) + 1)
+				== 0))
 			count++;
 	}
 	return (count);
@@ -30,13 +31,13 @@ int	redir_count(char **words, char *redir_frst, char *redir_scnd)
 
 void	tokenize_infile_heredoc(char **words, t_data *data)
 {
-	int i;
-	int count;
-	int done;
+	int	i;
+	int	count;
+	int	done;
 
 	count = redir_count(words, "<", "<<");
 	done = 0;
-	i = - 1;
+	i = -1;
 	while (words[++i] != NULL)
 	{
 		if (ft_strncmp(words[i], "<", ft_strlen("<") + 1) == 0)
@@ -56,26 +57,27 @@ void	tokenize_infile_heredoc(char **words, t_data *data)
 
 void	tokenize_outfile(char **words, t_data *data)
 {
-	int i;
-	int count;
-	int done;
+	int	i;
+	int	count;
+	int	done;
 
 	count = redir_count(words, ">", ">>");
 	done = 0;
-	i = - 1;
+	i = -1;
 	while (words[++i] != NULL)
 	{
 		if (ft_strncmp(words[i], ">>", ft_strlen(">>") + 1) == 0)
 		{
-			data->outfile = open(words[i + 1], O_WRONLY | O_CREAT | O_APPEND| O_CLOEXEC, 0777);
-			done ++;
+			data->outfile = open(words[i + 1], O_WRONLY | O_CREAT | O_APPEND
+					| O_CLOEXEC, 0777);
+			done++;
 			if (done < count)
 				close (data->outfile);
 		}
 		else if (ft_strncmp(words[i], ">", ft_strlen(">") + 1) == 0)
 		{
 			data->outfile = open(words[i + 1], O_WRONLY | O_CREAT | O_TRUNC | O_CLOEXEC, 0777);
-			done ++;
+			done++;
 			if (done < count)
 				close (data->outfile);
 		}

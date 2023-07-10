@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   command_check_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/29 14:57:44 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/10 08:08:41 by sbenes           ###   ########.fr       */
+/*   Created: 2023/07/10 13:47:14 by sbenes            #+#    #+#             */
+/*   Updated: 2023/07/10 13:51:29 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/* 
-FT_SIGINT_HANDLER - handles the ctrl + c pressed.
-Resets the line and display a new prompt.
- */
-void	ft_sigint_handler(int signal)
+int	ft_isnopathx_util(void)
 {
-	if (signal == SIGINT)
+	int	i;
+
+	i = 0;
+	while (environ[i] != NULL)
 	{
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		write(1, "\n", 1);
-		rl_redisplay();
+		if (ft_strnstr(environ[i], "PATH", 4) == 0)
+			i++;
+		else
+			break ;
 	}
+	return (i);
 }

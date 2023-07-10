@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 14:22:34 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/02 20:13:48 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/10 08:13:50 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	ft_export_fork(char **words)
 			else
 				ft_add(arg);
 			free_split(split);
-			//free(arg);
 		}
 		i++;
 	}
@@ -89,7 +88,6 @@ int	ft_export_nonfork(char **words)
 			else
 				ft_add(arg);
 			free_split(split);
-			//free(arg);
 		}
 		i++;
 	}
