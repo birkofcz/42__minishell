@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 12:40:29 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/10 08:41:50 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/10 17:44:57 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_heredoc(char *delimiter)
 	if (pid == 0)
 	{
 		close(fd[0]);
+		heredoc_line = "";
 		while (ft_strncmp(heredoc_line, delimiter, ft_strlen(delimiter)) != 0)
 		{
 			heredoc_line = readline("\033[96mheredoc>\033[0m ");
