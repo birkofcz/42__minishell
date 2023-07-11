@@ -8,7 +8,7 @@ void	ft_heredoc(char *delimiter)
 
 	if (pipe(fd) == -1)
 		return ;
-	heredoc_line = NULL;
+	heredoc_line = "";
 	while (ft_strncmp(heredoc_line, delimiter, ft_strlen(delimiter)) != 0)
 	{
 			heredoc_line = readline("\033[96mheredoc>\033[0m ");
