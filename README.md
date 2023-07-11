@@ -9,5 +9,7 @@ Work in progress...
 
 run valgrind ignoring readline:
 valgrind --suppressions=.ignore_readline.supp ./minishell
+valgrind --suppressions=.ignore_readline.supp --leak-check=full --show-leak-kinds=all ./minishell
+
 
 Team project with [Tomas Kajanek](https://github.com/DelphicSnow)

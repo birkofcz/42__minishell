@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 13:40:19 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/10 13:34:07 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/10 14:50:38 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,17 @@ char	**destroy_redirections(char **words)
 	char	**words_copy;
 
 	count = counter_without_redirs(words);
-	words_copy = (char **)malloc(sizeof(char *) * count + 1);
+	words_copy = (char **)malloc(sizeof(char *) * (count + 1));
 	i = - 1;
 	j = 0;
 	while (words[++i] != NULL)
 	{
-		if (is_redir(words[i]) == 0)
+		if (is_redir(words[i]) == false)
 		{
 			words_copy[j] = ft_strdup(words[i]);
 			j++;
 		}
-		if (is_redir(words[i]) == 1)
+		if (is_redir(words[i]) == true)
 			i++;
 	}
 	words_copy[j] = NULL;
