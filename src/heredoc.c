@@ -6,11 +6,17 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 12:40:29 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/10 17:44:57 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/11 13:41:59 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+static void	ft_close_fds(int fd[])
+{
+	close(fd[1]);
+	close(fd[0]);
+}
 
 void	ft_heredoc(char *delimiter)
 {
@@ -36,8 +42,7 @@ void	ft_heredoc(char *delimiter)
 	else
 	{
 		dup2(fd[0], STDIN_FILENO);
-		close(fd[1]);
-		close(fd[0]);
+		ft_close_fds(fd);
 		wait(NULL);
 	}
 }

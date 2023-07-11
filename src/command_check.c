@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:44:40 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/10 17:12:36 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:32:46 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,7 @@ bool	ft_isnopathx(char *command)
 		if (access(path, X_OK) == 0)
 		{
 			free_split(paths);
-			free(path);
-			return (true);
+			return (free(path), true);
 		}
 		free(path);
 		i++;
@@ -93,8 +92,7 @@ char	*ft_return_path(char *command)
 		if (access(path, X_OK) == 0)
 		{
 			free(command);
-			free_split(paths);
-			return (path);
+			return (free_split(paths), path);
 		}
 		free(path);
 		i++;
