@@ -6,11 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 15:21:02 by tkajanek          #+#    #+#             */
-<<<<<<< HEAD:src/builtins_cd_pwd.c
-/*   Updated: 2023/07/11 14:59:36 by tkajanek         ###   ########.fr       */
-=======
-/*   Updated: 2023/07/11 14:31:31 by sbenes           ###   ########.fr       */
->>>>>>> main:src/builtins_cd.c
+/*   Updated: 2023/07/11 15:55:34 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +34,7 @@ char	*join_env(char *var, char *value)
 	return (value);
 }
 
-static void	ft_errorandexit(char *arg)
+static void	ft_errorandexit(char *arg, t_data *data)
 {
 	printf("cd: %s: no such file or directory.\n", arg);
 	fork_exit(1, data);
@@ -64,7 +60,7 @@ void	ft_cd_fork(char **args, t_data * data)
 		else if (args[1][0] == '-')
 			chdir(getenv("OLDPWD"));
 		else if (chdir(args[1]) == -1)
-			ft_errorandexit(args[1]);
+			ft_errorandexit(args[1], data);
 		getcwd(cwd, MAX_PATH_LENGTH);
 		ft_rewrite(ft_checkforexisting("PWD"), join_env("PWD", cwd), data);
 		ft_rewrite(ft_checkforexisting("OLDPWD"), join_env("OLDPWD", old_pwd), data);

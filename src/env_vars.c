@@ -6,11 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:57:21 by tkajanek          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/07/11 15:18:57 by tkajanek         ###   ########.fr       */
-=======
-/*   Updated: 2023/07/11 15:35:58 by sbenes           ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2023/07/11 15:59:55 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +116,7 @@ char	*tilda_replace(char *word)
 		if (word[i] == '~' && word[i + 1] == '/')
 		{
 			path = ft_strtrim(word, "~");
-			printf("path: %s\n", path);
 			temp = ft_strjoin(getenv("HOME"), path);
-			printf("temp: %s\n", temp);
 			free(path);
 			free(word);
 			word = temp;
