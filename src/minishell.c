@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:28:41 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/10 14:18:08 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/10 15:43:37 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	**ft_alloc_env(void)
 	i = -1;
 	while (environ[size] != NULL)
 		size++;
-	minishell_env = malloc((size + 1) * sizeof(char *));
+	minishell_env = (char **)malloc((size + 1) * sizeof(char *));
 	while (++i < size)
 		minishell_env[i] = ft_strdup(environ[i]);
 	minishell_env[i] = NULL;
@@ -78,6 +78,7 @@ void	ft_read(t_data *data)
 	}
 	else if (input[0] != '\0')
 	{
+		free(prompt);
 		add_history(input);
 		ft_clean_init(data);
 		ft_parser(input, data);
@@ -87,7 +88,6 @@ void	ft_read(t_data *data)
 	//mozna treba free(data->commands), args?
 	}
 	free(input);
-	free(prompt);
 }
 
 int	main(void)
