@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/10 17:14:42 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/11 14:25:42 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,14 @@ void	tokenize_arg(char **words, t_data *data, int count);
 char	***argument_parser(char **commands, char ***args);
 char	**copy_args(char **arr_src, char *command);
 
-/* builtins_pwd_cd.c */
-void	ft_pwd_fork(char **args);
-int		ft_pwd_nonfork(char **args);
+/* builtin_cd.c */
 char	*join_env(char *var, char *value);
 void	ft_cd_fork(char **args);
 int		ft_cd_nonfork(char **args);
+
+/* builtin_pwd.c */
+void	ft_pwd_fork(char **args);
+int		ft_pwd_nonfork(char **args);
 
 /* buldin_echo.c */
 void	ft_echo_fork(char **args);
