@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:28:41 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/10 15:43:37 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/11 14:33:25 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_initialize_data(t_data *data)
 	data->saved_stdout = -1;
 	data->minishell_env = ft_alloc_env();
 	environ = data->minishell_env;
-	ft_rewrite(index, "SHELL=[TS]minishell");
+	ft_rewrite(index, "SHELL=[TS]minishell", data);
 }
 
 void	ft_read(t_data *data)
