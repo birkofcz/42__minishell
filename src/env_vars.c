@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:57:21 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/07/11 14:00:51 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/11 15:35:58 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char	*status_replace(char *word)
 	{
 		if (word[i] == '$' && word[i + 1] == '?')
 		{
-			status = ft_itoa(g_exit >> 8);//alokovany
+			status = ft_itoa(g_exit >> 8);
 			updated_str = ft_substr(word, 0, i);
 			temp = ft_strjoin(updated_str, status);
 			free(updated_str);
@@ -106,6 +106,38 @@ char	*status_replace(char *word)
 	return (word);
 }
 
+char	*tilda_replace(char *word)
+{
+	int		i;
+	char	*temp;
+	char	*path;
+
+	i = 0;
+	while (word[i] != '\0')
+	{
+		if (word[i] == '~' && word[i + 1] == '/')
+		{
+			path = ft_strtrim(word, "~");
+			printf("path: %s\n", path);
+			temp = ft_strjoin(getenv("HOME"), path);
+			printf("temp: %s\n", temp);
+			free(path);
+			free(word);
+			word = temp;
+		}
+		else if (word[i] == '~' && word[i + 1] == '\0')
+		{
+			temp = getenv("HOME");
+			free(word);
+			word = ft_strdup(temp);
+		}
+		else if (word[i] == '~' && word[i + 1] != '/' && word[i + 1] != '\0')
+			break ;
+		i++;
+	}
+	return (word);
+}
+
 char	**status_var_check(char **words)
 {
 	int	i;
@@ -115,6 +147,8 @@ char	**status_var_check(char **words)
 	{
 		if (ft_strchr(words[i], '$'))
 			words[i] = status_replace(words[i]);
+		else if (ft_strchr(words[i], '~'))
+			words[i] = tilda_replace(words[i]);
 		i ++;
 	}
 	return (words);
