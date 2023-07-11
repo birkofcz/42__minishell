@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/10 17:14:42 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/11 15:02:37 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,14 @@ char	***argument_parser(char **commands, char ***args);
 char	**copy_args(char **arr_src, char *command);
 
 /* builtins_pwd_cd.c */
-void	ft_pwd_fork(char **args);
+void	ft_pwd_fork(char **args, t_data *data);
 int		ft_pwd_nonfork(char **args);
 char	*join_env(char *var, char *value);
-void	ft_cd_fork(char **args);
-int		ft_cd_nonfork(char **args);
+void	ft_cd_fork(char **args, t_data * data);
+int		ft_cd_nonfork(char **args, t_data * data);
 
 /* buldin_echo.c */
-void	ft_echo_fork(char **args);
+void	ft_echo_fork(char **args, t_data *data);
 int		ft_echo_nonfork(char **args);
 void	ft_echoprint(char **words, int i);
 
@@ -105,14 +105,14 @@ void	ft_write_expander_num(int start_int, int end_int);
 void	ft_echo_expander(char *word);
 
 /* builtin_env.c */
-void	ft_env_fork(void);
-int		ft_env_nonfork(char **args);
+void	ft_env_fork(t_data *data);
+int		ft_env_nonfork(void);
 
 /* builtin_export.c */
-void	ft_rewrite(int index, char *var);
-void	ft_add(char *var);
-void	ft_export_fork(char **words);
-int		ft_export_nonfork(char **args);
+void	ft_rewrite(int index, char *var, t_data *data);
+void	ft_add(char *var, t_data *data);
+void	ft_export_fork(char **words, t_data *data);
+int		ft_export_nonfork(char **args, t_data *data);
 
 /* builtin_export_utils.c */
 int		ft_checkforexisting(char *var);
@@ -156,6 +156,7 @@ void	free_split(char **args);
 void	free_args(char ***args);
 void	free_command_table(t_data *data);
 int		ft_isdigit_array(char **arg);
+void	fork_exit(int status, t_data *data);
 
 /* signals.c */
 void	ft_sigint_handler(int signal);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_vars.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:57:21 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/07/11 14:00:51 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/11 15:18:57 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,10 @@ char	*env_replacement(char *word, int i, int j)
 	char	*updated_str;
 
 	updated_str = NULL;
-	printf("test pred $\n");
-	temp = ft_substr(word, i + 1, j); //alokovany
+	temp = ft_substr(word, i + 1, j);
 	env_v = getenv(temp);
 	if (env_v == NULL)
-		env_v = ""; //nealokovany
-	printf("test $: %s\n", env_v);
+		env_v = "";
 	free(temp);
 	updated_str = ft_substr(word, 0, i);
 	temp = ft_strjoin(updated_str, env_v);
@@ -90,7 +88,7 @@ char	*status_replace(char *word)
 	{
 		if (word[i] == '$' && word[i + 1] == '?')
 		{
-			status = ft_itoa(g_exit >> 8);//alokovany
+			status = ft_itoa(g_exit >> 8);
 			updated_str = ft_substr(word, 0, i);
 			temp = ft_strjoin(updated_str, status);
 			free(updated_str);

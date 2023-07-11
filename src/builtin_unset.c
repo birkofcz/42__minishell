@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 13:45:53 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/10 17:39:45 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:02:04 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_unset_fork(char **words, t_data *data)
 			ft_delenv(index, data);
 		i++;
 	}
-	exit(0);
+	fork_exit(0, data);
 }
 
 int	ft_unset_nonfork(char **words, t_data *data)
