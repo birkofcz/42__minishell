@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 18:05:14 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/07/11 14:53:02 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:16:40 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,4 @@ void	free_split(char **args)
 		}
 	}
 	free(args);
-}
-
-void fork_exit(int status, t_data *data)
-{
-	free_command_table(data);
-	free_split(data->minishell_env);
-	exit(status);
 }

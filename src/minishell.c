@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:28:41 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/11 14:33:25 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:15:10 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void	ft_read(t_data *data)
 		data->last_command = commands_counting(data->commands) - 1;
 		if (data->last_command >= 0)
 			ft_executor(data);
-	//mozna treba free(data->commands), args?
 	}
 	free(input);
 }

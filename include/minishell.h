@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/11 15:57:05 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:16:59 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@
 /* Structs and typedefs */
 typedef struct s_data
 {
-	char	**commands; //alocated
+	char	**commands;
 	int		last_command;
-	char	***args; //alocated
-	int 	infile; //fd infilu
-	char	* delimiter; //alocated
-	char	**redirs; //alocated, ale nejspis uplne smazat: neni treba
+	char	***args;
+	int		infile;
+	char	*delimiter;
+	char	**redirs;
 	int		outfile;
 	int		saved_stdin;
 	int		saved_stdout;
@@ -70,6 +70,9 @@ char	**replace_env_var_nonquated(char **words);
 char	*env_replacement(char *word, int i, int j);
 char	*dollar_check(char *word);
 char	**status_var_check(char **words);
+
+/* env_vars_utils.c */
+char	*tilda_replace(char *word);
 char	*status_replace(char *word);
 
 /* in_outfiles.c */
@@ -89,8 +92,8 @@ char	**copy_args(char **arr_src, char *command);
 
 /* builtins_cd.c */
 char	*join_env(char *var, char *value);
-void	ft_cd_fork(char **args, t_data * data);
-int		ft_cd_nonfork(char **args, t_data * data);
+void	ft_cd_fork(char **args, t_data *data);
+int		ft_cd_nonfork(char **args, t_data *data);
 
 /* builtin_pwd.c */
 void	ft_pwd_fork(char **args, t_data *data);
@@ -160,9 +163,10 @@ void	free_command_table(t_data *data);
 int		ft_isdigit_array(char **arg);
 void	fork_exit(int status, t_data *data);
 
+/* utils2.c */
+void	fork_exit(int status, t_data *data);
+
 /* signals.c */
 void	ft_sigint_handler(int signal);
-void	ft_sigabrt_handler(int signal);
-void	ft_sigquit_handler(int signal);
 
 #endif

@@ -1,33 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_pwd.c                                      :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/11 14:24:30 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/11 16:02:22 by sbenes           ###   ########.fr       */
+/*   Created: 2023/07/11 16:16:14 by sbenes            #+#    #+#             */
+/*   Updated: 2023/07/11 16:17:08 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"	
+#include "../include/minishell.h"
 
-void	ft_pwd_fork(char **args, t_data *data)
+void	fork_exit(int status, t_data *data)
 {
-	char	cwd[MAX_PATH_LENGTH];
-
-	(void) args;
-	if (getcwd(cwd, MAX_PATH_LENGTH) != NULL)
-		printf("%s\n", cwd);
-	fork_exit(0, data);
-}
-
-int	ft_pwd_nonfork(char **args)
-{
-	char	cwd[MAX_PATH_LENGTH];
-
-	(void) args;
-	if (getcwd(cwd, MAX_PATH_LENGTH) != NULL)
-		printf("%s\n", cwd);
-	return (0);
+	free_command_table(data);
+	free_split(data->minishell_env);
+	exit(status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 15:21:02 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/07/11 15:55:34 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:04:02 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	ft_errorandexit(char *arg, t_data *data)
 	fork_exit(1, data);
 }
 
-void	ft_cd_fork(char **args, t_data * data)
+void	ft_cd_fork(char **args, t_data *data)
 {
 	int		argument_count;
 	char	old_pwd[MAX_PATH_LENGTH];
@@ -63,12 +63,13 @@ void	ft_cd_fork(char **args, t_data * data)
 			ft_errorandexit(args[1], data);
 		getcwd(cwd, MAX_PATH_LENGTH);
 		ft_rewrite(ft_checkforexisting("PWD"), join_env("PWD", cwd), data);
-		ft_rewrite(ft_checkforexisting("OLDPWD"), join_env("OLDPWD", old_pwd), data);
+		ft_rewrite(ft_checkforexisting("OLDPWD"), join_env("OLDPWD", old_pwd),
+			data);
 	}
 	fork_exit(0, data);
 }
 
-int	ft_cd_nonfork(char **args, t_data * data)
+int	ft_cd_nonfork(char **args, t_data *data)
 {
 	int		argument_count;
 	char	old_pwd[MAX_PATH_LENGTH];
@@ -76,10 +77,7 @@ int	ft_cd_nonfork(char **args, t_data * data)
 
 	argument_count = commands_counting(args);
 	if (argument_count > 2)
-	{
-		printf("cd: too many arguments\n");
-		return (256);
-	}
+		return (printf("cd: too many arguments\n"), 256);
 	else
 	{
 		getcwd(old_pwd, MAX_PATH_LENGTH);
@@ -92,7 +90,8 @@ int	ft_cd_nonfork(char **args, t_data * data)
 				256);
 		getcwd(cwd, MAX_PATH_LENGTH);
 		ft_rewrite(ft_checkforexisting("PWD"), join_env("PWD", cwd), data);
-		ft_rewrite(ft_checkforexisting("OLDPWD"), join_env("OLDPWD", old_pwd), data);
+		ft_rewrite(ft_checkforexisting("OLDPWD"), join_env("OLDPWD", old_pwd),
+			data);
 	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_vars.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:57:21 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/07/11 15:59:55 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:09:45 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,64 +74,6 @@ char	**replace_env_var_nonquated(char **words)
 		i++;
 	}
 	return (words);
-}
-
-char	*status_replace(char *word)
-{
-	int		i;
-	char	*temp;
-	char	*status;
-	char	*updated_str;
-
-	i = 0;
-	while (word[i] != '\0')
-	{
-		if (word[i] == '$' && word[i + 1] == '?')
-		{
-			status = ft_itoa(g_exit >> 8);
-			updated_str = ft_substr(word, 0, i);
-			temp = ft_strjoin(updated_str, status);
-			free(updated_str);
-			free(status);
-			updated_str = ft_strjoin(temp, word + i + 2);
-			free(temp);
-			free(word);
-			word = updated_str;
-			i = -1;
-		}
-		i ++;
-	}
-	return (word);
-}
-
-char	*tilda_replace(char *word)
-{
-	int		i;
-	char	*temp;
-	char	*path;
-
-	i = 0;
-	while (word[i] != '\0')
-	{
-		if (word[i] == '~' && word[i + 1] == '/')
-		{
-			path = ft_strtrim(word, "~");
-			temp = ft_strjoin(getenv("HOME"), path);
-			free(path);
-			free(word);
-			word = temp;
-		}
-		else if (word[i] == '~' && word[i + 1] == '\0')
-		{
-			temp = getenv("HOME");
-			free(word);
-			word = ft_strdup(temp);
-		}
-		else if (word[i] == '~' && word[i + 1] != '/' && word[i + 1] != '\0')
-			break ;
-		i++;
-	}
-	return (word);
 }
 
 char	**status_var_check(char **words)

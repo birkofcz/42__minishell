@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:44:40 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/11 13:32:46 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/11 16:04:28 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,7 @@ void	ft_command_check(t_data *data)
 		else if (ft_is_pathx(data->commands[i]) == true)
 			i++;
 		else if (ft_isnopathx(data->commands[i]) == true)
-		{
-			//check for leeks
 			data->commands[i] = ft_return_path(data->commands[i]);
-		}
 		else
 			break ;
 	}
