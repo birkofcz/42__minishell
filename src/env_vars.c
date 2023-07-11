@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:57:21 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/07/10 14:19:09 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/11 14:00:51 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ char	*status_replace(char *word)
 		}
 		i ++;
 	}
-	printf("test final $?: %s\n", word);
 	return (word);
 }
 
