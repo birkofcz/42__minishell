@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 16:54:07 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/11 14:59:33 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:47:12 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	ft_exit(t_data *data)
 	{
 		free_command_table(data);
 		free_split(data->minishell_env);
-		write(1, "exit", 4);
+		write(1, "exit\n", 5);
 		exit(0);
 	}
 }

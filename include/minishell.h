@@ -6,7 +6,7 @@
 /*   By: tkajanek <tkajanek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:30:39 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/11 15:02:37 by tkajanek         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:49:18 by tkajanek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,15 @@ char	***argument_parser(char **commands, char ***args);
 char	**copy_args(char **arr_src, char *command);
 
 /* builtins_pwd_cd.c */
-void	ft_pwd_fork(char **args, t_data *data);
+void	ft_pwd_fork(char **args);
 int		ft_pwd_nonfork(char **args);
 char	*join_env(char *var, char *value);
 void	ft_cd_fork(char **args, t_data * data);
 int		ft_cd_nonfork(char **args, t_data * data);
+
+/* builtin_pwd.c */
+void	ft_pwd_fork(char **args);
+int		ft_pwd_nonfork(char **args);
 
 /* buldin_echo.c */
 void	ft_echo_fork(char **args, t_data *data);

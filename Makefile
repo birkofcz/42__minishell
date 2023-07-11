@@ -6,7 +6,7 @@
 #    By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/26 16:36:32 by sbenes            #+#    #+#              #
-#    Updated: 2023/07/10 17:14:59 by sbenes           ###   ########.fr        #
+#    Updated: 2023/07/11 14:26:38 by sbenes           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ INC =	-I ./include/\
 #sources
 SRC_PATH =	src/
 SRC = 	minishell.c parser.c builtin_echo.c \
-		builtin_echo_utils.c builtins_cd_pwd.c builtin_env.c \
+		builtin_echo_utils.c builtins_cd.c builtin_pwd.c builtin_env.c \
 		builtin_export.c builtin_unset.c builtin_exit.c utils.c \
 		parsing_quotes.c env_vars.c executor.c executor_utils.c\
 		heredoc.c tokenize_commands.c tokenize_arguments.c in_outfiles.c \
