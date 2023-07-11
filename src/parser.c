@@ -6,29 +6,29 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 13:40:19 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/11 16:15:29 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/11 16:22:21 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
- bool	is_redir(char *word)
- {
-		if ((ft_strncmp(word, "<", ft_strlen("<") + 1) == 0))
-			return(true);
-		else if ((ft_strncmp(word, ">", ft_strlen(">") + 1) == 0))
-			return(true);
-		else if ((ft_strncmp(word, "<<", ft_strlen("<<") + 1) == 0))
-			return(true);
-		else if ((ft_strncmp(word, ">>", ft_strlen(">>") + 1) == 0))
-			return(true);
-		return(false);
- }
+bool	is_redir(char *word)
+{
+	if ((ft_strncmp(word, "<", ft_strlen("<") + 1) == 0))
+		return (true);
+	else if ((ft_strncmp(word, ">", ft_strlen(">") + 1) == 0))
+		return (true);
+	else if ((ft_strncmp(word, "<<", ft_strlen("<<") + 1) == 0))
+		return (true);
+	else if ((ft_strncmp(word, ">>", ft_strlen(">>") + 1) == 0))
+		return (true);
+	return (false);
+}
 
-int counter_without_redirs(char **words)
+int	counter_without_redirs(char **words)
 {
 	int	i;
-	int count;
+	int	count;
 
 	i = -1;
 	count = 0;
@@ -44,14 +44,14 @@ int counter_without_redirs(char **words)
 
 char	**destroy_redirections(char **words)
 {
-	int	i;
-	int	j;
-	int	count;
+	int		i;
+	int		j;
+	int		count;
 	char	**words_copy;
 
 	count = counter_without_redirs(words);
 	words_copy = (char **)malloc(sizeof(char *) * (count + 1));
-	i = - 1;
+	i = -1;
 	j = 0;
 	while (words[++i] != NULL)
 	{
@@ -65,7 +65,7 @@ char	**destroy_redirections(char **words)
 	}
 	words_copy[j] = NULL;
 	free_split(words);
-	return(words_copy);
+	return (words_copy);
 }
 
 void	lexer(char **words, t_data *data)
@@ -86,7 +86,6 @@ void	ft_parser(const char *input, t_data *data)
 	words = ft_split(prepare_quoted_string(input), 29);
 	words = replace_env_var_nonquated (words);
 	words = parse_quated_strings(words);
-	words = status_var_check(words); 
+	words = status_var_check(words);
 	lexer(words, data);
 }
- 

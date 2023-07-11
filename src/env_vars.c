@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:57:21 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/07/11 16:09:45 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/11 16:19:47 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ char	**replace_env_var_nonquated(char **words)
 	while (words[i] != NULL)
 	{
 		len = ft_strlen(words[i]);
-
 		if ((words[i][0] != '"' && words[i][len - 1] != '"') &&
 			(words[i][0] != '\'' && words[i][len - 1] != '\''))
 			words[i] = dollar_check(words[i]);

@@ -6,7 +6,7 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:51:58 by tkajanek          #+#    #+#             */
-/*   Updated: 2023/07/11 13:54:12 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/11 16:20:29 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	tokenize_infile_heredoc(char **words, t_data *data)
 		}
 	}
 }
-
 
 static void	ft_open_append(t_data *data, char *filename)
 {

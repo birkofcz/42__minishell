@@ -6,13 +6,13 @@
 /*   By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:28:41 by sbenes            #+#    #+#             */
-/*   Updated: 2023/07/11 16:15:10 by sbenes           ###   ########.fr       */
+/*   Updated: 2023/07/11 16:20:15 by sbenes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int g_exit;
+int	g_exit;
 
 static char	**ft_alloc_env(void)
 {
